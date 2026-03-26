@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  benefits26:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: benefits26
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      # Persist api/data.json and snapshots across deploys — NEVER overwrite these
+      - ./api/data.json:/var/www/html/api/data.json
+      - ./api/snapshots:/var/www/html/api/snapshots
+    environment:
+      - TZ=UTC
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/api/usage"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
