@@ -137,17 +137,20 @@ export function renderPricesPage() {
   if (!area) return;
   area.innerHTML = '';
   PRICE_SECTIONS.forEach(sec => {
-    const items = PACK_LICENSES.filter(p => sec.ids.includes(p.id));
+    // Preserve section ID ordering (same as original)
+    const items = sec.ids.map(id => PACK_LICENSES.find(p => p.id === id)).filter(Boolean);
+    if (!items.length) return;
     let rows = '';
     items.forEach(p => {
       const price = PRICES[p.id] ?? p.cpu;
       rows +=
         '<div class="price-row">' +
-        '<div><div class="pr-name">' + p.name + '</div><div class="pr-unit">' + p.type + ' · ' + p.note + '</div></div>' +
+        '<div><div class="pr-name">' + p.name + '</div>' +
+        '<div class="pr-unit">' + p.type + ' · default: $' + p.cpu.toLocaleString() + '/yr</div>' +
+        '<div class="pr-source">' + p.note + '</div></div>' +
         '<div class="pr-input-wrap">' +
         '<span class="pr-cur">$</span>' +
         '<input class="pr-input" type="number" min="0" data-id="' + p.id + '" value="' + price + '" onchange="onPriceChange()">' +
-        '<span class="pr-yr">/yr</span>' +
         '</div>' +
         '</div>';
     });
