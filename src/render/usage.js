@@ -248,7 +248,7 @@ export function renderRowReplacementUI(p, s) {
 }
 export function addRepSource(rowId) {
   try {
-    lastSaveActivity = Date.now();
+  setLastSaveActivity(Date.now());
     if (!rowId) { console.error('addRepSource: empty rowId'); return; }
     const rawSources = getRowSources(rowId);
     const sources = Array.isArray(rawSources) ? rawSources.slice() : [];
@@ -268,7 +268,7 @@ export function addRepSource(rowId) {
   }
 }
 export function delRepSource(rowId, idx) {
-  lastSaveActivity = Date.now();
+  setLastSaveActivity(Date.now());
   const sources = getRowSources(rowId).slice();
   sources.splice(idx, 1);
   setRowSources(rowId, sources);
@@ -277,7 +277,7 @@ export function delRepSource(rowId, idx) {
   saveRowSources(rowId);
 }
 export function onRepSelectChange(sel) {
-  lastSaveActivity = Date.now();
+  setLastSaveActivity(Date.now());
   const rowId = sel.dataset.rid;
   const idx   = parseInt(sel.dataset.sidx);
   const sources = getRowSources(rowId).slice();

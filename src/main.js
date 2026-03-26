@@ -5,8 +5,8 @@ import { PACK_LICENSES, TENANT_DEFAULT, DEFAULT_PACK_COSTS } from './data.js';
 import {
   USAGE_DATA, TENANT_CUSTOM, REPLACEMENTS, PACK_COSTS, PRICES,
   PACK_CONFIG, editTimers, lastSaveActivity,
-  setTENANT_CUSTOM, setREPLACEMENTS, setLastSaveActivity, setSaveDebounce,
-  setAddLicMode, addLicMode,
+  setTENANT_CUSTOM, setREPLACEMENTS, setPACK_COSTS, setPRICES,
+  setLastSaveActivity, setSaveDebounce, setAddLicMode, addLicMode,
 } from './state.js';
 import { detectLang, t, applyI18n, setLang } from './i18n.js';
 import { saveToServer, loadFromServer, syncFromServer, updateSyncStatus, showToast, startAutoRefresh, loadSnapshots, previewSnap, doRestore, loadAudit, buildDefaultPrices, saveRowSources } from './sync.js';
@@ -147,7 +147,7 @@ export function onPT() {
   updatePackTotal();
   // Debounced save
   clearTimeout(saveDebounce);
-  saveDebounce = setTimeout(() => {
+  setSaveDebounce(setTimeout(() => {
     const s2 = ps();
     saveToServer({ packConfig:{
       l:{enabled:s2.l.on,multiplier:s2.l.m},
@@ -158,7 +158,7 @@ export function onPT() {
       sec:{enabled:s2.sec.on,multiplier:1},
       avd:{enabled:s2.avd.on,multiplier:1},
     }});
-  }, 800);
+  }, 800));
   renderUsage();
   const at = document.querySelector('.tabpanel.active');
   if(at){const id=at.id;if(id==='t-fin1')renderFin1();if(id==='t-fin2')renderFin2();if(id==='t-cloud')renderCloud();}
@@ -193,7 +193,7 @@ export function syncPackCostInputs() {
 // ════════════════════════════════════════════════════════════════════
 export function onUsageEditEvt(inp) { onUsageEdit(inp.dataset.pid, inp.dataset.field, inp); }
 export function onUsageEdit(id, field, el) {
-  lastSaveActivity = Date.now();
+  setLastSaveActivity(Date.now());
   el.classList.add('dirty');
   clearTimeout(editTimers[id+'_'+field]);
   editTimers[id+'_'+field] = setTimeout(async () => {
@@ -244,8 +244,8 @@ export async function savePrices() {
 
 async function resetPrices() {
   if(!confirm(t('reset_confirm'))) return;
-  PRICES = buildDefaultPrices();
-  PACK_COSTS = {...DEFAULT_PACK_COSTS};
+  setPRICES(buildDefaultPrices());
+  setPACK_COSTS({...DEFAULT_PACK_COSTS});
   const ok = await saveToServer({ prices: PRICES, packCosts: PACK_COSTS });
   renderPricesPage();
   syncPackCostInputs();
@@ -465,7 +465,7 @@ function confirmAddLicense() {
 
 function removeCustomLicense(id) {
   if (!confirm(t('add_lic_remove_confirm'))) return;
-  TENANT_CUSTOM = TENANT_CUSTOM.filter(p => p.id !== id);
+  setTENANT_CUSTOM(TENANT_CUSTOM.filter(p => p.id !== id));
   delete USAGE_DATA[id];
   saveCustomEntries();
   renderUsage();
@@ -623,7 +623,7 @@ function renderExistingReplacements() {
 
 function removeReplacement(fromId) {
   if (!confirm(t('add_lic_replace_confirm_msg'))) return;
-  REPLACEMENTS = REPLACEMENTS.filter(r => r.fromId !== fromId);
+  setREPLACEMENTS(REPLACEMENTS.filter(r => r.fromId !== fromId));
   applyReplacements();
   saveCustomEntries();
   renderExistingReplacements();
