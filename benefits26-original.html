@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microsoft Partner Benefits 2026 — Serban Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* === SERBAN GROUP BRAND TOKENS === */
+:root {
+  --sg-blue:#348FAF; --sg-amber:#E29857; --sg-slate:#5F656F;
+  --sg-light:#EFF1F5; --sg-taupe:#897B63; --sg-crimson:#954456;
+  --text-dark:#1a1e24; --text-mid:#3d4249; --text-muted:#6b737e; --text-light:#9aa0a8;
+  --border:#dde1e8; --border-soft:#eaecf0; --white:#fff; --bg:#f7f8fa;
+  --cov-bg:#eaf7f0; --cov:#1e8a57; --cov-b:#a8dfc0;
+  --upg-bg:#fff4e8; --upg:#b86214; --upg-b:#f0c890;
+  --unc-bg:#fdf0f2; --unc:#a0253b; --unc-b:#f0b8c2;
+  --free-bg:#f3f4f6; --free:#5b6370; --free-b:#d4d8df;
+  --cl:#348FAF; --cc:#6b52c8; --ce:#1e8a57; --ci:#b86214;
+  --r:8px; --rs:5px; --sh:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04); --sh2:0 4px 12px rgba(0,0,0,.08);
+  --font:'Montserrat',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--text-dark);font-size:13px;line-height:1.5;min-height:100vh}
+
+/* === TOP BRAND STRIPE === */
+.brand-stripe{height:4px;background:linear-gradient(90deg,var(--sg-blue) 0%,var(--sg-blue) 45%,var(--sg-crimson) 45%,var(--sg-crimson) 72%,var(--sg-amber) 72%,var(--sg-amber) 100%)}
+
+/* === HEADER === */
+header{background:var(--white);border-bottom:1px solid var(--border);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;box-shadow:var(--sh);position:sticky;top:0;z-index:100}
+.hlogo img{height:36px;display:block}
+.htitle{flex:1;min-width:160px}
+.htitle h1{font-size:16px;font-weight:700;color:var(--text-dark);letter-spacing:-.3px;line-height:1.2}
+.htitle p{font-size:11px;color:var(--text-muted);margin-top:2px}
+.hmeta{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.mtag{padding:3px 9px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;border:1px solid}
+.mt-ms{color:var(--sg-blue);border-color:var(--sg-blue);background:#eaf4f8}
+.mt-dt{color:var(--text-muted);border-color:var(--border);background:var(--bg)}
+
+/* === TAB NAV === */
+.tabnav{background:var(--white);border-bottom:2px solid var(--border);padding:0 40px;display:flex;gap:0;overflow-x:auto}
+.tab{padding:12px 18px;font-size:12px;font-weight:600;color:var(--text-muted);border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;transition:color .15s,border-color .15s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font)}
+.tab:hover{color:var(--sg-blue)}
+.tab.active{color:var(--sg-blue);border-bottom-color:var(--sg-blue)}
+.tabpanel{display:none}
+.tabpanel.active{display:block}
+
+/* === PACK CONTROLS === */
+.pack-bar{background:var(--white);border-bottom:1px solid var(--border);padding:14px 40px;display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.pb-lbl{font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;padding-top:8px;white-space:nowrap}
+.pack-cards{display:flex;gap:9px;flex-wrap:wrap}
+.pcard{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border:2px solid var(--border);border-radius:var(--r);background:var(--bg);min-width:160px;transition:border-color .2s,box-shadow .2s}
+.pcard.active{background:var(--white);box-shadow:var(--sh)}
+.pc-l.active{border-color:var(--cl)} .pc-c.active{border-color:var(--cc)} .pc-e.active{border-color:var(--ce)} .pc-i.active{border-color:var(--ci)}
+.pch{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.pnm{font-size:11px;font-weight:700}
+.pc-l .pnm{color:var(--cl)} .pc-c .pnm{color:var(--cc)} .pc-e .pnm{color:var(--ce)} .pc-i .pnm{color:var(--ci)}
+.ptog{position:relative;width:34px;height:19px;flex-shrink:0}
+.ptog input{opacity:0;width:0;height:0;position:absolute}
+.ptsl{position:absolute;inset:0;border-radius:20px;background:var(--border);cursor:pointer;transition:background .2s}
+.ptsl::after{content:'';position:absolute;left:2px;top:2px;width:15px;height:15px;border-radius:50%;background:white;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s}
+.ptog input:checked ~ .ptsl::after{transform:translateX(15px)}
+.pc-l .ptog input:checked ~ .ptsl{background:var(--cl)} .pc-c .ptog input:checked ~ .ptsl{background:var(--cc)}
+.pc-e .ptog input:checked ~ .ptsl{background:var(--ce)} .pc-i .ptog input:checked ~ .ptsl{background:var(--ci)}
+.ppr{font-size:11px;color:var(--text-muted)}.ppr strong{color:var(--text-dark);font-weight:700}
+.pmrow{display:flex;align-items:center;gap:5px}
+.mlbl{font-size:10px;color:var(--text-muted);font-weight:500}
+.mi{width:46px;padding:3px 5px;border:1px solid var(--border);border-radius:var(--rs);font-family:var(--font);font-size:12px;font-weight:600;text-align:center;outline:none;background:var(--bg);transition:border-color .15s}
+.mi:focus{border-color:var(--sg-blue);background:white}
+
+/* === LEGEND === */
+.legend{background:var(--white);border-bottom:1px solid var(--border);padding:9px 40px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.ltit{font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.8px}
+.li{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-mid);font-weight:500}
+.ldot{width:8px;height:8px;border-radius:2px}
+.ld-c{background:var(--cov)} .ld-u{background:var(--upg)} .ld-n{background:var(--unc)} .ld-f{background:var(--free)}
+
+/* === FILTERS === */
+.fbar{background:var(--bg);border-bottom:1px solid var(--border);padding:10px 40px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fsep{width:1px;height:20px;background:var(--border)}
+.swrap{position:relative}
+.swrap input{padding:6px 10px 6px 28px;border:1px solid var(--border);border-radius:var(--rs);font-family:var(--font);font-size:12px;color:var(--text-dark);background:white;width:200px;outline:none;transition:border-color .15s}
+.swrap input:focus{border-color:var(--sg-blue)}
+.swrap input::placeholder{color:var(--text-light)}
+.swrap::before{content:"⌕";position:absolute;left:8px;top:50%;transform:translateY(-50%);color:var(--text-light);font-size:14px;pointer-events:none}
+.fglbl{font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:.8px;text-transform:uppercase;white-space:nowrap}
+.fbtn{padding:4px 9px;border:1px solid var(--border);border-radius:var(--rs);font-family:var(--font);font-size:11px;font-weight:600;color:var(--text-muted);background:white;cursor:pointer;transition:all .15s}
+.fbtn:hover{border-color:var(--sg-blue);color:var(--sg-blue)}
+.fba{border-color:var(--sg-blue);color:var(--sg-blue);background:#eaf4f8}
+.fb-c{border-color:var(--cov-b);color:var(--cov);background:var(--cov-bg)}
+.fb-u{border-color:var(--upg-b);color:var(--upg);background:var(--upg-bg)}
+.fb-n{border-color:var(--unc-b);color:var(--unc);background:var(--unc-bg)}
+.fb-f{border-color:var(--free-b);color:var(--free);background:var(--free-bg)}
+.fsel{padding:5px 8px;border:1px solid var(--border);border-radius:var(--rs);font-family:var(--font);font-size:11px;color:var(--text-mid);background:white;outline:none;cursor:pointer}
+.fsel:focus{border-color:var(--sg-blue)}
+
+/* === STATS STRIP === */
+.stats{background:white;border-bottom:1px solid var(--border);padding:12px 40px;display:flex;gap:0;flex-wrap:wrap}
+.sb{flex:1;min-width:90px;padding:0 16px 0 0;border-right:1px solid var(--border-soft);margin-right:16px}
+.sb:last-child{border-right:none;margin-right:0}
+.snum{font-size:20px;font-weight:800;line-height:1;margin-bottom:2px}
+.slbl{font-size:9px;font-weight:600;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase}
+.sn-d{color:var(--text-dark)} .sn-c{color:var(--cov)} .sn-u{color:var(--upg)} .sn-n{color:var(--unc)} .sn-o{color:#c0392b}
+
+/* === TABLE === */
+.tsec{padding:16px 40px 0}
+.tscroll{overflow-x:auto;border-radius:var(--r);box-shadow:var(--sh)}
+table{width:100%;border-collapse:separate;border-spacing:0;background:white;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;font-size:12px}
+thead tr{background:var(--sg-light)}
+th{padding:9px 10px;text-align:left;font-size:9px;font-weight:700;color:var(--text-muted);letter-spacing:.8px;text-transform:uppercase;white-space:nowrap;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;transition:color .1s}
+th:hover{color:var(--sg-blue)}
+th.sa::after{content:" ↑";color:var(--sg-blue)} th.sd::after{content:" ↓";color:var(--sg-blue)}
+th.tc{text-align:center}
+.th-l{color:var(--cl)} .th-c{color:var(--cc)} .th-e{color:var(--ce)} .th-i{color:var(--ci)}
+.th-tot{color:var(--sg-blue)} .th-nd{color:var(--unc)} .th-cs{color:var(--sg-amber)}
+tbody tr{border-bottom:1px solid var(--border-soft);transition:background .1s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#f9fafb}
+.tr-s{background:var(--sg-light) !important;cursor:default}
+.tr-s td{padding:5px 10px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);border-top:1px solid var(--border-soft)}
+td{padding:8px 10px;vertical-align:middle;border-bottom:1px solid var(--border-soft)}
+td.tc{text-align:center}
+.pnm{font-weight:600;color:var(--text-dark);line-height:1.3}
+.psb{font-size:10px;color:var(--text-muted);margin-top:2px}
+.pnt-u{font-size:10px;color:var(--upg);font-style:italic;margin-top:2px}
+.pnt-n{font-size:10px;color:var(--unc);font-style:italic;margin-top:2px}
+.bdg{display:inline-block;padding:1px 5px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.4px;vertical-align:middle;margin-left:4px;text-transform:uppercase}
+.b26{background:#eaf7f0;color:#1e7a4a;border:1px solid #a8dfc0}
+.b25{background:#eaf4f8;color:var(--sg-blue);border:1px solid #a8d4e8}
+.bup{background:var(--upg-bg);color:var(--upg);border:1px solid var(--upg-b)}
+.bfr{background:var(--free-bg);color:var(--free);border:1px solid var(--free-b)}
+.bcr{background:#f0eaff;color:#6b52c8;border:1px solid #c8b8f8}
+.qv{font-weight:700;color:var(--text-dark)} .qn{color:var(--border);font-size:11px} .qe{font-size:9px;color:var(--text-light);display:block;margin-top:1px}
+.ubw{display:flex;align-items:center;gap:6px}
+.ubt{flex:1;height:5px;background:var(--border-soft);border-radius:3px;overflow:hidden;min-width:40px}
+.ubf{height:100%;border-radius:3px;transition:width .3s}
+.uf-ok{background:var(--cov)} .uf-w{background:var(--sg-amber)} .uf-ov{background:var(--unc)} .uf-bl{background:var(--sg-blue)} .uf-cr{background:#6b52c8}
+.ubl{font-size:11px;font-weight:600;white-space:nowrap;color:var(--text-mid)}
+.ul-ov{color:var(--unc)} .ul-w{color:#b86214}
+.av-v{font-weight:700;color:var(--cov)} .av-z{color:var(--text-light)}
+.nd-p{font-weight:700;color:var(--unc)} .nd-ok{color:var(--cov);font-size:11px}
+.cv-v{font-weight:600;color:var(--sg-slate)} .cv-n{color:var(--text-light)}
+.cpill{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.3px;white-space:nowrap;border:1px solid}
+.cpd{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.cp-c{background:var(--cov-bg);color:var(--cov);border-color:var(--cov-b)} .cp-c .cpd{background:var(--cov)}
+.cp-u{background:var(--upg-bg);color:var(--upg);border-color:var(--upg-b)} .cp-u .cpd{background:var(--upg)}
+.cp-n{background:var(--unc-bg);color:var(--unc);border-color:var(--unc-b)} .cp-n .cpd{background:var(--unc)}
+.cp-f{background:var(--free-bg);color:var(--free);border-color:var(--free-b)} .cp-f .cpd{background:var(--free)}
+.cp-ov{background:#fef0f0;color:#c0392b;border-color:#f5b7b1} .cp-ov .cpd{background:#c0392b}
+.erow td{text-align:center;padding:32px;color:var(--text-light);font-style:italic}
+
+/* === CATEGORY TAGS === */
+.cat{display:inline-block;padding:1px 6px;border-radius:3px;font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.cat-m365{background:#eaf4f8;color:var(--sg-blue);border:1px solid #a8d4e8}
+.cat-copilot{background:#f0eaff;color:#6b52c8;border:1px solid #c8b8f8}
+.cat-az{background:#fff4e8;color:var(--upg);border:1px solid var(--upg-b)}
+.cat-dyn{background:#fdf0f2;color:var(--unc);border:1px solid var(--unc-b)}
+.cat-pp{background:#fff8e8;color:#a05c00;border:1px solid #e8d098}
+.cat-sec{background:#fef0f0;color:#c0392b;border:1px solid #f5b7b1}
+.cat-win{background:#eaf7f0;color:var(--cov);border:1px solid var(--cov-b)}
+.cat-srv{background:#f0eaff;color:#5b3ea0;border:1px solid #c8b8f8}
+.cat-dev{background:#f5f0e8;color:var(--sg-taupe);border:1px solid #d8c8a8}
+.cat-sand{background:var(--free-bg);color:var(--free);border:1px solid var(--free-b)}
+.cat-cloud{background:#e8f8ff;color:#0070a8;border:1px solid #a0d8f0}
+
+/* === FINANCIAL SECTION === */
+.finsec{padding:24px 40px 36px}
+.sechdr{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.secdiv{width:3px;height:28px;border-radius:2px;flex-shrink:0}
+.sd-amber{background:var(--sg-amber)} .sd-blue{background:var(--sg-blue)} .sd-green{background:var(--cov)}
+.sechdr h2{font-size:15px;font-weight:700;color:var(--text-dark)}
+.sechdr p{font-size:11px;color:var(--text-muted);margin-top:2px}
+.fingrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+@media(max-width:900px){.fingrid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.fingrid{grid-template-columns:1fr}}
+.fcard{background:white;border:1px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--sh);position:relative;overflow:hidden}
+.fcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.fc-i::before{background:var(--sg-blue)} .fc-r::before{background:var(--sg-amber)} .fc-s::before{background:var(--cov)} .fc-e::before{background:var(--unc)}
+.fclbl{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}
+.fcval{font-size:24px;font-weight:800;line-height:1;margin-bottom:4px}
+.fv-i{color:var(--sg-blue)} .fv-r{color:var(--sg-amber)} .fv-s{color:var(--cov)} .fv-e{color:var(--unc)}
+.fcsub{font-size:10px;color:var(--text-muted)}
+.fintbl{background:white;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.fintbl table{box-shadow:none;border:none;border-radius:0}
+.fintbl table th{background:var(--sg-light);font-size:9px}
+.fintbl table td{font-size:12px}
+.ftr td{background:var(--sg-light);font-weight:700;font-size:12px;border-top:2px solid var(--border)}
+.fb-i{color:var(--sg-blue);font-size:14px;font-weight:800}
+.fb-r{color:var(--sg-amber);font-size:14px;font-weight:800}
+.fb-s{color:var(--cov);font-size:14px;font-weight:800}
+.fb-n{color:var(--unc);font-size:14px;font-weight:800}
+.savings-note{margin-top:14px;padding:12px 14px;background:#eaf4f8;border:1px solid #a8d4e8;border-radius:var(--rs);font-size:11px;color:var(--sg-blue);line-height:1.5}
+
+/* === PRICES PAGE === */
+.prices-page{padding:20px 40px 40px}
+.prices-intro{background:white;border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;margin-bottom:20px;box-shadow:var(--sh);font-size:12px;color:var(--text-muted);line-height:1.6}
+.prices-intro strong{color:var(--text-dark)}
+.price-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.price-section{background:white;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.price-section-hdr{padding:11px 16px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:white;display:flex;align-items:center;gap:8px}
+.psh-m365{background:var(--sg-blue)} .psh-copilot{background:#6b52c8} .psh-az{background:var(--upg)}
+.psh-dyn{background:var(--unc)} .psh-pp{background:#a05c00} .psh-sec{background:#c0392b}
+.psh-win{background:var(--cov)} .psh-srv{background:#5b3ea0} .psh-dev{background:var(--sg-taupe)}
+.price-section-hdr span{font-size:11px;opacity:.7;font-weight:400}
+.price-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 16px;border-bottom:1px solid var(--border-soft)}
+.price-row:last-child{border-bottom:none}
+.price-row:hover{background:#f9fafb}
+.pr-name{font-size:11px;font-weight:600;color:var(--text-dark);flex:1}
+.pr-unit{font-size:10px;color:var(--text-muted);margin-top:1px}
+.pr-input-wrap{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.pr-cur{font-size:11px;font-weight:700;color:var(--text-muted)}
+.pr-input{width:72px;padding:4px 7px;border:1px solid var(--border);border-radius:var(--rs);font-family:var(--font);font-size:12px;font-weight:600;text-align:right;color:var(--text-dark);outline:none;transition:border-color .15s;background:var(--bg)}
+.pr-input:focus{border-color:var(--sg-blue);background:white}
+.pr-yr{font-size:10px;color:var(--text-light);white-space:nowrap}
+.pr-source{font-size:9px;color:var(--text-light);font-style:italic;margin-top:1px}
+.pack-prices-section{background:white;border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;margin-bottom:20px;box-shadow:var(--sh)}
+.pack-prices-section h3{font-size:12px;font-weight:700;color:var(--text-dark);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border-soft)}
+.pp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.pp-card{padding:12px;border:1px solid var(--border);border-radius:var(--rs)}
+.pp-name{font-size:11px;font-weight:700;margin-bottom:6px}
+.pp-l .pp-name{color:var(--cl)} .pp-c .pp-name{color:var(--cc)} .pp-e .pp-name{color:var(--ce)} .pp-i .pp-name{color:var(--ci)}
+.pp-row{display:flex;align-items:center;gap:5px;margin-top:4px}
+.pp-lbl{font-size:10px;color:var(--text-muted);flex:1}
+.save-btn{padding:8px 20px;background:var(--sg-blue);color:white;border:none;border-radius:var(--rs);font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:background .15s;margin-top:16px}
+.save-btn:hover{background:#2a7a9a}
+.save-confirm{font-size:11px;color:var(--cov);margin-left:10px;display:none}
+.reset-btn{padding:8px 16px;background:white;color:var(--text-muted);border:1px solid var(--border);border-radius:var(--rs);font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;margin-top:16px;margin-left:8px}
+.reset-btn:hover{border-color:var(--unc);color:var(--unc)}
+
+/* === CLOUD RIGHTS SECTION === */
+.cloud-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;padding:0 40px 36px}
+.cloud-card{background:white;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.cloud-card-hdr{padding:12px 16px;display:flex;align-items:center;gap:10px}
+.cc-icon{width:36px;height:36px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cci-az{background:#eaf4f8;color:var(--sg-blue)} .cci-copilot{background:#f0eaff;color:#6b52c8}
+.cci-gh{background:#f5f0e8;color:var(--sg-taupe)} .cci-vs{background:#fdf0f2;color:var(--unc)}
+.cci-dyn{background:#fff8e8;color:#a05c00} .cci-ai{background:#eaf7f0;color:var(--cov)}
+.cc-title{font-size:13px;font-weight:700;color:var(--text-dark)}
+.cc-sub{font-size:10px;color:var(--text-muted);margin-top:1px}
+.cloud-entries{padding:0 16px 12px}
+.ce-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--border-soft)}
+.ce-info{flex:1}
+.ce-name{font-size:11px;font-weight:600;color:var(--text-dark)}
+.ce-pack{font-size:10px;color:var(--text-muted);margin-top:2px}
+.ce-note{font-size:10px;color:var(--sg-blue);font-style:italic;margin-top:2px}
+.ce-val{text-align:right;flex-shrink:0}
+.ce-qty{font-size:13px;font-weight:800;color:var(--text-dark)}
+.ce-unit{font-size:9px;color:var(--text-muted);margin-top:1px}
+.ce-total{font-size:11px;font-weight:700;color:var(--sg-blue);margin-top:2px}
+.cloud-summary{padding:0 40px 36px}
+.cloud-sum-card{background:white;border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--sh)}
+.cloud-sum-title{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-soft)}
+.cst-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.cst-item{padding:12px;border:1px solid var(--border-soft);border-radius:var(--rs);background:var(--bg)}
+.cst-lbl{font-size:9px;font-weight:700;color:var(--text-muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
+.cst-val{font-size:18px;font-weight:800;color:var(--sg-blue)}
+.cst-sub{font-size:10px;color:var(--text-muted);margin-top:2px}
+
+/* === FOOTER === */
+footer{background:white;border-top:1px solid var(--border);padding:12px 40px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:24px}
+.fl{font-size:11px;color:var(--text-muted)} .fl strong{color:var(--text-dark)}
+.fr{font-size:10px;color:var(--text-light)} .fr a{color:var(--sg-blue);text-decoration:none}
+@media(max-width:768px){header,.tabnav,.pack-bar,.legend,.fbar,.stats,.tsec,.finsec,.cloud-grid,.cloud-summary,.prices-page,footer{padding-left:16px;padding-right:16px}.hlogo img{height:28px}h1{font-size:14px}}
+</style>
+</head>
+<body>
+<div class="brand-stripe"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="hlogo"><img src="data:image/png;base64,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/maf+3T/ANrV4BXv/wCzL/zNP/bp/wC1qAPoCiiigAooooA+AKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAqa2na2uY5l6o2cetQ0UAdDe6emqH7ZYyIS2N6E45/ofas8aHqBP+ox/wNf8AGqKSPG2UdlPqpxUv267Iwbqcj3kP+NAGvMiaRpMsDSK1zOMEL2H/AOrP4msClJJOSck9aSgDQ0Vsavb/AFI/NSKr3/8AyEbn/rq38zUKkqcqSCO4OKQkk5PJPegDV0a5QmSwn5hn4GT0b/6/8wKoXds9pcvC/VT19RUGcGlJJPJJoASt6znt9Q09bC5cRyp/q3Pf0/TjFYNFAGu/h68ViFMbjsQ2P51Yt9IjsiLnUJo1VTkIDnJH8/oKxUuJkGElkUegYimM7OcsxJ9Sc0AWtSvDfXjSgEKBtQegFU6KKANrTJ7eexl0+4cJuOUYnHPHH5j8c01/D14GwjROp6EMf14rHpwdgMBiB7GgDoLa1h0QPc3MqNPtIWNT6/r+PasB3MkjOerEk/U00knk9aSgArZ1BgdDsBnJGePwrGooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAK9//Zl/5mn/ALdP/a1eAV7/APsy/wDM0/8Abp/7WoA+gKKKKACiiigD/9k=" alt="Serban Group"></div>
+  <div class="htitle">
+    <h1>Microsoft Partner Benefits 2026 — License &amp; Financial Tracker</h1>
+    <p>Benefits Guide Feb 18 2026 &nbsp;·&nbsp; sgx-labs.com/partners/microsoft/benefits26.html</p>
+  </div>
+  <div class="hmeta">
+    <span class="mtag mt-ms">Microsoft AI Cloud Partner Program</span>
+    <span class="mtag mt-dt">Feb 2026</span>
+  </div>
+</header>
+
+<!-- TAB NAV -->
+<nav class="tabnav">
+  <button class="tab active" onclick="showTab('tab-usage')">📊 Usage vs Pack</button>
+  <button class="tab" onclick="showTab('tab-all')">📋 All Pack Licenses</button>
+  <button class="tab" onclick="showTab('tab-cloud')">☁️ Cloud Rights &amp; Credits</button>
+  <button class="tab" onclick="showTab('tab-fin1')">💰 Usage Economics</button>
+  <button class="tab" onclick="showTab('tab-fin2')">📈 Full Pack Value</button>
+  <button class="tab" onclick="showTab('tab-prices')">✏️ Edit Prices</button>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- TAB 1: USAGE VS PACK                                        -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div id="tab-usage" class="tabpanel active">
+
+<div class="pack-bar">
+  <span class="pb-lbl">Active packs &amp; multipliers</span>
+  <div class="pack-cards">
+    <div class="pcard pc-l active" id="card-l">
+      <div class="pch"><span class="pnm">Partner Launch</span>
+        <label class="ptog"><input type="checkbox" id="tog-l" checked onchange="onPT()"><span class="ptsl"></span></label></div>
+      <div class="ppr"><strong id="disp-pl">$350</strong> / year</div>
+      <div class="pmrow"><span class="mlbl">×</span><input class="mi" type="number" id="mult-l" value="2" min="1" max="20" onchange="onPT()"><span class="mlbl">instances</span></div>
+    </div>
+    <div class="pcard pc-c active" id="card-c">
+      <div class="pch"><span class="pnm">Success Core</span>
+        <label class="ptog"><input type="checkbox" id="tog-c" checked onchange="onPT()"><span class="ptsl"></span></label></div>
+      <div class="ppr"><strong id="disp-pc">$925</strong> / year</div>
+      <div class="pmrow"><span class="mlbl">×</span><input class="mi" type="number" id="mult-c" value="2" min="1" max="20" onchange="onPT()"><span class="mlbl">instances</span></div>
+    </div>
+    <div class="pcard pc-e active" id="card-e">
+      <div class="pch"><span class="pnm">Success Expanded</span>
+        <label class="ptog"><input type="checkbox" id="tog-e" checked onchange="onPT()"><span class="ptsl"></span></label></div>
+      <div class="ppr"><strong id="disp-pe">$4,125</strong> / year</div>
+      <div class="pmrow"><span class="mlbl">×</span><input class="mi" type="number" id="mult-e" value="2" min="1" max="20" onchange="onPT()"><span class="mlbl">instances</span></div>
+    </div>
+    <div class="pcard pc-i active" id="card-i">
+      <div class="pch"><span class="pnm">Solutions Partner: Infrastructure</span>
+        <label class="ptog"><input type="checkbox" id="tog-i" checked onchange="onPT()"><span class="ptsl"></span></label></div>
+      <div class="ppr"><strong id="disp-pi">$4,730</strong> / year</div>
+      <div class="pmrow"><span class="mlbl" style="opacity:0">×</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="legend">
+  <span class="ltit">Coverage:</span>
+  <span class="li"><span class="ldot ld-c"></span>Covered</span>
+  <span class="li"><span class="ldot ld-u"></span>Pack upgrade avail.</span>
+  <span class="li"><span class="ldot ld-n"></span>Needs purchase</span>
+  <span class="li"><span class="ldot ld-f"></span>Free / Trial</span>
+</div>
+
+<div class="fbar">
+  <div class="swrap"><input type="text" id="srch1" placeholder="Search…" oninput="renderUsage()"></div>
+  <div class="fsep"></div>
+  <div style="display:flex;gap:5px;align-items:center">
+    <span class="fglbl">Show</span>
+    <button class="fbtn fba" onclick="setVF('all',this,'1')">All</button>
+    <button class="fbtn" onclick="setVF('covered',this,'1')">Covered</button>
+    <button class="fbtn" onclick="setVF('upgrade',this,'1')">Upgrades</button>
+    <button class="fbtn" onclick="setVF('uncovered',this,'1')">Not Covered</button>
+    <button class="fbtn" onclick="setVF('free',this,'1')">Free/Trial</button>
+  </div>
+  <div class="fsep"></div>
+  <div style="display:flex;gap:5px;align-items:center">
+    <span class="fglbl">Sort</span>
+    <select class="fsel" id="srt1" onchange="renderUsage()">
+      <option value="coverage">By Coverage</option>
+      <option value="name">By Name</option>
+      <option value="assigned">Most Assigned</option>
+      <option value="needed">Most Needed</option>
+    </select>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="sb"><div class="snum sn-d" id="st-t1">—</div><div class="slbl">Tenant SKUs</div></div>
+  <div class="sb"><div class="snum sn-d" id="st-a1">—</div><div class="slbl">Total Assigned</div></div>
+  <div class="sb"><div class="snum sn-c" id="st-c1">—</div><div class="slbl">Covered</div></div>
+  <div class="sb"><div class="snum sn-u" id="st-u1">—</div><div class="slbl">Upgrades</div></div>
+  <div class="sb"><div class="snum sn-n" id="st-n1">—</div><div class="slbl">Needs Purchase</div></div>
+  <div class="sb"><div class="snum sn-o" id="st-o1">—</div><div class="slbl">Over Pack Limit</div></div>
+</div>
+
+<div class="tsec">
+<div class="tscroll">
+<table>
+<thead><tr>
+  <th style="min-width:220px" onclick="srt1('name')">Tenant Product</th>
+  <th class="tc" style="min-width:55px">Total</th>
+  <th class="tc" style="min-width:62px">Assigned</th>
+  <th class="tc th-l" style="min-width:72px" id="h-l">Launch×2</th>
+  <th class="tc th-c" style="min-width:72px" id="h-c">Core×2</th>
+  <th class="tc th-e" style="min-width:78px" id="h-e">Expanded×2</th>
+  <th class="tc th-i" style="min-width:72px" id="h-i">Infra SPD</th>
+  <th class="tc th-tot" style="min-width:78px">Total Avail.</th>
+  <th style="min-width:140px">Usage vs Pack</th>
+  <th class="tc th-nd" style="min-width:82px" onclick="srt1('needed')">Lic. Needed</th>
+  <th class="tc th-cs" style="min-width:80px" onclick="srt1('cost')">Cost/User/yr</th>
+  <th class="tc" style="min-width:100px" onclick="srt1('coverage')">Coverage</th>
+</tr></thead>
+<tbody id="tb1"></tbody>
+</table></div></div>
+
+</div><!-- end tab-usage -->
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- TAB 2: ALL PACK LICENSES                                    -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div id="tab-all" class="tabpanel">
+
+<div class="fbar" style="background:white;border-top:1px solid var(--border)">
+  <div class="swrap"><input type="text" id="srch2" placeholder="Search licenses…" oninput="renderAll()"></div>
+  <div class="fsep"></div>
+  <div style="display:flex;gap:5px;align-items:center">
+    <span class="fglbl">Pack</span>
+    <button class="fbtn fba" onclick="setPackF('all',this)">All</button>
+    <button class="fbtn" onclick="setPackF('launch',this)">Launch</button>
+    <button class="fbtn" onclick="setPackF('core',this)">Core</button>
+    <button class="fbtn" onclick="setPackF('expanded',this)">Expanded</button>
+    <button class="fbtn" onclick="setPackF('infra',this)">Infra SPD</button>
+  </div>
+  <div class="fsep"></div>
+  <div style="display:flex;gap:5px;align-items:center">
+    <span class="fglbl">Category</span>
+    <select class="fsel" id="cat2" onchange="renderAll()">
+      <option value="all">All Categories</option>
+      <option value="Microsoft 365">Microsoft 365</option>
+      <option value="Copilot">Copilot / AI</option>
+      <option value="Azure">Azure</option>
+      <option value="Dynamics 365">Dynamics 365</option>
+      <option value="Power Platform">Power Platform</option>
+      <option value="Security">Security &amp; Identity</option>
+      <option value="Windows">Windows</option>
+      <option value="Windows Server">Windows Server</option>
+      <option value="Dev Tools">Dev Tools</option>
+      <option value="Sandbox">Sandboxes</option>
+    </select>
+  </div>
+  <div class="fsep"></div>
+  <div style="display:flex;gap:5px;align-items:center">
+    <span class="fglbl">New in</span>
+    <select class="fsel" id="new2" onchange="renderAll()">
+      <option value="all">All</option>
+      <option value="2026">NEW 2026</option>
+      <option value="2025">NEW 2025</option>
+    </select>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="sb"><div class="snum sn-d" id="st-all-ct">—</div><div class="slbl">Pack Licenses</div></div>
+  <div class="sb"><div class="snum sn-d" id="st-all-rv">$—</div><div class="slbl">Total Retail Value/yr</div></div>
+  <div class="sb"><div class="snum sn-i" style="color:var(--sg-blue)" id="st-all-inv">$—</div><div class="slbl">Pack Investment/yr</div></div>
+  <div class="sb"><div class="snum sn-c" id="st-all-sv">$—</div><div class="slbl">Gross Savings/yr</div></div>
+</div>
+
+<div class="tsec" style="padding-bottom:24px">
+<div class="tscroll">
+<table>
+<thead><tr>
+  <th style="min-width:230px" onclick="srtAll('name')">License / Product</th>
+  <th class="tc" style="min-width:60px">Category</th>
+  <th class="tc" style="min-width:50px">Type</th>
+  <th class="tc th-l" style="min-width:60px">Launch</th>
+  <th class="tc th-c" style="min-width:60px">Core</th>
+  <th class="tc th-e" style="min-width:68px">Expanded</th>
+  <th class="tc th-i" style="min-width:68px">Infra SPD</th>
+  <th class="tc" style="min-width:68px">Best Qty</th>
+  <th class="tc th-cs" style="min-width:80px" onclick="srtAll('cpu')">Cost/Unit/yr</th>
+  <th class="tc" style="min-width:90px" onclick="srtAll('rv')">Retail Value/yr</th>
+  <th class="tc" style="min-width:50px">New</th>
+</tr></thead>
+<tbody id="tb2"></tbody>
+</table></div></div>
+
+</div><!-- end tab-all -->
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- TAB 3: CLOUD RIGHTS & CREDITS                               -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div id="tab-cloud" class="tabpanel">
+<div style="padding:20px 40px 10px">
+  <p style="font-size:12px;color:var(--text-muted);line-height:1.6;background:white;border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;box-shadow:var(--sh)">
+    <strong style="color:var(--text-dark)">Cloud Services, Credits &amp; AI Rights</strong> — All cloud entitlements, Azure credits, AI service budgets and developer rights included across your active packs. Values shown are the <em>combined total across all instances of active packs</em>. Credits and cloud budgets are for internal use only.
+  </p>
+</div>
+<div id="cloud-sum-area" class="cloud-summary"></div>
+<div id="cloud-cards-area" class="cloud-grid"></div>
+</div><!-- end tab-cloud -->
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- TAB 4: USAGE ECONOMICS (what we actually use)               -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div id="tab-fin1" class="tabpanel">
+<div class="finsec">
+  <div class="sechdr"><div class="secdiv sd-amber"></div>
+    <div><h2>Usage Economics</h2><p>Pack investment vs. retail cost of licenses your tenant currently uses — based on actual assigned licenses</p></div>
+  </div>
+  <div class="fingrid">
+    <div class="fcard fc-i"><div class="fclbl">Pack Investment</div><div class="fcval fv-i" id="f1-inv">$—</div><div class="fcsub" id="f1-inv-sub">Active pack fees</div></div>
+    <div class="fcard fc-r"><div class="fclbl">Retail of Licenses Used</div><div class="fcval fv-r" id="f1-ret">$—</div><div class="fcsub">What you'd pay buying used licenses at retail</div></div>
+    <div class="fcard fc-s"><div class="fclbl">Net Savings / (Cost)</div><div class="fcval" id="f1-sav">$—</div><div class="fcsub" id="f1-sav-sub">Retail − packs − uncovered licenses</div></div>
+  </div>
+  <div class="fintbl">
+    <table><thead><tr>
+      <th style="min-width:200px">Line Item</th>
+      <th class="tc">Qty</th>
+      <th class="tc th-cs">Unit Cost/yr</th>
+      <th class="tc">Annual Amount</th>
+      <th class="tc">Type</th>
+      <th>Notes</th>
+    </tr></thead><tbody id="fb1"></tbody></table>
+  </div>
+</div>
+</div><!-- end tab-fin1 -->
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- TAB 5: FULL PACK VALUE (all licenses delivered)             -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div id="tab-fin2" class="tabpanel">
+<div class="finsec">
+  <div class="sechdr"><div class="secdiv sd-blue"></div>
+    <div><h2>Full Pack Value Analysis</h2><p>Total retail value of ALL licenses delivered by active packs vs. the cost of those packs — regardless of whether you use them</p></div>
+  </div>
+  <div class="fingrid">
+    <div class="fcard fc-i"><div class="fclbl">Total Pack Investment</div><div class="fcval fv-i" id="f2-inv">$—</div><div class="fcsub" id="f2-inv-sub">All active pack fees combined</div></div>
+    <div class="fcard fc-r"><div class="fclbl">Total Retail Value of All Licenses</div><div class="fcval fv-r" id="f2-ret">$—</div><div class="fcsub">What all pack licenses would cost at retail</div></div>
+    <div class="fcard fc-s"><div class="fclbl">Gross Savings vs Retail</div><div class="fcval fv-s" id="f2-sav">$—</div><div class="fcsub">Retail value minus pack investment</div></div>
+  </div>
+  <div id="f2-savings-note" class="savings-note"></div>
+  <div style="margin-top:18px"></div>
+  <div class="fintbl">
+    <table><thead><tr>
+      <th style="min-width:220px">License / Pack</th>
+      <th class="tc">Qty (best active pack)</th>
+      <th class="tc th-cs">Unit Cost/yr</th>
+      <th class="tc">Retail Value/yr</th>
+      <th class="tc">Pack Source</th>
+      <th>Notes</th>
+    </tr></thead><tbody id="fb2"></tbody></table>
+  </div>
+</div>
+</div><!-- end tab-fin2 -->
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- TAB 6: EDIT PRICES                                          -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div id="tab-prices" class="tabpanel">
+<div class="prices-page">
+  <div class="prices-intro">
+    <strong>Customize License Prices</strong> — All financial calculations across the app use these prices. Default values are Microsoft retail list prices (USD, annual commitment, 2025/2026). 
+    Update them to match your actual distributor prices for accurate ROI analysis. Changes persist in your browser until reset.
+    <br><br>
+    <strong>Pack annual fees</strong> are listed separately below. <strong>Per-unit prices</strong> are cost per user/license/seat per year (annual billing).
+  </div>
+
+  <div class="pack-prices-section">
+    <h3>Partner Pack Annual Fees</h3>
+    <div class="pp-grid">
+      <div class="pp-card pp-l">
+        <div class="pp-name">Partner Launch Benefits</div>
+        <div class="pp-row"><span class="pp-lbl">Annual fee (USD)</span><span class="pr-cur">$</span><input class="pr-input mi" type="number" id="pp-l" value="350" min="0" onchange="onPriceChange()"></div>
+      </div>
+      <div class="pp-card pp-c">
+        <div class="pp-name">Partner Success Core</div>
+        <div class="pp-row"><span class="pp-lbl">Annual fee (USD)</span><span class="pr-cur">$</span><input class="pr-input mi" type="number" id="pp-c" value="925" min="0" onchange="onPriceChange()"></div>
+      </div>
+      <div class="pp-card pp-e">
+        <div class="pp-name">Partner Success Expanded</div>
+        <div class="pp-row"><span class="pp-lbl">Annual fee (USD)</span><span class="pr-cur">$</span><input class="pr-input mi" type="number" id="pp-e" value="4125" min="0" onchange="onPriceChange()"></div>
+      </div>
+      <div class="pp-card pp-i">
+        <div class="pp-name">Solutions Partner: Infrastructure</div>
+        <div class="pp-row"><span class="pp-lbl">Annual fee (USD)</span><span class="pr-cur">$</span><input class="pr-input mi" type="number" id="pp-i" value="4730" min="0" onchange="onPriceChange()"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="price-grid-area" class="price-grid"></div>
+
+  <div style="padding:16px 0">
+    <button class="save-btn" onclick="savePrices()">💾 Save Prices to Browser</button>
+    <button class="reset-btn" onclick="resetPrices()">↺ Reset to Defaults</button>
+    <span class="save-confirm" id="save-confirm">✓ Prices saved and applied to all analyses</span>
+  </div>
+</div>
+</div><!-- end tab-prices -->
+
+<footer>
+  <div class="fl"><strong>Serban Group</strong> · Microsoft Partner Benefits Tracker · Benefits Guide Feb 18, 2026</div>
+  <div class="fr">Source: <a href="https://aka.ms/solutionspartner.benefits" target="_blank">aka.ms/solutionspartner.benefits</a> · For internal use only · Not for resale · Prices indicative</div>
+</footer>
+
+<script>
+// ════════════════════════════════════════════════════════════════════
+// MASTER DATA: All pack licenses from Benefits Guide Feb 18, 2026
+// cpu = cost per user per YEAR (USD, annual billing, retail list)
+// ════════════════════════════════════════════════════════════════════
+
+const DEFAULT_PACK_COSTS = { l:350, c:925, e:4125, i:4730 };
+
+// Master license catalog — ALL licenses delivered by packs
+// l/c/e/i = qty per pack (null = not included)
+// cpu = retail cost per user/license/year USD
+// type = 'Users'|'Licenses'|'Tenant'|'Bots'|'Credits'|'USD'
+const PACK_LICENSES = [
+  // ── MICROSOFT 365 ──────────────────────────────────────────
+  {id:'m365bp', name:'Microsoft 365 Business Premium (no Teams)', cat:'Microsoft 365', type:'Users', l:5, c:15, e:35, i:null, n26:false, n25:false, cpu:264, note:'EEA/RoW edition — Teams separate'},
+  {id:'teams',  name:'Teams Enterprise', cat:'Microsoft 365', type:'Users', l:5, c:15, e:35, i:100, n26:false, n25:false, cpu:63, note:'EEA/RoW; $5.25/mo × 12'},
+  {id:'teamsprem',name:'Teams Premium', cat:'Microsoft 365', type:'Users', l:null, c:null, e:10, i:null, n26:true, n25:false, cpu:84, note:'$7/mo × 12'},
+  {id:'roomspro', name:'Teams Rooms Pro', cat:'Microsoft 365', type:'Users', l:null, c:null, e:2, i:null, n26:false, n25:true, cpu:600, note:'$50/mo × 12'},
+  {id:'viva',   name:'Viva Suite', cat:'Microsoft 365', type:'Users', l:null, c:null, e:15, i:null, n26:false, n25:true, cpu:144, note:'$12/mo × 12'},
+  {id:'proj',   name:'Project Online – Project Plan 5', cat:'Microsoft 365', type:'Users', l:1, c:5, e:5, i:20, n26:false, n25:false, cpu:552, note:'$46/mo × 12'},
+  {id:'visio',  name:'Visio Online – Visio Plan 2', cat:'Microsoft 365', type:'Users', l:1, c:5, e:5, i:5, n26:false, n25:false, cpu:180, note:'$15/mo × 12'},
+  {id:'win365', name:'Windows 365 Enterprise 8vCPU/32GB/512GB', cat:'Windows', type:'Users', l:null, c:1, e:2, i:null, n26:false, n25:true, cpu:480, note:'$40/mo × 12 approx.'},
+  // ── COPILOT / AI ────────────────────────────────────────────
+  {id:'m365cop',name:'Microsoft 365 Copilot', cat:'Copilot', type:'Users', l:null, c:null, e:10, i:null, n26:true, n25:false, cpu:360, note:'$30/mo × 12'},
+  {id:'copstudio',name:'Microsoft Copilot Studio (25k credits/mo pack)', cat:'Copilot', type:'Pack/mo', l:null, c:null, e:1, i:null, n26:true, n25:false, cpu:200, note:'25,000 Copilot credits/mo; ~$200/yr for 1 pack'},
+  {id:'dragon', name:'Microsoft Dragon Copilot', cat:'Copilot', type:'Users', l:null, c:5, e:15, i:20, n26:true, n25:false, cpu:480, note:'Healthcare AI; $40/mo approx.'},
+  // ── AZURE ───────────────────────────────────────────────────
+  {id:'azurecr',name:'Azure Bulk Credits (Production)', cat:'Azure', type:'USD/yr', l:700, c:2400, e:5000, i:10000, n26:false, n25:false, cpu:1, note:'Production Azure credits; $1/credit'},
+  {id:'ghcop',  name:'GitHub Copilot Enterprise (via Azure credits)', cat:'Copilot', type:'USD/yr', l:null, c:null, e:null, i:5000, n26:true, n25:false, cpu:1, note:'$5k Azure credits allocated to GH Copilot Enterprise'},
+  // ── SECURITY & IDENTITY ─────────────────────────────────────
+  {id:'entraid',name:'Entra ID P2', cat:'Security', type:'Users', l:5, c:15, e:35, i:100, n26:false, n25:true, cpu:144, note:'$12/mo × 12'},
+  {id:'defsuit',name:'Defender Suite', cat:'Security', type:'Users', l:5, c:15, e:35, i:100, n26:true, n25:false, cpu:360, note:'Full Defender suite; NEW 2026'},
+  {id:'defp2',  name:'Defender for Endpoint P2', cat:'Security', type:'Users', l:5, c:15, e:35, i:100, n26:false, n25:true, cpu:84, note:'$7/mo × 12'},
+  {id:'entrasuite',name:'Entra Suite', cat:'Security', type:'Users', l:null, c:null, e:35, i:null, n26:true, n25:false, cpu:144, note:'$12/mo × 12; NEW 2026'},
+  {id:'intune', name:'Intune Suite', cat:'Security', type:'Users', l:null, c:null, e:35, i:null, n26:true, n25:false, cpu:144, note:'$12/mo × 12; NEW 2026'},
+  // ── DEV TOOLS ───────────────────────────────────────────────
+  {id:'vsent',  name:'Visual Studio Enterprise IDE', cat:'Dev Tools', type:'Users', l:1, c:8, e:15, i:25, n26:true, n25:false, cpu:2999, note:'~$249.92/mo × 12 annual sub'},
+  // ── POWER PLATFORM ──────────────────────────────────────────
+  {id:'pbiprem',name:'Power BI Premium (per user)', cat:'Power Platform', type:'Users', l:4, c:15, e:35, i:100, n26:false, n25:false, cpu:240, note:'$20/mo × 12 (updated 2025)'},
+  {id:'powerapps',name:'Power Apps Premium', cat:'Power Platform', type:'Users', l:1, c:8, e:15, i:25, n26:false, n25:false, cpu:240, note:'$20/mo × 12'},
+  {id:'paauto', name:'Power Automate Premium', cat:'Power Platform', type:'Users', l:1, c:8, e:15, i:25, n26:false, n25:false, cpu:180, note:'$15/mo × 12'},
+  {id:'paaproc',name:'Power Automate Process', cat:'Power Platform', type:'Bots', l:null, c:null, e:2, i:5, n26:false, n25:false, cpu:1800, note:'$150/mo × 12 per bot'},
+  // ── DYNAMICS 365 ────────────────────────────────────────────
+  {id:'d365bc', name:'Dynamics 365 Business Central Premium', cat:'Dynamics 365', type:'Users', l:4, c:15, e:35, i:null, n26:false, n25:false, cpu:1140, note:'$95/mo × 12'},
+  {id:'d365se', name:'Dynamics 365 Sales Enterprise', cat:'Dynamics 365', type:'Users', l:4, c:15, e:35, i:null, n26:false, n25:false, cpu:1140, note:'$95/mo × 12'},
+  {id:'d365ci', name:'Dynamics 365 Customer Insights', cat:'Dynamics 365', type:'Tenant', l:null, c:null, e:1, i:null, n26:false, n25:false, cpu:17400, note:'$1,450/mo × 12 per tenant'},
+  {id:'d365cse',name:'Dynamics 365 Customer Service Enterprise', cat:'Dynamics 365', type:'Users', l:null, c:null, e:35, i:null, n26:false, n25:true, cpu:1140, note:'$95/mo × 12'},
+  {id:'d365fp', name:'Dynamics 365 Finance Premium', cat:'Dynamics 365', type:'Users', l:null, c:null, e:35, i:null, n26:false, n25:true, cpu:2280, note:'$190/mo × 12'},
+  {id:'d365hr', name:'Dynamics 365 Human Resources', cat:'Dynamics 365', type:'Users', l:null, c:null, e:35, i:null, n26:false, n25:true, cpu:1140, note:'$95/mo × 12'},
+  {id:'d365mk', name:'Dynamics 365 Marketing (Base Pack)', cat:'Dynamics 365', type:'Tenant', l:null, c:null, e:1, i:null, n26:false, n25:true, cpu:18000, note:'$1,500/mo × 12 per tenant'},
+  {id:'d365po', name:'Dynamics 365 Project Operations', cat:'Dynamics 365', type:'Users', l:null, c:null, e:35, i:null, n26:false, n25:true, cpu:1380, note:'$115/mo × 12'},
+  {id:'d365tm', name:'Dynamics 365 Team Members', cat:'Dynamics 365', type:'Users', l:null, c:null, e:35, i:null, n26:false, n25:true, cpu:120, note:'$10/mo × 12'},
+  {id:'d365cc', name:'Dynamics 365 Contact Center', cat:'Dynamics 365', type:'Users', l:null, c:null, e:35, i:null, n26:false, n25:true, cpu:1140, note:'$95/mo × 12'},
+  // ── WINDOWS SERVER ──────────────────────────────────────────
+  {id:'wsrvstd',name:'Windows Server Standard – Per core (2025)', cat:'Windows Server', type:'Licenses', l:null, c:16, e:32, i:100, n26:false, n25:true, cpu:97, note:'~$97/core/yr (2-core pack $194)'},
+  {id:'wsrvdc', name:'Windows Server Datacenter – Per core (2025)', cat:'Windows Server', type:'Licenses', l:null, c:16, e:32, i:32, n26:false, n25:true, cpu:433, note:'~$433/core/yr'},
+  {id:'wsrvcal',name:'Windows Server CALs (2025)', cat:'Windows Server', type:'Licenses', l:null, c:16, e:35, i:100, n26:false, n25:true, cpu:38, note:'~$38/CAL/yr'},
+  {id:'wsrvrdp',name:'Windows Server RDS CALs (2025)', cat:'Windows Server', type:'Licenses', l:null, c:20, e:35, i:100, n26:false, n25:true, cpu:130, note:'~$130/RDS CAL/yr'},
+  {id:'sccms',  name:'System Center Client Management Suite (2022)', cat:'Windows Server', type:'Licenses', l:null, c:10, e:35, i:100, n26:false, n25:false, cpu:125, note:'per device/yr'},
+  {id:'sccep',  name:'System Center Endpoint Protection (2019)', cat:'Windows Server', type:'Licenses', l:null, c:10, e:35, i:100, n26:false, n25:false, cpu:22, note:'per device/yr'},
+  {id:'sccstd', name:'System Center Standard (2022)', cat:'Windows Server', type:'Licenses', l:null, c:8, e:16, i:32, n26:false, n25:false, cpu:1069, note:'per 2-processor/yr'},
+  {id:'epcm',   name:'Endpoint Configuration Manager (2019)', cat:'Windows Server', type:'Licenses', l:null, c:null, e:35, i:100, n26:false, n25:false, cpu:125, note:'per device/yr'},
+  {id:'sqlent', name:'SQL Server Enterprise – Per core (2019)', cat:'Windows Server', type:'Licenses', l:null, c:null, e:8, i:16, n26:false, n25:false, cpu:3750, note:'~$3,750/core/yr'},
+  {id:'wsrvstorage',name:'Windows Storage Server Workgroup (2016)', cat:'Windows Server', type:'Licenses', l:null, c:null, e:null, i:2, n26:false, n25:false, cpu:285, note:'~$285/yr'},
+  {id:'m365e3', name:'Microsoft 365 E3 (no Teams)', cat:'Microsoft 365', type:'Users', l:null, c:null, e:null, i:100, n26:false, n25:false, cpu:432, note:'$36/mo × 12; Infra SPD only'},
+  {id:'win11iot',name:'Windows 11 IoT Enterprise LTSC', cat:'Windows', type:'Licenses', l:null, c:null, e:null, i:20, n26:false, n25:false, cpu:75, note:'IoT LTSC'},
+  // ── DYNAMICS SANDBOXES ──────────────────────────────────────
+  {id:'sb-bc',  name:'Sandbox – Business Central', cat:'Sandbox', type:'Users', l:5, c:5, e:5, i:null, n26:false, n25:false, cpu:0, note:'Internal sandbox'},
+  {id:'sb-ops', name:'Sandbox – Operations Application', cat:'Sandbox', type:'Users', l:null, c:25, e:25, i:25, n26:false, n25:false, cpu:0, note:'Internal sandbox'},
+  {id:'sb-t2',  name:'Sandbox – Operations Tier 2 Add on', cat:'Sandbox', type:'Tenant', l:null, c:1, e:1, i:null, n26:false, n25:false, cpu:0, note:'Internal sandbox'},
+  {id:'sb-sfs', name:'Sandbox – Sales, Field Service &amp; CS', cat:'Sandbox', type:'Users', l:null, c:25, e:25, i:25, n26:false, n25:false, cpu:0, note:'Internal sandbox'},
+  {id:'sb-cc',  name:'Sandbox – Contact Center', cat:'Sandbox', type:'Users', l:null, c:null, e:25, i:null, n26:false, n25:false, cpu:0, note:'Internal sandbox'},
+  {id:'sb-msg', name:'Sandbox – CS Digital Messaging', cat:'Sandbox', type:'Tenant', l:null, c:null, e:1, i:null, n26:false, n25:false, cpu:0, note:'Internal sandbox'},
+  {id:'sb-eco', name:'Sandbox – eCommerce &amp; Cloud Scale Unit', cat:'Sandbox', type:'Tenant', l:null, c:null, e:1, i:null, n26:false, n25:false, cpu:0, note:'Internal sandbox'},
+  {id:'sb-hr',  name:'Sandbox – Human Resources', cat:'Sandbox', type:'Users', l:null, c:null, e:5, i:null, n26:false, n25:false, cpu:0, note:'Internal sandbox'},
+  {id:'sb-iom', name:'Sandbox – Intelligent Order Management', cat:'Sandbox', type:'Tenant', l:null, c:null, e:1, i:null, n26:false, n25:false, cpu:0, note:'Internal sandbox'},
+  {id:'sb-mkt', name:'Sandbox – Marketing', cat:'Sandbox', type:'Tenant', l:null, c:null, e:1, i:null, n26:false, n25:false, cpu:0, note:'Internal sandbox'},
+  {id:'sb-si',  name:'Sandbox – Sales Insights', cat:'Sandbox', type:'Users', l:null, c:null, e:5, i:null, n26:false, n25:false, cpu:0, note:'Internal sandbox'},
+  {id:'sb-guides',name:'Sandbox – Guides', cat:'Sandbox', type:'User', l:null, c:null, e:1, i:null, n26:false, n25:false, cpu:0, note:'Internal sandbox'},
+];
+
+// Tenant data from CSV (ProductList_24_03_2026)
+const TENANT = [
+  {name:'Microsoft 365 Business Premium',total:162,assigned:161,ct:'upgrade',pp:'M365 Business Premium (no Teams) + Teams Enterprise',note:'Pack edition excludes Teams — Teams Enterprise is a separate benefit',l:5,c:15,e:35,i:null,n26:false,n25:false,cpu_key:'m365bp'},
+  {name:'Microsoft Teams EEA',total:105,assigned:75,ct:'covered',pp:'Teams Enterprise',note:null,l:5,c:15,e:35,i:100,n26:false,n25:false,cpu_key:'teams'},
+  {name:'Microsoft 365 Copilot',total:3,assigned:3,ct:'covered',pp:'Microsoft 365 Copilot',note:null,l:null,c:null,e:10,i:null,n26:true,n25:false,cpu_key:'m365cop'},
+  {name:'Teams Premium (for Departments)',total:2,assigned:2,ct:'covered',pp:'Teams Premium',note:null,l:null,c:null,e:10,i:null,n26:true,n25:false,cpu_key:'teamsprem'},
+  {name:'Microsoft Teams Rooms Pro',total:1,assigned:1,ct:'covered',pp:'Teams Rooms Pro',note:null,l:null,c:null,e:2,i:null,n26:false,n25:true,cpu_key:'roomspro'},
+  {name:'Power Automate Premium',total:1,assigned:1,ct:'covered',pp:'Power Automate Premium',note:null,l:1,c:8,e:15,i:25,n26:false,n25:false,cpu_key:'paauto'},
+  {name:'Planner and Project Plan 5',total:5,assigned:5,ct:'covered',pp:'Project Online – Project Plan 5',note:null,l:1,c:5,e:5,i:20,n26:false,n25:false,cpu_key:'proj'},
+  {name:'Visio Plan 2',total:5,assigned:5,ct:'covered',pp:'Visio Online – Visio Plan 2',note:null,l:1,c:5,e:5,i:5,n26:false,n25:false,cpu_key:'visio'},
+  {name:'Dynamics 365 Sales Professional',total:46,assigned:45,ct:'upgrade',pp:'Dynamics 365 Sales Enterprise',note:'Pack includes Enterprise — consider switching to save costs',l:4,c:15,e:35,i:null,n26:false,n25:false,cpu_key:'d365se'},
+  {name:'Power BI Pro',total:100,assigned:87,ct:'upgrade',pp:'Power BI Premium (per user)',note:'Pack includes Premium — higher capacity than Pro',l:4,c:15,e:35,i:100,n26:false,n25:false,cpu_key:'pbiprem'},
+  {name:'Power Automate per user plan',total:1,assigned:1,ct:'upgrade',pp:'Power Automate Premium',note:'Pack includes Premium — replaces per user plan',l:1,c:8,e:15,i:25,n26:false,n25:false,cpu_key:'paauto'},
+  {name:'Microsoft 365 Business Basic',total:25,assigned:25,ct:'uncovered',pp:null,note:null,l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:72},
+  {name:'Microsoft 365 Business Basic EEA (no Teams)',total:45,assigned:35,ct:'uncovered',pp:null,note:null,l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:72},
+  {name:'Microsoft 365 E3 EEA (no Teams)',total:61,assigned:61,ct:'uncovered',pp:null,note:'E3 only in Solutions Partner designations — Infra SPD covers 100 users',l:null,c:null,e:null,i:100,n26:false,n25:false,cpu_key:'m365e3'},
+  {name:'Microsoft 365 E5',total:1,assigned:1,ct:'uncovered',pp:null,note:'E5 only in Modern Work / Security designations',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:684},
+  {name:'Exchange Online (Plan 1)',total:1,assigned:1,ct:'uncovered',pp:null,note:'Standalone Exchange not in pack — bundled inside M365 Business Premium',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:48},
+  {name:'FLOW_FREE (Power Automate Free)',total:10000,assigned:182,ct:'free',pp:null,note:'Free tier — unlimited',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
+  {name:'Microsoft Fabric (Free)',total:1000000,assigned:52,ct:'free',pp:null,note:'Free tier',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
+  {name:'POWERAPPS_DEV (Developer Plan)',total:10000,assigned:16,ct:'free',pp:null,note:'Developer plan — free',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
+  {name:'POWERAPPS_VIRAL',total:10000,assigned:3,ct:'free',pp:null,note:'Viral trial',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
+  {name:'Microsoft Copilot Studio Viral Trial',total:10000,assigned:3,ct:'free',pp:'Pack Expanded: 25k credits/mo',note:'Expanded includes 25k Copilot Studio credits/month',l:null,c:null,e:1,i:null,n26:true,n25:false,cpu:0},
+  {name:'Power Pages vTrial for Makers',total:10000,assigned:4,ct:'free',pp:null,note:'Viral trial',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
+  {name:'Avaliação — D365 Sales Premium',total:10000,assigned:1,ct:'free',pp:null,note:'Viral trial',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
+  {name:'D365 Customer Voice Trial',total:1000000,assigned:0,ct:'free',pp:null,note:'Trial — 0 assigned',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
+  {name:'Microsoft Stream Trial',total:1000000,assigned:0,ct:'free',pp:null,note:'Trial — 0 assigned',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
+  {name:'Project Madeira Preview (BC Preview)',total:10000,assigned:0,ct:'free',pp:null,note:'BC preview — 0 assigned',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
+];
+
+// ════════════════════════════════════════════════════════════════════
+// PRICE STATE — editable, persisted to localStorage
+// ════════════════════════════════════════════════════════════════════
+let PRICES = {};  // id -> cpu (per year)
+let PACK_COSTS = {...DEFAULT_PACK_COSTS};
+
+function initPrices() {
+  const saved = localStorage.getItem('sg_prices_v2');
+  const savedPacks = localStorage.getItem('sg_pack_costs_v2');
+  const defaults = {};
+  PACK_LICENSES.forEach(p => { defaults[p.id] = p.cpu; });
+  PRICES = saved ? {...defaults, ...JSON.parse(saved)} : {...defaults};
+  if (savedPacks) PACK_COSTS = JSON.parse(savedPacks);
+  // Sync pack cost inputs
+  ['l','c','e','i'].forEach(k => {
+    const inp = document.getElementById('pp-'+k);
+    if(inp) inp.value = PACK_COSTS[k];
+  });
+  updatePackDisplays();
+}
+
+function getPrice(item) {
+  if (item.cpu_key) return PRICES[item.cpu_key] ?? 0;
+  return item.cpu ?? 0;
+}
+
+function updatePackDisplays() {
+  ['l','c','e','i'].forEach(k => {
+    const el = document.getElementById('disp-p'+k);
+    if(el) el.textContent = '$'+PACK_COSTS[k].toLocaleString();
+  });
+}
+
+// ════════════════════════════════════════════════════════════════════
+// PACK STATE
+// ════════════════════════════════════════════════════════════════════
+function ps() {
+  return {
+    l:{on:document.getElementById('tog-l').checked, m:parseInt(document.getElementById('mult-l').value)||1},
+    c:{on:document.getElementById('tog-c').checked, m:parseInt(document.getElementById('mult-c').value)||1},
+    e:{on:document.getElementById('tog-e').checked, m:parseInt(document.getElementById('mult-e').value)||1},
+    i:{on:document.getElementById('tog-i').checked, m:1},
+  };
+}
+
+function getAvail(p, s) {
+  let t=0;
+  if(s.l.on&&p.l) t+=p.l*s.l.m;
+  if(s.c.on&&p.c) t+=p.c*s.c.m;
+  if(s.e.on&&p.e) t+=p.e*s.e.m;
+  if(s.i.on&&p.i) t+=p.i;
+  return t;
+}
+
+function getBestQty(p, s) {
+  // Best single pack qty for full-pack-value analysis
+  if(s.i.on&&p.i) return {qty:p.i, src:'Infra SPD'};
+  if(s.e.on&&p.e) return {qty:p.e, src:'Expanded'};
+  if(s.c.on&&p.c) return {qty:p.c, src:'Core'};
+  if(s.l.on&&p.l) return {qty:p.l, src:'Launch'};
+  return null;
+}
+
+function fm(n) { return '$'+n.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+function co(ct) { return {covered:0,upgrade:1,uncovered:2,free:3}[ct]??4; }
+
+// ════════════════════════════════════════════════════════════════════
+// TAB SWITCHING
+// ════════════════════════════════════════════════════════════════════
+function showTab(id) {
+  document.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const idx = ['tab-usage','tab-all','tab-cloud','tab-fin1','tab-fin2','tab-prices'].indexOf(id);
+  document.querySelectorAll('.tab')[idx].classList.add('active');
+  if(id==='tab-all') renderAll();
+  if(id==='tab-cloud') renderCloud();
+  if(id==='tab-fin1') renderFin1();
+  if(id==='tab-fin2') renderFin2();
+  if(id==='tab-prices') renderPricesPage();
+}
+
+// ════════════════════════════════════════════════════════════════════
+// PACK TOGGLE
+// ════════════════════════════════════════════════════════════════════
+function onPT() {
+  const s = ps();
+  ['l','c','e','i'].forEach(k => {
+    const card = document.getElementById('card-'+k);
+    if(card) card.classList.toggle('active', s[k].on);
+    const hdr = document.getElementById('h-'+k);
+    if(hdr) {
+      hdr.style.opacity = s[k].on ? '1' : '.35';
+      const nm = {l:'Launch',c:'Core',e:'Expanded',i:'Infra SPD'};
+      hdr.textContent = nm[k] + (k!=='i' ? (s[k].on ? ' ×'+s[k].m : ' (off)') : (s[k].on ? '' : ' (off)'));
+    }
+  });
+  renderUsage();
+  // Update other tabs if visible
+  const active = document.querySelector('.tabpanel.active');
+  if(active) {
+    const id = active.id;
+    if(id==='tab-fin1') renderFin1();
+    if(id==='tab-fin2') renderFin2();
+    if(id==='tab-cloud') renderCloud();
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════
+// TAB 1: USAGE TABLE
+// ════════════════════════════════════════════════════════════════════
+let vf1='all', sc1='coverage', sd1='asc';
+
+function setVF(f, btn, tab) {
+  if(tab==='1') vf1=f;
+  btn.closest('[style*="gap"]').querySelectorAll('.fbtn').forEach(b=>b.className='fbtn');
+  const m={all:'fba',covered:'fb-c',upgrade:'fb-u',uncovered:'fb-n',free:'fb-f'};
+  btn.classList.add(m[f]||'fba');
+  if(tab==='1') renderUsage();
+}
+
+function srt1(c) { if(sc1===c) sd1=sd1==='asc'?'desc':'asc'; else{sc1=c;sd1='desc';} renderUsage(); }
+
+function renderUsage() {
+  const s = ps(), q = document.getElementById('srch1').value.toLowerCase().trim();
+  let data = TENANT.filter(p => {
+    if(q && !p.name.toLowerCase().includes(q) && !(p.pp||'').toLowerCase().includes(q)) return false;
+    if(vf1!=='all' && p.ct!==vf1) return false;
+    return true;
+  });
+  data.sort((a,b)=>{
+    if(sc1==='coverage') return co(a.ct)-co(b.ct);
+    if(sc1==='name') return sd1==='asc'?a.name.localeCompare(b.name):b.name.localeCompare(a.name);
+    if(sc1==='assigned') return b.assigned-a.assigned;
+    if(sc1==='needed') return (Math.max(0,b.assigned-getAvail(b,s)))-(Math.max(0,a.assigned-getAvail(a,s)));
+    if(sc1==='cost') return getPrice(b)*b.assigned-getPrice(a)*a.assigned;
+    return 0;
+  });
+  const tb = document.getElementById('tb1');
+  tb.innerHTML='';
+  if(!data.length){tb.innerHTML='<tr class="erow"><td colspan="12">No products match filters</td></tr>';updateStats1(s);return;}
+  const sl={covered:'✓  Covered by active partner packs',upgrade:'↑  Pack includes a higher/upgraded edition',uncovered:'✕  Not covered — requires separate purchase',free:'◦  Free / Trial licenses'};
+  let lastS=null;
+  data.forEach(p=>{
+    if(sc1==='coverage'&&p.ct!==lastS){lastS=p.ct;const sr=document.createElement('tr');sr.className='tr-s';sr.innerHTML='<td colspan="12">'+sl[p.ct]+'</td>';tb.appendChild(sr);}
+    const av=getAvail(p,s),nd=Math.max(0,p.assigned-av);
+    const pct=av>0?Math.min((p.assigned/av)*100,100):(p.assigned>0?100:0);
+    const over=av>0&&p.assigned>av, near=av>0&&!over&&p.assigned/av>=0.8;
+    const cpu=getPrice(p);
+    function qc(val,k){
+      const on=s[k].on,m=s[k].m,eff=val?(val*(k==='i'?1:m)):null;
+      if(!on||!val) return '<td class="tc"><span class="qn">—</span></td>';
+      return '<td class="tc"><span class="qv">'+eff+'</span>'+(k!=='i'&&m>1?'<span class="qe">('+val+'×'+m+')</span>':'')+' </td>';
+    }
+    const avc=av>0?'<td class="tc"><span class="av-v">'+av+'</span></td>':'<td class="tc"><span class="av-z">—</span></td>';
+    let ubc;
+    if(p.ct==='free'){const dt=p.total>=100000?'∞':p.total;ubc='<td><div class="ubw"><div class="ubt"><div class="ubf uf-bl" style="width:'+Math.min((p.assigned/Math.max(p.total,1))*100,100)+'%"></div></div><span class="ubl">'+p.assigned+' / '+dt+'</span></div></td>';}
+    else if(!av) ubc='<td><span style="font-size:10px;color:var(--text-light)">no pack limit</span></td>';
+    else{const cl=over?'uf-ov':near?'uf-w':'uf-ok',lc=over?' ul-ov':near?' ul-w':'';ubc='<td><div class="ubw"><div class="ubt"><div class="ubf '+cl+'" style="width:'+pct+'%"></div></div><span class="ubl'+lc+'">'+p.assigned+' / '+av+'</span></div></td>';}
+    let ndc;
+    if(p.ct==='free'||p.ct==='uncovered'){const n=p.assigned;ndc='<td class="tc"><span class="'+(n>0?'nd-p':'av-z')+'">'+(n>0?'+'+n:'—')+'</span></td>';}
+    else if(nd>0) ndc='<td class="tc"><span class="nd-p">+'+nd+'</span></td>';
+    else ndc='<td class="tc"><span class="nd-ok">✓</span></td>';
+    const cstc=cpu>0?'<td class="tc"><span class="cv-v">'+fm(cpu)+'</span></td>':'<td class="tc"><span class="cv-n">free</span></td>';
+    let pill;
+    if(p.ct==='free') pill='<span class="cpill cp-f"><span class="cpd"></span>Free/Trial</span>';
+    else if(p.ct==='covered'&&over) pill='<span class="cpill cp-ov"><span class="cpd"></span>Over Limit</span>';
+    else if(p.ct==='covered') pill='<span class="cpill cp-c"><span class="cpd"></span>Covered</span>';
+    else if(p.ct==='upgrade') pill='<span class="cpill cp-u"><span class="cpd"></span>Upgrade Avail.</span>';
+    else pill='<span class="cpill cp-n"><span class="cpd"></span>Needs Purchase</span>';
+    let bdg='';
+    if(p.n26) bdg+='<span class="bdg b26">NEW 2026</span>';
+    else if(p.n25) bdg+='<span class="bdg b25">NEW 2025</span>';
+    if(p.ct==='upgrade') bdg+='<span class="bdg bup">UPGRADE</span>';
+    if(p.ct==='free') bdg+='<span class="bdg bfr">FREE</span>';
+    let sub='';
+    if(p.pp&&p.ct!=='free') sub+='<div class="psb">→ pack: '+p.pp+'</div>';
+    if(p.note&&p.ct==='upgrade') sub+='<div class="pnt-u">'+p.note+'</div>';
+    if(p.note&&p.ct==='uncovered') sub+='<div class="pnt-n">'+p.note+'</div>';
+    const td=p.total>=100000?'∞':p.total.toLocaleString();
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td><div class="pnm">'+p.name+bdg+'</div>'+sub+'</td><td class="tc" style="font-weight:500;color:var(--text-mid)">'+td+'</td><td class="tc" style="font-weight:600">'+p.assigned.toLocaleString()+'</td>'+qc(p.l,'l')+qc(p.c,'c')+qc(p.e,'e')+qc(p.i,'i')+avc+ubc+ndc+cstc+'<td class="tc">'+pill+'</td>';
+    tb.appendChild(tr);
+  });
+  updateStats1(s);
+}
+
+function updateStats1(s) {
+  const real=TENANT.filter(p=>p.ct!=='free');
+  document.getElementById('st-t1').textContent=real.length;
+  document.getElementById('st-a1').textContent=real.reduce((a,p)=>a+p.assigned,0).toLocaleString();
+  document.getElementById('st-c1').textContent=TENANT.filter(p=>p.ct==='covered').length;
+  document.getElementById('st-u1').textContent=TENANT.filter(p=>p.ct==='upgrade').length;
+  document.getElementById('st-n1').textContent=TENANT.filter(p=>p.ct==='uncovered').length;
+  document.getElementById('st-o1').textContent=TENANT.filter(p=>{const av=getAvail(p,s);return av>0&&p.assigned>av;}).length;
+}
+
+// ════════════════════════════════════════════════════════════════════
+// TAB 2: ALL PACK LICENSES
+// ════════════════════════════════════════════════════════════════════
+let packF='all', sc2='name', sd2='asc';
+
+function setPackF(f, btn) {
+  packF=f;
+  btn.closest('[style*="gap"]').querySelectorAll('.fbtn').forEach(b=>b.className='fbtn');
+  btn.classList.add('fba');
+  renderAll();
+}
+
+function srtAll(c) { if(sc2===c) sd2=sd2==='asc'?'desc':'asc'; else{sc2=c;sd2='desc';} renderAll(); }
+
+const CAT_CLS = {'Microsoft 365':'cat-m365','Copilot':'cat-copilot','Azure':'cat-az','Dynamics 365':'cat-dyn','Power Platform':'cat-pp','Security':'cat-sec','Windows':'cat-win','Windows Server':'cat-srv','Dev Tools':'cat-dev','Sandbox':'cat-sand'};
+
+function renderAll() {
+  const s=ps(), q=document.getElementById('srch2').value.toLowerCase().trim();
+  const catF=document.getElementById('cat2').value, newF=document.getElementById('new2').value;
+  let data=PACK_LICENSES.filter(p=>{
+    if(q&&!p.name.toLowerCase().includes(q)&&!p.cat.toLowerCase().includes(q)) return false;
+    if(catF!=='all'&&p.cat!==catF) return false;
+    if(newF==='2026'&&!p.n26) return false;
+    if(newF==='2025'&&!p.n25) return false;
+    if(packF==='launch'&&!p.l) return false;
+    if(packF==='core'&&!p.c) return false;
+    if(packF==='expanded'&&!p.e) return false;
+    if(packF==='infra'&&!p.i) return false;
+    return true;
+  });
+  data.sort((a,b)=>{
+    const cpu_a=PRICES[a.id]??a.cpu, cpu_b=PRICES[b.id]??b.cpu;
+    if(sc2==='name') return sd2==='asc'?a.name.localeCompare(b.name):b.name.localeCompare(a.name);
+    if(sc2==='cat') return sd2==='asc'?a.cat.localeCompare(b.cat):b.cat.localeCompare(a.cat);
+    if(sc2==='cpu') return sd2==='asc'?cpu_a-cpu_b:cpu_b-cpu_a;
+    if(sc2==='rv'){
+      const bq_a=getBestQty(a,s),bq_b=getBestQty(b,s);
+      const rv_a=bq_a?cpu_a*bq_a.qty:0, rv_b=bq_b?cpu_b*bq_b.qty:0;
+      return sd2==='asc'?rv_a-rv_b:rv_b-rv_a;
+    }
+    return 0;
+  });
+  const tb=document.getElementById('tb2');
+  tb.innerHTML='';
+  let totalRV=0, totalInv=0;
+  data.forEach(p=>{
+    const cpu=PRICES[p.id]??p.cpu;
+    const bq=getBestQty(p,s);
+    const rv=bq&&cpu>0?cpu*bq.qty:0;
+    totalRV+=rv;
+    function qc2(val){if(!val) return '<td class="tc"><span class="qn">—</span></td>';return '<td class="tc"><span class="qv">'+val+'</span></td>';}
+    const rvDisp=rv>0?fm(rv):'<span class="cv-n">—</span>';
+    const cpuDisp=cpu>0?fm(cpu):'<span class="cv-n">free</span>';
+    let bdg='';
+    if(p.n26) bdg='<span class="bdg b26">NEW 2026</span>';
+    else if(p.n25) bdg='<span class="bdg b25">NEW 2025</span>';
+    const catCls=CAT_CLS[p.cat]||'cat-m365';
+    const bqDisp=bq?'<span class="qv">'+bq.qty+'</span><span class="qe">'+bq.src+'</span>':'<span class="qn">—</span>';
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td><div class="pnm">'+p.name+'</div><div class="psb">'+p.note+'</div></td>'+
+      '<td class="tc"><span class="cat '+catCls+'">'+p.cat+'</span></td>'+
+      '<td class="tc" style="font-size:10px;color:var(--text-muted)">'+p.type+'</td>'+
+      qc2(p.l)+qc2(p.c)+qc2(p.e)+qc2(p.i)+
+      '<td class="tc">'+bqDisp+'</td>'+
+      '<td class="tc">'+cpuDisp+'</td>'+
+      '<td class="tc" style="font-weight:700;color:var(--sg-amber)">'+rvDisp+'</td>'+
+      '<td class="tc">'+bdg+'</td>';
+    tb.appendChild(tr);
+  });
+  // Stats
+  document.getElementById('st-all-ct').textContent=data.length;
+  document.getElementById('st-all-rv').textContent=totalRV>0?fm(totalRV):'$—';
+  // Investment = sum of active packs × multipliers
+  const s2=ps(); let inv=0;
+  ['l','c','e','i'].forEach(k=>{if(s2[k].on)inv+=PACK_COSTS[k]*s2[k].m;});
+  document.getElementById('st-all-inv').textContent=fm(inv);
+  document.getElementById('st-all-sv').textContent=totalRV>0?fm(totalRV-inv):'$—';
+}
+
+// ════════════════════════════════════════════════════════════════════
+// TAB 3: CLOUD RIGHTS & CREDITS
+// ════════════════════════════════════════════════════════════════════
+function renderCloud() {
+  const s=ps();
+  const CLOUD_GROUPS = [
+    {
+      icon:'☁️', cls:'cci-az', title:'Azure Credits', sub:'Production cloud budget',
+      items:[
+        {name:'Azure Bulk Credits', packs:['Partner Launch','Partner Success Core','Partner Success Expanded','Infra SPD'], amounts:[s.l.on?700*s.l.m:0,s.c.on?2400*s.c.m:0,s.e.on?5000*s.e.m:0,s.i.on?10000:0], unit:'USD credits/yr', note:'For production workloads — Azure Portal'},
+      ]
+    },
+    {
+      icon:'🤖', cls:'cci-copilot', title:'Copilot & AI Services', sub:'AI credits and licenses',
+      items:[
+        {name:'Microsoft 365 Copilot', packs:['Partner Success Expanded'], amounts:[s.e.on?10*s.e.m:0], unit:'user licenses', note:'Full M365 Copilot in Word, Excel, Teams, etc.'},
+        {name:'Microsoft Copilot Studio Credits', packs:['Partner Success Expanded'], amounts:[s.e.on?25000*s.e.m:0], unit:'credits/month', note:'25k credits/mo per pack — build custom copilots & agents'},
+        {name:'Microsoft Dragon Copilot', packs:['Success Core','Success Expanded','Infra SPD'], amounts:[s.c.on?5*s.c.m:0,s.e.on?15*s.e.m:0,s.i.on?20:0], unit:'user licenses', note:'Healthcare AI assistant — region-limited launch'},
+        {name:'GitHub Copilot Enterprise (Azure credits)', packs:['Infra SPD'], amounts:[s.i.on?5000:0], unit:'USD credits/yr', note:'$5k Azure credits exclusively for GitHub Copilot Enterprise'},
+      ]
+    },
+    {
+      icon:'🔧', cls:'cci-vs', title:'Visual Studio', sub:'Developer IDE subscriptions',
+      items:[
+        {name:'Visual Studio Enterprise IDE', packs:['Partner Launch','Partner Success Core','Partner Success Expanded','Infra SPD'], amounts:[s.l.on?1*s.l.m:0,s.c.on?8*s.c.m:0,s.e.on?15*s.e.m:0,s.i.on?25:0], unit:'user subscriptions', note:'Full VS Enterprise IDE without monthly Azure credit'},
+      ]
+    },
+    {
+      icon:'🏗️', cls:'cci-dyn', title:'Dynamics 365 Sandboxes', sub:'Non-production / partner use environments',
+      items:[
+        {name:'Sandbox – Operations Application', packs:['Success Core','Success Expanded','Infra SPD'], amounts:[s.c.on?25*s.c.m:0,s.e.on?25*s.e.m:0,s.i.on?25:0], unit:'users', note:'Full D365 F&O partner sandbox'},
+        {name:'Sandbox – Sales, FS & CS', packs:['Success Core','Success Expanded','Infra SPD'], amounts:[s.c.on?25*s.c.m:0,s.e.on?25*s.e.m:0,s.i.on?25:0], unit:'users', note:'Partner demo/development sandbox'},
+        {name:'Sandbox – Business Central', packs:['Launch','Core','Expanded'], amounts:[s.l.on?5*s.l.m:0,s.c.on?5*s.c.m:0,s.e.on?5*s.e.m:0], unit:'users', note:'BC partner sandbox'},
+        {name:'Sandbox – Contact Center', packs:['Expanded'], amounts:[s.e.on?25*s.e.m:0], unit:'users', note:'Expanded only'},
+        {name:'Sandbox – Ops Tier 2 Add-on', packs:['Core','Expanded'], amounts:[s.c.on?1*s.c.m:0,s.e.on?1*s.e.m:0], unit:'tenants', note:'Tier 2 add-on for Ops sandbox'},
+      ]
+    },
+    {
+      icon:'🤖', cls:'cci-ai', title:'Microsoft Fabric', sub:'Analytics & data platform rights',
+      items:[
+        {name:'Microsoft Fabric (Free tier)', packs:['All tenants'], amounts:[9999999], unit:'users (unlimited)', note:'Free Fabric capacity for exploration — already active in your tenant'},
+        {name:'Power BI Premium (via packs)', packs:['Launch','Core','Expanded','Infra SPD'], amounts:[s.l.on?4*s.l.m:0,s.c.on?15*s.c.m:0,s.e.on?35*s.e.m:0,s.i.on?100:0], unit:'user licenses', note:'Power BI Premium includes Fabric analytics workloads'},
+      ]
+    },
+  ];
+
+  // Summary total credits
+  let totalAzure=0, totalCopilotCredits=0, totalVS=0;
+  const s2=ps();
+  if(s2.l.on){totalAzure+=700*s2.l.m;totalVS+=1*s2.l.m;}
+  if(s2.c.on){totalAzure+=2400*s2.c.m;totalVS+=8*s2.c.m;}
+  if(s2.e.on){totalAzure+=5000*s2.e.m;totalVS+=15*s2.e.m;totalCopilotCredits+=25000*12*s2.e.m;}
+  if(s2.i.on){totalAzure+=10000;totalVS+=25;totalCopilotCredits+=0;}
+  const sumArea=document.getElementById('cloud-sum-area');
+  sumArea.innerHTML='<div class="cloud-sum-card"><div class="cloud-sum-title">Combined Cloud Entitlements Across All Active Packs</div><div class="cst-grid">'+
+    '<div class="cst-item"><div class="cst-lbl">Azure Production Credits</div><div class="cst-val">'+fm(totalAzure)+'</div><div class="cst-sub">Per year across active packs</div></div>'+
+    '<div class="cst-item"><div class="cst-lbl">Copilot Studio Credits</div><div class="cst-val">'+(totalCopilotCredits/1000).toFixed(0)+'k</div><div class="cst-sub">Per year (25k/mo × instances)</div></div>'+
+    '<div class="cst-item"><div class="cst-lbl">Visual Studio Subscriptions</div><div class="cst-val">'+totalVS+'</div><div class="cst-sub">Enterprise IDE licenses</div></div>'+
+    '<div class="cst-item"><div class="cst-lbl">GitHub Copilot Enterprise</div><div class="cst-val">'+(s2.i.on?fm(5000):'—')+'</div><div class="cst-sub">Azure credits (Infra SPD only)</div></div>'+
+  '</div></div>';
+
+  const cardsArea=document.getElementById('cloud-cards-area');
+  cardsArea.innerHTML='';
+  CLOUD_GROUPS.forEach(g=>{
+    let entriesHtml='';
+    g.items.forEach(item=>{
+      const totalQty=item.amounts.reduce((a,b)=>a+b,0);
+      if(totalQty===0) return;
+      const packNames=item.packs.filter((_,i)=>item.amounts[i]>0).join(', ');
+      const qtyDisp=totalQty>=9999999?'∞':totalQty.toLocaleString();
+      entriesHtml+='<div class="ce-row"><div class="ce-info"><div class="ce-name">'+item.name+'</div>'+
+        '<div class="ce-pack">'+packNames+'</div>'+
+        '<div class="ce-note">'+item.note+'</div></div>'+
+        '<div class="ce-val"><div class="ce-qty">'+qtyDisp+'</div><div class="ce-unit">'+item.unit+'</div></div></div>';
+    });
+    if(!entriesHtml) return;
+    cardsArea.innerHTML+='<div class="cloud-card">'+
+      '<div class="cloud-card-hdr"><div class="cc-icon '+g.cls+'">'+g.icon+'</div>'+
+      '<div><div class="cc-title">'+g.title+'</div><div class="cc-sub">'+g.sub+'</div></div></div>'+
+      '<div class="cloud-entries">'+entriesHtml+'</div></div>';
+  });
+}
+
+// ════════════════════════════════════════════════════════════════════
+// TAB 4: USAGE ECONOMICS
+// ════════════════════════════════════════════════════════════════════
+function renderFin1() {
+  const s=ps(), fb=document.getElementById('fb1');
+  fb.innerHTML='';
+  let inv=0, ret=0, unc=0;
+  const rows=[];
+  [{k:'l',lbl:'Partner Launch Benefits'},{k:'c',lbl:'Partner Success Core'},{k:'e',lbl:'Partner Success Expanded'},{k:'i',lbl:'Solutions Partner: Infrastructure'}].forEach(pk=>{
+    if(!s[pk.k].on) return;
+    const m=s[pk.k].m, tot=PACK_COSTS[pk.k]*m;
+    inv+=tot;
+    rows.push({lbl:pk.lbl,qty:m+(m>1?' instances':' instance'),unit:fm(PACK_COSTS[pk.k]),ann:fm(tot),type:'fee',note:'Annual partner pack fee'});
+  });
+  TENANT.filter(p=>(p.ct==='covered'||p.ct==='upgrade')&&getPrice(p)>0).forEach(p=>{
+    const av=getAvail(p,s),cov=Math.min(p.assigned,av>0?av:p.assigned),r=cov*getPrice(p);
+    ret+=r;
+    rows.push({lbl:p.name+(p.ct==='upgrade'?' (via pack upgrade)':''),qty:cov+' users',unit:fm(getPrice(p)),ann:fm(r),type:'retail',note:p.ct==='upgrade'?'Pack provides higher edition':'Covered by pack'});
+  });
+  TENANT.filter(p=>p.ct==='uncovered'&&getPrice(p)>0).forEach(p=>{
+    const c=p.assigned*getPrice(p); unc+=c;
+    rows.push({lbl:p.name,qty:p.assigned+' users',unit:fm(getPrice(p)),ann:fm(c),type:'extra',note:'Not in any active pack'});
+  });
+  TENANT.filter(p=>(p.ct==='covered'||p.ct==='upgrade')&&getPrice(p)>0).forEach(p=>{
+    const av=getAvail(p,s);
+    if(av>0&&p.assigned>av){const ex=p.assigned-av,c=ex*getPrice(p);unc+=c;rows.push({lbl:p.name+' (excess)',qty:ex+' users',unit:fm(getPrice(p)),ann:fm(c),type:'extra',note:'Assigned ('+p.assigned+') exceeds pack qty ('+av+')'});}
+  });
+  const tc={'fee':'#eaf4f8','retail':'#eaf7f0','extra':'#fdf0f2'};
+  rows.forEach(r=>{
+    const tr=document.createElement('tr');tr.style.background=tc[r.type]||'';
+    let av,tp;
+    if(r.type==='fee'){av='<span class="fb-i">'+r.ann+'</span>';tp='<span class="cpill cp-c" style="font-size:10px">Pack Fee</span>';}
+    else if(r.type==='retail'){av='<span class="fb-r">'+r.ann+'</span>';tp='<span class="cpill cp-c" style="font-size:10px">Retail Value</span>';}
+    else{av='<span class="fb-n">'+r.ann+'</span>';tp='<span class="cpill cp-n" style="font-size:10px">Extra Cost</span>';}
+    tr.innerHTML='<td style="font-weight:500">'+r.lbl+'</td><td class="tc" style="color:var(--text-mid)">'+r.qty+'</td><td class="tc" style="color:var(--text-mid)">'+r.unit+'</td><td class="tc">'+av+'</td><td class="tc">'+tp+'</td><td style="color:var(--text-muted);font-size:11px">'+r.note+'</td>';
+    fb.appendChild(tr);
+  });
+  const net=ret-inv-unc;
+  const ftr=document.createElement('tr');ftr.className='ftr';
+  ftr.innerHTML='<td colspan="2"><strong>TOTALS (Annual)</strong></td><td></td><td class="tc"><span class="fb-i">'+fm(inv)+'</span><br><small style="font-weight:400;font-size:10px;color:var(--text-muted)">pack investment</small></td><td class="tc"><span class="fb-r">'+fm(ret)+'</span><br><small style="font-weight:400;font-size:10px;color:var(--text-muted)">retail of used</small></td><td class="tc"><span class="'+(net>=0?'fb-s':'fb-n')+'">'+(net>=0?'+':'')+fm(net)+'</span><br><small style="font-weight:400;font-size:10px;color:var(--text-muted)">net</small></td>';
+  fb.appendChild(ftr);
+  document.getElementById('f1-inv').textContent=fm(inv);
+  document.getElementById('f1-inv-sub').textContent=Object.entries(s).filter(([k,v])=>v.on).map(([k,v])=>({l:'Launch',c:'Core',e:'Expanded',i:'Infra'}[k])+(k!=='i'?' ×'+v.m:'')).join(' + ')||'No active packs';
+  document.getElementById('f1-ret').textContent=fm(ret);
+  const se=document.getElementById('f1-sav');se.textContent=(net>=0?'+':'')+fm(net);se.className='fcval '+(net>=0?'fv-s':'fv-e');
+  document.getElementById('f1-sav-sub').textContent='Retail ('+fm(ret)+') − Packs ('+fm(inv)+') − Extra ('+fm(unc)+')';
+}
+
+// ════════════════════════════════════════════════════════════════════
+// TAB 5: FULL PACK VALUE
+// ════════════════════════════════════════════════════════════════════
+function renderFin2() {
+  const s=ps(), fb=document.getElementById('fb2');
+  fb.innerHTML='';
+  let totalRV=0, totalInv=0;
+  // Investment
+  ['l','c','e','i'].forEach(k=>{if(s[k].on)totalInv+=PACK_COSTS[k]*s[k].m;});
+  // Pack fee rows
+  [{k:'l',lbl:'Partner Launch Benefits'},{k:'c',lbl:'Partner Success Core'},{k:'e',lbl:'Partner Success Expanded'},{k:'i',lbl:'Solutions Partner: Infrastructure'}].forEach(pk=>{
+    if(!s[pk.k].on) return;
+    const m=s[pk.k].m, tot=PACK_COSTS[pk.k]*m;
+    const tr=document.createElement('tr');tr.style.background='#eaf4f8';
+    tr.innerHTML='<td style="font-weight:600"><em>'+pk.lbl+'</em></td><td class="tc">'+(pk.k!=='i'?m+' instances':'1 designation')+'</td><td class="tc">'+fm(PACK_COSTS[pk.k])+'</td><td class="tc"><span class="fb-i">'+fm(tot)+'</span></td><td class="tc"><span class="cpill cp-c" style="font-size:10px">Pack Fee</span></td><td style="color:var(--text-muted);font-size:11px">Annual pack / designation fee</td>';
+    fb.appendChild(tr);
+  });
+  // All license rows
+  const licRows=[];
+  PACK_LICENSES.forEach(p=>{
+    const bq=getBestQty(p,s);
+    if(!bq) return;
+    const cpu=PRICES[p.id]??p.cpu;
+    if(cpu===0&&p.cat==='Sandbox') return; // skip zero-value sandbox rows from this table
+    const rv=cpu>0?cpu*bq.qty:0;
+    totalRV+=rv;
+    licRows.push({p,bq,cpu,rv});
+  });
+  licRows.sort((a,b)=>b.rv-a.rv);
+  licRows.forEach(({p,bq,cpu,rv})=>{
+    const tr=document.createElement('tr');
+    const catCls=CAT_CLS[p.cat]||'cat-m365';
+    const cpuDisp=cpu>0?fm(cpu):'<span class="cv-n">free/included</span>';
+    const rvDisp=rv>0?'<span style="font-weight:700;color:var(--sg-amber)">'+fm(rv)+'</span>':'<span class="cv-n">—</span>';
+    let bdg='';if(p.n26)bdg='<span class="bdg b26">N26</span>';else if(p.n25)bdg='<span class="bdg b25">N25</span>';
+    tr.innerHTML='<td><div class="pnm">'+p.name+bdg+'</div><div class="psb"><span class="cat '+catCls+'">'+p.cat+'</span> · '+p.note+'</div></td>'+
+      '<td class="tc"><span class="qv">'+bq.qty+'</span><span class="qe">'+bq.src+'</span></td>'+
+      '<td class="tc">'+cpuDisp+'</td>'+
+      '<td class="tc">'+rvDisp+'</td>'+
+      '<td class="tc"><span style="font-size:10px;color:var(--text-muted)">'+bq.src+'</span></td>'+
+      '<td style="font-size:11px;color:var(--text-muted)">'+p.type+'</td>';
+    fb.appendChild(tr);
+  });
+  const net=totalRV-totalInv;
+  const ftr=document.createElement('tr');ftr.className='ftr';
+  ftr.innerHTML='<td colspan="2"><strong>TOTALS (Annual)</strong></td><td></td>'+
+    '<td class="tc"><span class="fb-r">'+fm(totalRV)+'</span><br><small style="font-weight:400;font-size:10px;color:var(--text-muted)">total retail value</small></td>'+
+    '<td class="tc" colspan="2"><span class="'+(net>=0?'fb-s':'fb-n')+'">Pack cost: '+fm(totalInv)+' → Gross savings: '+(net>=0?'+':'')+fm(net)+'</span></td>';
+  fb.appendChild(ftr);
+  document.getElementById('f2-inv').textContent=fm(totalInv);
+  document.getElementById('f2-inv-sub').textContent=Object.entries(s).filter(([k,v])=>v.on).map(([k,v])=>({l:'Launch',c:'Core',e:'Expanded',i:'Infra'}[k])+(k!=='i'?' ×'+v.m:'')).join(' + ')||'No active packs';
+  document.getElementById('f2-ret').textContent=fm(totalRV);
+  document.getElementById('f2-sav').textContent=(net>=0?'+':'')+fm(net);
+  document.getElementById('f2-savings-note').innerHTML='<strong>Gross savings</strong> represent the retail value of all licenses delivered by your active packs minus the pack investment. '+'This does not mean you need all these licenses — cross-reference with the <em>Usage Economics</em> tab to see ROI based on what you actually use. '+'<br><br>Pack cost: <strong>'+fm(totalInv)+'</strong> · Retail value of all included licenses: <strong>'+fm(totalRV)+'</strong> · Gross savings: <strong>'+(net>=0?'+':'')+fm(net)+'</strong> ('+(Math.round((totalRV/totalInv)*10)/10)+'× return on investment)';
+}
+
+// ════════════════════════════════════════════════════════════════════
+// TAB 6: PRICES PAGE
+// ════════════════════════════════════════════════════════════════════
+const PRICE_SECTIONS = [
+  {cls:'psh-m365', title:'Microsoft 365', sub:'per user/year', ids:['m365bp','teams','teamsprem','roomspro','viva','proj','visio','win365','m365e3']},
+  {cls:'psh-copilot', title:'Copilot & AI', sub:'per unit/year', ids:['m365cop','copstudio','dragon','ghcop']},
+  {cls:'psh-az', title:'Azure & Dev', sub:'credits or per sub/year', ids:['azurecr','vsent']},
+  {cls:'psh-dyn', title:'Dynamics 365', sub:'per user/year', ids:['d365bc','d365se','d365ci','d365cse','d365fp','d365hr','d365mk','d365po','d365tm','d365cc']},
+  {cls:'psh-pp', title:'Power Platform', sub:'per user or bot/year', ids:['pbiprem','powerapps','paauto','paaproc']},
+  {cls:'psh-sec', title:'Security & Identity', sub:'per user/year', ids:['entraid','defsuit','defp2','entrasuite','intune']},
+  {cls:'psh-srv', title:'Windows Server & System Center', sub:'per license/year', ids:['wsrvstd','wsrvdc','wsrvcal','wsrvrdp','sccms','sccep','sccstd','epcm','sqlent','wsrvstorage']},
+  {cls:'psh-win', title:'Windows', sub:'per license', ids:['win365','win11iot']},
+];
+
+function renderPricesPage() {
+  const area=document.getElementById('price-grid-area');
+  area.innerHTML='';
+  PRICE_SECTIONS.forEach(sec=>{
+    const items=sec.ids.map(id=>PACK_LICENSES.find(p=>p.id===id)).filter(Boolean);
+    if(!items.length) return;
+    let rows='';
+    items.forEach(p=>{
+      const cur=PRICES[p.id]??p.cpu;
+      rows+='<div class="price-row">'+
+        '<div><div class="pr-name">'+p.name+'</div>'+
+        '<div class="pr-unit">'+p.type+' · default: $'+p.cpu.toLocaleString()+'/yr</div>'+
+        '<div class="pr-source">'+p.note+'</div></div>'+
+        '<div class="pr-input-wrap"><span class="pr-cur">$</span>'+
+        '<input class="pr-input" type="number" data-id="'+p.id+'" value="'+cur+'" min="0" onchange="onPriceChange()">'+
+        '</div></div>';
+    });
+    area.innerHTML+='<div class="price-section"><div class="price-section-hdr '+sec.cls+'"><span>'+sec.title+'</span><span>'+sec.sub+'</span></div>'+rows+'</div>';
+  });
+}
+
+function onPriceChange() {
+  // Collect all price inputs
+  document.querySelectorAll('.pr-input[data-id]').forEach(inp=>{
+    const id=inp.dataset.id, val=parseFloat(inp.value)||0;
+    PRICES[id]=val;
+  });
+  // Pack costs
+  ['l','c','e','i'].forEach(k=>{
+    const inp=document.getElementById('pp-'+k);
+    if(inp) PACK_COSTS[k]=parseFloat(inp.value)||0;
+  });
+  updatePackDisplays();
+  // Re-render active financial tabs
+  const active=document.querySelector('.tabpanel.active');
+  if(active){const id=active.id;if(id==='tab-fin1')renderFin1();if(id==='tab-fin2')renderFin2();if(id==='tab-all')renderAll();if(id==='tab-usage')renderUsage();}
+}
+
+function savePrices() {
+  localStorage.setItem('sg_prices_v2', JSON.stringify(PRICES));
+  localStorage.setItem('sg_pack_costs_v2', JSON.stringify(PACK_COSTS));
+  const el=document.getElementById('save-confirm');
+  el.style.display='inline';
+  setTimeout(()=>el.style.display='none', 3000);
+}
+
+function resetPrices() {
+  if(!confirm('Reset all prices to Microsoft retail defaults?')) return;
+  localStorage.removeItem('sg_prices_v2');
+  localStorage.removeItem('sg_pack_costs_v2');
+  PACK_COSTS={...DEFAULT_PACK_COSTS};
+  const defaults={};
+  PACK_LICENSES.forEach(p=>{defaults[p.id]=p.cpu;});
+  PRICES={...defaults};
+  renderPricesPage();
+  onPriceChange();
+}
+
+// ════════════════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════════════════
+initPrices();
+onPT();
+renderUsage();
+</script>
+</body>
+</html>
