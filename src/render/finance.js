@@ -1,10 +1,10 @@
 // ════════════════════════════════════════════════════════════════════
 // src/render/finance.js — Usage Economics, Full Pack Value, Cloud tabs
 // ════════════════════════════════════════════════════════════════════
-import { PACK_LICENSES, DEFAULT_PACK_COSTS } from '../../data.js';
-import { PACK_COSTS, PRICES } from '../../state.js';
-import { t } from '../../i18n.js';
-import { ps, getAvail, getBestQty, getPrice, fm, co, getAssigned, getExpectedMonthly, allTenantRows } from '../../main.js';
+import { PACK_LICENSES, DEFAULT_PACK_COSTS } from '../data.js';
+import { PACK_COSTS, PRICES } from '../state.js';
+import { t } from '../i18n.js';
+import { ps, getAvail, getBestQty, getPrice, fm, co, getAssigned, getExpectedMonthly, allTenantRows } from '../main.js';
 
 export function renderFin1_safe() { if(document.getElementById('t-fin1').classList.contains('active')) renderFin1(); }
 export function renderFin2_safe() { if(document.getElementById('t-fin2').classList.contains('active')) renderFin2(); }

@@ -1,11 +1,11 @@
 // ════════════════════════════════════════════════════════════════════
 // src/render/usage.js — Usage vs Pack table + row replacement UI
 // ════════════════════════════════════════════════════════════════════
-import { PACK_LICENSES } from '../../data.js';
-import { USAGE_DATA, lastSaveActivity, setLastSaveActivity, editTimers } from '../../state.js';
-import { t } from '../../i18n.js';
-import { ps, getAvail, rpf, getAssigned, getExpectedMonthly, fm, co, getPrice, allTenantRows } from '../../main.js';
-import { saveToServer, saveRowSources } from '../../sync.js';
+import { PACK_LICENSES } from '../data.js';
+import { USAGE_DATA, lastSaveActivity, setLastSaveActivity, editTimers } from '../state.js';
+import { t } from '../i18n.js';
+import { ps, getAvail, rpf, getAssigned, getExpectedMonthly, fm, co, getPrice, allTenantRows } from '../main.js';
+import { saveToServer, saveRowSources } from '../sync.js';
 import { renderPurchaseTab } from './allpacks.js';
 
 let vf1='all', sc1='coverage';

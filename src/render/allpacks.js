@@ -1,14 +1,14 @@
 // ════════════════════════════════════════════════════════════════════
 // src/render/allpacks.js — All Pack Licenses, Purchase, Prices tabs
 // ════════════════════════════════════════════════════════════════════
-import { PACK_LICENSES } from '../../data.js';
-import { PACK_COSTS, PRICES, USAGE_DATA } from '../../state.js';
-import { t, applyI18n } from '../../i18n.js';
-import { ps, getAvail, getBestQty, getPrice, fm, co, getAssigned, getPrice as gp, rpf, allTenantRows } from '../../main.js';
+import { PACK_LICENSES } from '../data.js';
+import { PACK_COSTS, PRICES, USAGE_DATA } from '../state.js';
+import { t, applyI18n } from '../i18n.js';
+import { ps, getAvail, getBestQty, getPrice, fm, co, getAssigned, getPrice as gp, rpf, allTenantRows } from '../main.js';
 import { getRowCoverage, CAT_CLS } from './usage.js';
 import { renderUsage } from './usage.js';
 import { renderFin1, renderFin2, renderCloud } from './finance.js';
-import { syncPackCostInputs } from '../../main.js';
+import { syncPackCostInputs } from '../main.js';
 
 let packF='all', sc2='name', sd2='asc';
 
