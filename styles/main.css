@@ -1,3 +1,4 @@
+<style>
 :root{
   --sg-blue:#348FAF;--sg-amber:#E29857;--sg-slate:#5F656F;
   --sg-light:#EFF1F5;--sg-taupe:#897B63;--sg-crimson:#954456;
@@ -378,3 +379,5 @@ pre.preview-json{background:var(--bg);border:1px solid var(--border);border-radi
 .pur-total-bar{background:white;border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--sh);font-size:13px}
 .pur-total-lbl{color:var(--text-muted);font-weight:600}
 .pur-total-val{font-size:20px;font-weight:800;color:var(--unc)}
+
+</style>
