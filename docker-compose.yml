@@ -8,7 +8,8 @@ services:
     ports:
       - "8081:80"
     depends_on:
-      - pocketbase
+      pocketbase:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost/"]
       interval: 30s
