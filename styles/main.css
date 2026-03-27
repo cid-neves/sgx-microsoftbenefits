@@ -381,3 +381,73 @@ pre.preview-json{background:var(--bg);border:1px solid var(--border);border-radi
 .pur-total-val{font-size:20px;font-weight:800;color:var(--unc)}
 
 </style>
+/* ── Client Overlay ──────────────────────────────────────────────── */
+.client-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:9999}
+.client-overlay-box{background:white;border-radius:12px;padding:32px 36px;min-width:380px;max-width:520px;box-shadow:0 8px 40px rgba(0,0,0,.25)}
+.client-overlay-title{font-size:18px;font-weight:700;color:var(--sg-blue,#0050a0);margin:0 0 20px}
+.client-list{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto;margin-bottom:20px}
+.client-item{background:var(--sg-light,#f5f8fc);border:1px solid var(--border,#dde3ea);border-radius:8px;padding:12px 16px;font-size:14px;font-weight:600;color:var(--sg-blue,#0050a0);cursor:pointer;text-align:left;transition:background .15s}
+.client-item:hover{background:#e4edf8}
+.client-loading,.client-empty,.client-error{font-size:13px;color:var(--text-muted,#7a8899);padding:12px 4px}
+.client-error{color:var(--unc,#c0392b)}
+.client-create-row{display:flex;gap:8px;align-items:center;border-top:1px solid var(--border,#dde3ea);padding-top:16px}
+.client-name-input{flex:1;padding:9px 12px;border:1px solid var(--border,#dde3ea);border-radius:6px;font-size:13px;font-family:inherit}
+.client-name-input:focus{outline:none;border-color:var(--sg-blue,#0050a0)}
+.btn-create-client{padding:9px 16px;background:var(--sg-blue,#0050a0);color:white;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer}
+.btn-create-client:hover{background:#003d80}
+.client-badge{display:inline-flex;align-items:center;padding:4px 12px;background:var(--sg-blue,#0050a0);color:white;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;margin-right:8px;white-space:nowrap}
+.client-badge:hover{background:#003d80}
+
+/* ── License Table ──────────────────────────────────────────────── */
+.lic-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.lic-title{font-size:16px;font-weight:700;color:var(--sg-blue,#0050a0);margin:0}
+.lic-toolbar-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn-lic-add,.btn-lic-csv,.btn-lic-prices{padding:7px 14px;border-radius:6px;border:1px solid var(--sg-blue,#0050a0);font-size:12px;font-weight:600;cursor:pointer}
+.btn-lic-add{background:var(--sg-blue,#0050a0);color:white}
+.btn-lic-add:hover{background:#003d80}
+.btn-lic-csv,.btn-lic-prices{background:white;color:var(--sg-blue,#0050a0)}
+.btn-lic-csv:hover,.btn-lic-prices:hover{background:var(--sg-light,#f5f8fc)}
+.lic-table{width:100%;border-collapse:collapse;font-size:12px;background:white;box-shadow:var(--sh,0 1px 4px rgba(0,0,0,.06));border-radius:var(--r,8px);overflow:hidden}
+.lic-table th{background:var(--sg-blue,#0050a0);color:white;padding:9px 12px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.04em}
+.lic-table td{padding:8px 12px;border-bottom:1px solid var(--border,#dde3ea);vertical-align:middle}
+.lic-table tr:last-child td{border-bottom:none}
+.lic-table tr:hover td{background:var(--sg-light,#f5f8fc)}
+.lic-cat-header td{background:#f0f4fa;padding:6px 12px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted,#7a8899)}
+.lic-num{text-align:right;font-variant-numeric:tabular-nums}
+.lic-name{font-weight:600;color:var(--text-dark,#1a2333)}
+.lic-sku{font-size:10px;color:var(--text-muted,#7a8899)}
+.lic-actions{display:flex;gap:4px;justify-content:flex-end}
+.btn-lic-edit,.btn-lic-del{width:26px;height:26px;border:none;border-radius:4px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;background:transparent;color:var(--text-muted,#7a8899)}
+.btn-lic-edit:hover{background:var(--sg-light,#f5f8fc);color:var(--sg-blue,#0050a0)}
+.btn-lic-del:hover{background:#fef2f2;color:var(--unc,#c0392b)}
+.lic-price-val{cursor:pointer;text-decoration:underline dotted;color:var(--sg-blue,#0050a0)}
+.lic-price-input{width:70px;padding:2px 6px;border:1px solid var(--sg-blue,#0050a0);border-radius:4px;font-size:12px;text-align:right}
+.lic-summary{padding:10px 12px;font-size:12px;color:var(--text-muted,#7a8899);border-top:2px solid var(--border,#dde3ea)}
+
+/* ── License Add/Edit Modal ─────────────────────────────────────── */
+.add-license-modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:9998}
+.add-license-modal-inner{background:white;border-radius:10px;padding:28px 32px;width:min(600px,92vw);max-height:90vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.2)}
+.add-license-modal-title{font-size:16px;font-weight:700;color:var(--sg-blue,#0050a0);margin:0 0 20px}
+.lic-form-row{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.lic-form-field{display:flex;flex-direction:column;gap:4px;flex:1;min-width:120px}
+.lic-form-field label{font-size:11px;font-weight:600;color:var(--text-muted,#7a8899);text-transform:uppercase;letter-spacing:.04em}
+.lic-form-field input,.lic-form-field select{padding:7px 10px;border:1px solid var(--border,#dde3ea);border-radius:6px;font-size:13px;font-family:inherit}
+.lic-form-field input:focus,.lic-form-field select:focus{outline:none;border-color:var(--sg-blue,#0050a0)}
+.lic-form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;border-top:1px solid var(--border,#dde3ea);padding-top:16px}
+.btn-save-lic{padding:9px 20px;background:var(--sg-blue,#0050a0);color:white;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer}
+.btn-save-lic:hover{background:#003d80}
+
+/* ── CSV Import ──────────────────────────────────────────────────── */
+.csv-import-panel{background:var(--sg-light,#f5f8fc);border:1px solid var(--border,#dde3ea);border-radius:8px;padding:16px 20px;margin-bottom:16px}
+.csv-hint{font-size:12px;color:var(--text-muted,#7a8899);margin:0 0 10px}
+.csv-textarea{width:100%;min-height:120px;padding:10px;border:1px solid var(--border,#dde3ea);border-radius:6px;font-family:monospace;font-size:12px;resize:vertical;box-sizing:border-box}
+.csv-actions{display:flex;gap:8px;margin-top:10px}
+.btn-csv-import{padding:8px 16px;background:var(--sg-blue,#0050a0);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer}
+.btn-csv-cancel{padding:8px 16px;background:white;color:var(--text-muted,#7a8899);border:1px solid var(--border,#dde3ea);border-radius:6px;font-size:12px;cursor:pointer}
+
+/* ── Category pills ─────────────────────────────────────────────── */
+.cat-pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;letter-spacing:.04em}
+.cat-pill.cov{background:#e8f8f0;color:#1a6b3c}
+.cat-pill.upg{background:#fff8e1;color:#8a6200}
+.cat-pill.unc{background:#fef2f2;color:#c0392b}
+.cat-pill.free{background:#f0f4fa;color:#5a6b7a}

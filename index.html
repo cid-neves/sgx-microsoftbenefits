@@ -30,19 +30,41 @@
   </div>
 </header>
 
-<nav class="tabnav">
-  <button class="tab active" onclick="showTab('t-usage')" data-i18n="tab_usage">Usage vs Pack</button>
+<!-- ── Client selector overlay ────────────────────────────────────── -->
+<div id="client-overlay" class="client-overlay">
+  <div class="client-overlay-box">
+    <h2 class="client-overlay-title" data-i18n="client_select_title">Select Client</h2>
+    <div id="client-list" class="client-list">
+      <div class="client-loading">Loading…</div>
+    </div>
+    <div class="client-create-row">
+      <input type="text" id="client-name-input" class="client-name-input"
+             placeholder="Client name…" data-i18n-placeholder="client_name_placeholder"
+             onkeydown="if(event.key==='Enter')createClientAndLoad()">
+      <button class="btn-create-client" onclick="createClientAndLoad()" data-i18n="client_create">Create</button>
+    </div>
+  </div>
+</div>
+
+<nav class="tabnav" id="main-tabnav" style="display:none">
+  <span class="client-badge" id="client-badge" onclick="showClientOverlay()"></span>
+  <button class="tab active" onclick="showTab('t-licenses')" data-i18n="tab_licenses">Licenses</button>
+  <button class="tab" onclick="showTab('t-usage')" data-i18n="tab_usage">Usage vs Pack</button>
   <button class="tab" onclick="showTab('t-all')" data-i18n="tab_all">All Pack Licenses</button>
   <button class="tab" onclick="showTab('t-cloud')" data-i18n="tab_cloud">Cloud Rights &amp; Credits</button>
   <button class="tab" onclick="showTab('t-fin1')" data-i18n="tab_fin1">Usage Economics</button>
   <button class="tab" onclick="showTab('t-fin2')" data-i18n="tab_fin2">Full Pack Value</button>
   <button class="tab" onclick="showTab('t-prices')" data-i18n="tab_prices">Edit Prices</button>
   <button class="tab" onclick="showTab('t-purchase')" data-i18n="tab_purchase">Needs Purchase</button>
-  <button class="tab" onclick="showTab('t-backup')" data-i18n="tab_backup">Backup &amp; Restore</button>
 </nav>
 
+<!-- ══ TAB 0: LICENSES ══ -->
+<div id="t-licenses" class="tabpanel">
+  <div id="licenses-panel"><!-- rendered by render/licenses.js --></div>
+</div>
+
 <!-- ══ TAB 1: USAGE ══ -->
-<div id="t-usage" class="tabpanel active">
+<div id="t-usage" class="tabpanel">
 <div class="pack-bar">
   <div style="display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap;width:100%">
 

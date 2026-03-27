@@ -1,4 +1,7 @@
-# Data files — never deploy these, they live on the server
+# PocketBase runtime data — lives on server only
+pb_data/
+
+# Old PHP data files
 api/data.json
 api/snapshots/
 api/*.lock
@@ -13,4 +16,3 @@ Thumbs.db
 
 # Node (if you add build tools later)
 node_modules/
-EOF
