@@ -1,15 +1,18 @@
 // ════════════════════════════════════════════════════════════════════
 // src/main.js — App entry point, shared helpers & all app logic
 // ════════════════════════════════════════════════════════════════════
-import { PACK_LICENSES, TENANT_DEFAULT, DEFAULT_PACK_COSTS } from './data.js';
+import { PACK_LICENSES, DEFAULT_PACK_COSTS, SKU_LOOKUP } from './data.js';
 import {
   USAGE_DATA, TENANT_CUSTOM, REPLACEMENTS, PACK_COSTS, PRICES,
   PACK_CONFIG, editTimers, lastSaveActivity, saveDebounce,
-  setTENANT_CUSTOM, setREPLACEMENTS, setPACK_COSTS, setPRICES,
+  setTENANT_CUSTOM, setREPLACEMENTS, setPACK_COSTS, setPRICES, setPACK_CONFIG,
   setLastSaveActivity, setSaveDebounce, setAddLicMode, addLicMode,
+  currentClient, clientLicenses, setCurrentClient, setClientLicenses, rebuildTenantCustom, clientStateId,
 } from './state.js';
 import { detectLang, t, applyI18n, setLang } from './i18n.js';
-import { saveToServer, loadFromServer, syncFromServer, updateSyncStatus, showToast, startAutoRefresh, loadSnapshots, previewSnap, doRestore, loadAudit, buildDefaultPrices, saveRowSources } from './sync.js';
+import { saveToServer, loadFromServer, syncFromServer, updateSyncStatus, showToast, startAutoRefresh, loadSnapshots, previewSnap, doRestore, loadAudit, buildDefaultPrices, saveRowSources, scheduleSave } from './sync.js';
+import { listClients, createClient, loadLicenses } from './pb.js';
+import { renderLicenses, openAddLicenseModal, openEditLicense, closeAddLicenseModal, saveAddLicenseModal, deleteLicenseRow, onLicNameInput, startEditPrice, openCsvImport, closeCsvImport, doCsvImport, fetchPrices } from './render/licenses.js';
 import { renderUsage, updateStats1, srt1, setVF, getRowSources, setRowSources, addRepSource, delRepSource, onRepSelectChange, onRepQtyChange } from './render/usage.js';
 import { renderFin1, renderFin2, renderCloud, renderFin1_safe, renderFin2_safe } from './render/finance.js';
 import { renderAll, renderAll_safe, renderPurchaseTab, renderPricesPage, setPackF, srtAll, markDirty } from './render/allpacks.js';
@@ -86,23 +89,19 @@ export function fm(n) { return '$'+Math.round(n).toLocaleString('en-US'); }
 export function co(ct) { return {covered:0,upgrade:1,uncovered:2,free:3}[ct]??4; }
 
 export function allTenantRows() {
-  return [...TENANT_DEFAULT, ...TENANT_CUSTOM].filter(Boolean);
+  return [...TENANT_CUSTOM].filter(Boolean);
 }
 // ════════════════════════════════════════════════════════════════════
 // CUSTOM ENTRIES
 // ════════════════════════════════════════════════════════════════════
 export function loadCustomEntries() {
-  const raw = USAGE_DATA['_custom'];
-  setTENANT_CUSTOM(Array.isArray(raw) ? raw : []);
-  const rawR = USAGE_DATA['_replacements'];
-  setREPLACEMENTS(Array.isArray(rawR) ? rawR : []);
+  // TENANT_CUSTOM is built from PocketBase clientLicenses via rebuildTenantCustom()
+  // REPLACEMENTS come from client_state loaded via loadFromServer()
   applyReplacements();
 }
 
 export function saveCustomEntries() {
-  USAGE_DATA['_custom'] = TENANT_CUSTOM;
-  USAGE_DATA['_replacements'] = REPLACEMENTS;
-  saveToServer({ usage: { _custom: TENANT_CUSTOM, _replacements: REPLACEMENTS } });
+  scheduleSave();
 }
 
 // ════════════════════════════════════════════════════════════════════
@@ -113,7 +112,7 @@ export function showTab(id) {
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   const panel = document.getElementById(id);
   if (panel) panel.classList.add('active');
-  const tabs = ['t-usage','t-all','t-cloud','t-fin1','t-fin2','t-prices','t-purchase','t-backup'];
+  const tabs = ['t-licenses','t-usage','t-all','t-cloud','t-fin1','t-fin2','t-prices','t-purchase'];
   const idx = tabs.indexOf(id);
   if(idx>=0) document.querySelectorAll('.tab')[idx].classList.add('active');
   if(id==='t-all') renderAll();
@@ -122,7 +121,7 @@ export function showTab(id) {
   if(id==='t-fin2') renderFin2();
   if(id==='t-prices') renderPricesPage();
   if(id==='t-purchase') renderPurchaseTab();
-  if(id==='t-backup') { loadSnapshots(); loadAudit(); }
+  if(id==='t-licenses') renderLicenses();
 }
 
 // ════════════════════════════════════════════════════════════════════
@@ -145,20 +144,18 @@ export function onPT() {
   });
   // Update total investment
   updatePackTotal();
-  // Debounced save
-  clearTimeout(saveDebounce);
-  setSaveDebounce(setTimeout(() => {
-    const s2 = ps();
-    saveToServer({ packConfig:{
-      l:{enabled:s2.l.on,multiplier:s2.l.m},
-      c:{enabled:s2.c.on,multiplier:s2.c.m},
-      e:{enabled:s2.e.on,multiplier:s2.e.m},
-      i:{enabled:s2.i.on,multiplier:1},
-      mw:{enabled:s2.mw.on,multiplier:1},
-      sec:{enabled:s2.sec.on,multiplier:1},
-      avd:{enabled:s2.avd.on,multiplier:1},
-    }});
-  }, 800));
+  // Update PACK_CONFIG state and schedule save
+  const s2 = ps();
+  setPACK_CONFIG({
+    l:{enabled:s2.l.on,multiplier:s2.l.m},
+    c:{enabled:s2.c.on,multiplier:s2.c.m},
+    e:{enabled:s2.e.on,multiplier:s2.e.m},
+    i:{enabled:s2.i.on,multiplier:1},
+    mw:{enabled:s2.mw.on,multiplier:1},
+    sec:{enabled:s2.sec.on,multiplier:1},
+    avd:{enabled:s2.avd.on,multiplier:1},
+  });
+  scheduleSave(800);
   renderUsage();
   const at = document.querySelector('.tabpanel.active');
   if(at){const id=at.id;if(id==='t-fin1')renderFin1();if(id==='t-fin2')renderFin2();if(id==='t-cloud')renderCloud();}
@@ -202,9 +199,9 @@ export function onUsageEdit(id, field, el) {
     USAGE_DATA[id][field] = val;
     el.classList.remove('dirty');
     el.classList.add('saving');
-    const ok = await saveToServer({ usage: { [id]: USAGE_DATA[id] } });
     el.classList.remove('saving');
-    if(ok) { renderUsage(); renderFin1_safe(); renderFin2_safe(); renderPurchaseTab(); }
+    scheduleSave(600);
+    renderUsage(); renderFin1_safe(); renderFin2_safe(); renderPurchaseTab();
   }, 600);
 }
 
@@ -234,7 +231,7 @@ export async function savePrices() {
   ['l','c','e','i'].forEach(k=>{ const inp=document.getElementById('pp-'+k); if(inp) PACK_COSTS[k]=parseFloat(inp.value)||0; });
   const btn=document.getElementById('save-prices-btn');
   if(btn){btn.disabled=true;btn.textContent=t('saving');}
-  const ok = await saveToServer({ prices: newPrices, packCosts: PACK_COSTS });
+  const ok = await (saveToServer(), true);
   if(btn){btn.disabled=false;btn.querySelector('span').textContent=t('save_prices');}
   const sc=document.getElementById('save-confirm'),se=document.getElementById('save-error');
   if(ok){sc.textContent=t('save_confirm');sc.style.display='inline';se.style.display='none';setTimeout(()=>sc.style.display='none',3000);}
@@ -246,7 +243,7 @@ async function resetPrices() {
   if(!confirm(t('reset_confirm'))) return;
   setPRICES(buildDefaultPrices());
   setPACK_COSTS({...DEFAULT_PACK_COSTS});
-  const ok = await saveToServer({ prices: PRICES, packCosts: PACK_COSTS });
+  await saveToServer();
   renderPricesPage();
   syncPackCostInputs();
   renderAll_safe();
@@ -641,7 +638,90 @@ function removeReplacement(fromId) {
 // ════════════════════════════════════════════════════════════════════
 // GLOBAL WINDOW ASSIGNMENTS (for HTML onclick attributes)
 // ════════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════════
+// CLIENT SELECTOR
+// ════════════════════════════════════════════════════════════════════
+
+async function showClientOverlay() {
+  const overlay = document.getElementById('client-overlay');
+  if (overlay) overlay.style.display = 'flex';
+  document.getElementById('main-tabnav').style.display = 'none';
+  document.querySelectorAll('.tabpanel').forEach(p => p.classList.remove('active'));
+
+  const listEl = document.getElementById('client-list');
+  listEl.innerHTML = '<div class="client-loading">Loading…</div>';
+
+  try {
+    const clients = await listClients();
+    if (!clients.length) {
+      listEl.innerHTML = '<div class="client-empty">No clients yet. Create one below.</div>';
+    } else {
+      listEl.innerHTML = clients.map(c =>
+        `<button class="client-item" onclick="loadClientById('${c.id}','${esc_js(c.name)}')">${esc_html(c.name)}</button>`
+      ).join('');
+    }
+  } catch (e) {
+    listEl.innerHTML = `<div class="client-error">Could not connect to PocketBase: ${e.message}<br><small>Is the stack running?</small></div>`;
+  }
+}
+
+function esc_html(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function esc_js(s)   { return String(s||'').replace(/'/g,"\'"); }
+
+async function loadClientById(id, name) {
+  setCurrentClient({ id, name });
+  await loadClientData();
+}
+
+async function createClientAndLoad() {
+  const inp = document.getElementById('client-name-input');
+  const name = inp?.value?.trim();
+  if (!name) { showToast('Enter a client name', 'err'); return; }
+  try {
+    const client = await createClient(name);
+    setCurrentClient(client);
+    inp.value = '';
+    await loadClientData();
+  } catch (e) {
+    showToast('Error creating client: ' + e.message, 'err');
+  }
+}
+
+async function loadClientData() {
+  const client = currentClient;
+  if (!client) return;
+
+  // Load licenses
+  try {
+    const lics = await loadLicenses(client.id);
+    setClientLicenses(lics);
+    rebuildTenantCustom();
+  } catch (e) {
+    console.warn('Could not load licenses:', e.message);
+    setClientLicenses([]);
+    rebuildTenantCustom();
+  }
+
+  // Load state (pack config, usage, prices, etc.)
+  await loadFromServer();
+
+  // Show UI
+  const overlay = document.getElementById('client-overlay');
+  if (overlay) overlay.style.display = 'none';
+  const nav = document.getElementById('main-tabnav');
+  if (nav) nav.style.display = '';
+  const badge = document.getElementById('client-badge');
+  if (badge) badge.textContent = client.name;
+
+  applyI18n();
+  showTab('t-licenses');
+  onPT();
+  updatePackTotal();
+}
+
 Object.assign(window, {
+  // Client selector
+  showClientOverlay, createClientAndLoad, loadClientById,
   // Helpers
   ps, getAvail, getBestQty, getPrice, fm, co, rpf, getAssigned, getExpectedMonthly, allTenantRows, buildDefaultPrices,
   // Tabs & UI
@@ -655,10 +735,13 @@ Object.assign(window, {
   saveToServer, loadSnapshots, previewSnap, doRestore, loadAudit,
   // Row sources
   addRepSource, delRepSource, onRepSelectChange, onRepQtyChange, getRowSources, setRowSources, saveRowSources,
-  // Modal
+  // Old modal (kept for compatibility)
   openAddLicense, closeAddLicense, switchAddTab, confirmAddLicense, removeCustomLicense,
   updateAzurePreview, onPackSelectChange, onReplaceFromChange, onReplaceToChange,
   applyReplacements, populateReplaceSelects, renderExistingReplacements, removeReplacement,
+  // License management (new)
+  openAddLicenseModal, openEditLicense, closeAddLicenseModal, saveAddLicenseModal,
+  deleteLicenseRow, onLicNameInput, startEditPrice, openCsvImport, closeCsvImport, doCsvImport, fetchPrices,
   // i18n
   t, setLang, applyI18n,
   // Custom entries
@@ -674,9 +757,6 @@ Object.assign(window, {
   document.getElementById('btn-'+(lang==='en'?'es':'en'))?.classList.remove('active');
   document.documentElement.lang = lang;
   import('./state.js').then(m => m.setLANG(lang));
-  await loadFromServer();
   applyI18n();
-  onPT();
-  updatePackTotal();
-  startAutoRefresh();
+  await showClientOverlay();
 })();

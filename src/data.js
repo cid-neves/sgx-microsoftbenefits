@@ -65,32 +65,92 @@ export const PACK_LICENSES = [
   {id:'winstorage',name:'Windows Storage Server Workgroup (2016)',cat:'Windows Server',type:'Licenses',l:null,c:null,e:null,i:2,n26:false,n25:false,cpu:285,note:'~$285/yr',mw:2,sec:2,avd:null,mwspec:null,secspec:null,azcore:false}
 ];
 
-// Tenant CSV data — consumption-based items have type 'consumption'
+// ── SKU Lookup Table — Microsoft product name → SKU code + friendly name
+// Used for CSV import auto-mapping. "Check for updates" button can refresh this.
+// Source: https://learn.microsoft.com/en-us/entra/identity/users/licensing-service-plan-reference
 
-export const TENANT_DEFAULT = [
-  {id:'t-m365bp',name:'Microsoft 365 Business Premium',assigned:161,ct:'upgrade',pp:'M365 Business Premium (no Teams)',note:'Pack excludes Teams — Teams Enterprise is separate',l:5,c:15,e:35,i:null,n26:false,n25:false,cpu_key:'m365bp'},
-  {id:'t-teams',name:'Microsoft Teams EEA',assigned:75,ct:'covered',pp:'Teams Enterprise',note:null,l:5,c:15,e:35,i:100,n26:false,n25:false,cpu_key:'teams'},
-  {id:'t-m365cop',name:'Microsoft 365 Copilot',assigned:3,ct:'covered',pp:'Microsoft 365 Copilot',note:null,l:null,c:null,e:10,i:null,n26:true,n25:false,cpu_key:'m365cop'},
-  {id:'t-teamsprem',name:'Teams Premium (for Departments)',assigned:2,ct:'covered',pp:'Teams Premium',note:null,l:null,c:null,e:10,i:null,n26:true,n25:false,cpu_key:'teamsprem'},
-  {id:'t-roomspro',name:'Microsoft Teams Rooms Pro',assigned:1,ct:'covered',pp:'Teams Rooms Pro',note:null,l:null,c:null,e:2,i:null,n26:false,n25:true,cpu_key:'roomspro'},
-  {id:'t-paauto',name:'Power Automate Premium',assigned:1,ct:'covered',pp:'Power Automate Premium',note:null,l:1,c:8,e:15,i:25,n26:false,n25:false,cpu_key:'paauto'},
-  {id:'t-proj',name:'Planner and Project Plan 5',assigned:5,ct:'covered',pp:'Project Online – Project Plan 5',note:null,l:1,c:5,e:5,i:20,n26:false,n25:false,cpu_key:'proj'},
-  {id:'t-visio',name:'Visio Plan 2',assigned:5,ct:'covered',pp:'Visio Online – Visio Plan 2',note:null,l:1,c:5,e:5,i:5,n26:false,n25:false,cpu_key:'visio'},
-  {id:'t-d365sp',name:'Dynamics 365 Sales Professional',assigned:45,ct:'upgrade',pp:'Dynamics 365 Sales Enterprise',note:'Pack has Enterprise edition — consider switching',l:4,c:15,e:35,i:null,n26:false,n25:false,cpu_key:'d365se'},
-  {id:'t-pbipro',name:'Power BI Pro',assigned:87,ct:'upgrade',pp:'Power BI Premium (per user)',note:'Pack has Premium — higher capacity than Pro',l:4,c:15,e:35,i:100,n26:false,n25:false,cpu_key:'pbiprem'},
-  {id:'t-paauser',name:'Power Automate per user plan',assigned:1,ct:'upgrade',pp:'Power Automate Premium',note:'Pack includes Premium — replaces per user plan',l:1,c:8,e:15,i:25,n26:false,n25:false,cpu_key:'paauto'},
-  {id:'t-m365bb',name:'Microsoft 365 Business Basic',assigned:25,ct:'uncovered',pp:null,note:null,l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:72},
-  {id:'t-m365bbeea',name:'Microsoft 365 Business Basic EEA',assigned:35,ct:'uncovered',pp:null,note:null,l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:72},
-  {id:'t-m365e3',name:'Microsoft 365 E3 EEA (no Teams)',assigned:61,ct:'uncovered',pp:null,note:'E3 only in Solutions Partner — Infra SPD covers 100 users',l:null,c:null,e:null,i:100,n26:false,n25:false,cpu_key:'m365e3'},
-  {id:'t-m365e5',name:'Microsoft 365 E5',assigned:1,ct:'uncovered',pp:null,note:'E5 only in Modern Work / Security designations',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:684},
-  {id:'t-exo',name:'Exchange Online (Plan 1)',assigned:1,ct:'uncovered',pp:null,note:'Standalone EXO not in pack — included in M365 Business Premium',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:48},
-  {id:'t-azure',name:'Azure (Production)',assigned:0,ct:'covered',pp:'Azure Bulk Credits',note:'Consumption-based — enter expected monthly usage',l:700,c:2400,e:5000,i:10000,n26:false,n25:false,cpu:1,isConsumption:true},
-  {id:'t-flow',name:'FLOW_FREE (Power Automate Free)',assigned:182,ct:'free',pp:null,note:'Free tier — unlimited',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
-  {id:'t-fabric',name:'Microsoft Fabric (Free)',assigned:52,ct:'free',pp:null,note:'Free tier',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
-  {id:'t-padev',name:'POWERAPPS_DEV',assigned:16,ct:'free',pp:null,note:'Developer plan — free',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
-  {id:'t-paviral',name:'POWERAPPS_VIRAL',assigned:3,ct:'free',pp:null,note:'Viral trial',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
-  {id:'t-copviral',name:'Copilot Studio Viral Trial',assigned:3,ct:'free',pp:'Pack Expanded: 25k credits/mo',note:'Expanded includes 25k credits/month',l:null,c:null,e:1,i:null,n26:true,n25:false,cpu:0},
-  {id:'t-ppviral',name:'Power Pages vTrial',assigned:4,ct:'free',pp:null,note:'Viral trial',l:null,c:null,e:null,i:null,n26:false,n25:false,cpu:0},
+export const SKU_LOOKUP = [
+  // Microsoft 365
+  { sku: "SPB",                        name: "Microsoft 365 Business Premium",           price_usd: 22.00 },
+  { sku: "O365_BUSINESS_PREMIUM",      name: "Microsoft 365 Business Standard",          price_usd: 12.50 },
+  { sku: "O365_BUSINESS_ESSENTIALS",   name: "Microsoft 365 Business Basic",             price_usd:  6.00 },
+  { sku: "O365_BUSINESS",              name: "Microsoft 365 Apps for Business",          price_usd:  8.25 },
+  { sku: "SPE_E3",                     name: "Microsoft 365 E3",                         price_usd: 36.00 },
+  { sku: "SPE_E3_NOPSTNCONF_EEA",      name: "Microsoft 365 E3 EEA (no Teams)",          price_usd: 36.00 },
+  { sku: "SPE_E5",                     name: "Microsoft 365 E5",                         price_usd: 57.00 },
+  { sku: "O365_BUSINESS_ESSENTIALS_EEA", name: "Microsoft 365 Business Basic EEA",      price_usd:  6.00 },
+  { sku: "O365_BUSINESS_PREMIUM_EEA",  name: "Microsoft 365 Business Standard EEA",     price_usd: 12.50 },
+  { sku: "SPB_EEA",                    name: "Microsoft 365 Business Premium EEA",       price_usd: 22.00 },
+  { sku: "MCOPSTNC",                   name: "Microsoft 365 Copilot",                    price_usd: 30.00 },
+  { sku: "M365EDU_A5_FACULTY",         name: "Microsoft 365 EDU A5 Faculty",             price_usd: 18.00 },
+  { sku: "M365EDU_A5_STUDENT",         name: "Microsoft 365 EDU A5 Student",             price_usd:  2.50 },
+
+  // Office 365
+  { sku: "ENTERPRISEPREMIUM",          name: "Office 365 E5",                            price_usd: 38.00 },
+  { sku: "ENTERPRISEPACK",             name: "Office 365 E3",                            price_usd: 23.00 },
+  { sku: "STANDARDPACK",               name: "Office 365 E1",                            price_usd: 10.00 },
+
+  // Teams
+  { sku: "TEAMS_EEA",                  name: "Microsoft Teams EEA",                      price_usd:  5.25 },
+  { sku: "TEAMS1",                     name: "Microsoft Teams Essentials",               price_usd:  4.00 },
+  { sku: "TEAMSPREM",                  name: "Teams Premium",                            price_usd:  7.00 },
+  { sku: "MCOMEETROOM",                name: "Microsoft Teams Rooms Pro",                price_usd: 40.00 },
+  { sku: "MCOMEETBASIC",               name: "Microsoft Teams Rooms Basic",              price_usd:  0.00 },
+
+  // Exchange
+  { sku: "EXCHANGESTANDARD",           name: "Exchange Online (Plan 1)",                 price_usd:  4.00 },
+  { sku: "EXCHANGEENTERPRISE",         name: "Exchange Online (Plan 2)",                 price_usd:  8.00 },
+  { sku: "EXCHANGESTANDARD_GOV",       name: "Exchange Online (Plan 1) GCC",            price_usd:  4.00 },
+
+  // SharePoint / OneDrive
+  { sku: "SHAREPOINTSTANDARD",         name: "SharePoint Online (Plan 1)",               price_usd:  5.00 },
+  { sku: "SHAREPOINTENTERPRISE",       name: "SharePoint Online (Plan 2)",               price_usd: 10.00 },
+
+  // Power Platform
+  { sku: "POWER_BI_PRO",               name: "Power BI Pro",                             price_usd: 10.00 },
+  { sku: "POWER_BI_PREMIUM_P1",        name: "Power BI Premium (Per User)",             price_usd: 20.00 },
+  { sku: "POWERAPPS_PER_USER",         name: "Power Apps Premium",                       price_usd: 20.00 },
+  { sku: "POWERAPPS_DEV",              name: "POWERAPPS_DEV",                            price_usd:  0.00 },
+  { sku: "POWERAPPS_VIRAL",            name: "POWERAPPS_VIRAL",                          price_usd:  0.00 },
+  { sku: "FLOW_PER_USER",              name: "Power Automate Premium",                   price_usd: 15.00 },
+  { sku: "FLOW_PER_USER_2",            name: "Power Automate per user plan",             price_usd: 15.00 },
+  { sku: "FLOW_FREE",                  name: "FLOW_FREE (Power Automate Free)",          price_usd:  0.00 },
+  { sku: "MICROSOFT_FABRIC_FREE",      name: "Microsoft Fabric (Free)",                  price_usd:  0.00 },
+  { sku: "POWER_PAGES_VIRAL",          name: "Power Pages vTrial",                       price_usd:  0.00 },
+  { sku: "COPILOTSTUDIO_VIRAL",        name: "Copilot Studio Viral Trial",               price_usd:  0.00 },
+
+  // Project / Planner
+  { sku: "PROJECT_P3",                 name: "Project Plan 3",                           price_usd: 30.00 },
+  { sku: "PROJECT_P5",                 name: "Planner and Project Plan 5",               price_usd: 55.00 },
+
+  // Visio
+  { sku: "VISIOCLIENT",                name: "Visio Plan 2",                             price_usd: 15.00 },
+  { sku: "VISIOONLINE_PLAN1",          name: "Visio Plan 1",                             price_usd:  5.00 },
+
+  // Dynamics 365
+  { sku: "DYN365_SALES_PROFESSIONAL",  name: "Dynamics 365 Sales Professional",          price_usd: 65.00 },
+  { sku: "DYN365_ENTERPRISE_SALES",    name: "Dynamics 365 Sales Enterprise",            price_usd: 95.00 },
+  { sku: "DYN365_ENTERPRISE_CUSTOMER_SERVICE", name: "Dynamics 365 Customer Service Enterprise", price_usd: 95.00 },
+  { sku: "DYN365_FINANCIALS_BUSINESS_SKU", name: "Dynamics 365 Business Central Premium", price_usd: 100.00 },
+  { sku: "DYN365_TEAM_MEMBERS",        name: "Dynamics 365 Team Members",               price_usd: 10.00 },
+  { sku: "DYN365_CUSTOMER_INSIGHTS_ATTACH", name: "Dynamics 365 Customer Insights",    price_usd: 1000.00 },
+
+  // Security / Identity
+  { sku: "AAD_PREMIUM_P2",             name: "Microsoft Entra ID P2",                    price_usd: 12.00 },
+  { sku: "AAD_PREMIUM",                name: "Microsoft Entra ID P1",                    price_usd:  6.00 },
+  { sku: "INTUNE_A",                   name: "Microsoft Intune Plan 1",                  price_usd:  8.00 },
+  { sku: "WIN_DEF_ATP",                name: "Microsoft Defender for Endpoint P2",       price_usd:  5.20 },
+
+  // Windows
+  { sku: "WIN10_VDA_E3",               name: "Windows 10/11 Enterprise E3",              price_usd:  7.00 },
+  { sku: "WIN10_VDA_E5",               name: "Windows 10/11 Enterprise E5",              price_usd: 14.00 },
+
+  // Developer
+  { sku: "VSENTP",                     name: "Visual Studio Enterprise IDE",             price_usd: 250.00 },
+  { sku: "VS_PROFESSIONAL",            name: "Visual Studio Professional",               price_usd:  45.00 },
+
+  // GitHub / Azure
+  { sku: "AZURE_CREDITS",              name: "Azure (Production)",                       price_usd:  0.00 },
 ];
 
 export const I18N = {
@@ -99,12 +159,33 @@ export const I18N = {
     "app_sub": "Benefits Guide Feb 18 2026 · sgx-labs.com/partners/microsoft",
     "tag_ms": "Microsoft AI Cloud Partner Program",
     "tag_date": "Feb 2026",
+    "tab_licenses": "Licenses",
     "tab_usage": "Usage vs Pack",
     "tab_all": "All Pack Licenses",
     "tab_cloud": "Cloud Rights & Credits",
     "tab_fin1": "Usage Economics",
     "tab_fin2": "Full Pack Value",
     "tab_prices": "Edit Prices",
+    "client_select_title": "Select Client",
+    "client_new": "New Client",
+    "client_name_placeholder": "Client name…",
+    "client_create": "Create",
+    "client_back": "← Clients",
+    "lic_title": "Tenant Licenses",
+    "lic_add": "Add License",
+    "lic_import_csv": "Import CSV",
+    "lic_col_name": "Product",
+    "lic_col_sku": "SKU",
+    "lic_col_total": "Total",
+    "lic_col_assigned": "Assigned",
+    "lic_col_price": "Price (USD/mo)",
+    "lic_col_actions": "",
+    "lic_fetch_prices": "Fetch prices",
+    "lic_csv_hint": "Paste CSV with columns: Product Name, Total, Expired, Assigned",
+    "lic_csv_import_btn": "Import",
+    "lic_csv_cancel": "Cancel",
+    "lic_save": "Save",
+    "lic_delete_confirm": "Delete this license?",
     "pack_bar_label": "Active packs & multipliers",
     "year": "/ year",
     "instances": "instances",
@@ -329,9 +410,30 @@ export const I18N = {
     "app_sub": "Guía de Beneficios 18 Feb 2026 · sgx-labs.com/partners/microsoft",
     "tag_ms": "Microsoft AI Cloud Partner Program",
     "tag_date": "Feb 2026",
+    "tab_licenses": "Licencias",
     "tab_usage": "Uso vs Pack",
     "tab_all": "Todas las Licencias",
     "tab_cloud": "Créditos y Derechos Cloud",
+    "client_select_title": "Seleccionar Cliente",
+    "client_new": "Nuevo Cliente",
+    "client_name_placeholder": "Nombre del cliente…",
+    "client_create": "Crear",
+    "client_back": "← Clientes",
+    "lic_title": "Licencias del Tenant",
+    "lic_add": "Agregar Licencia",
+    "lic_import_csv": "Importar CSV",
+    "lic_col_name": "Producto",
+    "lic_col_sku": "SKU",
+    "lic_col_total": "Total",
+    "lic_col_assigned": "Asignadas",
+    "lic_col_price": "Precio (USD/mes)",
+    "lic_col_actions": "",
+    "lic_fetch_prices": "Obtener precios",
+    "lic_csv_hint": "Pegar CSV con columnas: Nombre del Producto, Total, Expiradas, Asignadas",
+    "lic_csv_import_btn": "Importar",
+    "lic_csv_cancel": "Cancelar",
+    "lic_save": "Guardar",
+    "lic_delete_confirm": "¿Eliminar esta licencia?",
     "tab_fin1": "Economía de Uso",
     "tab_fin2": "Valor Total del Pack",
     "tab_prices": "Editar Precios",
