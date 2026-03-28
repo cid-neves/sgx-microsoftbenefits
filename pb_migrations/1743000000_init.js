@@ -5,10 +5,16 @@ migrate((app) => {
   const clients = new Collection({
     type: "base",
     name: "clients",
+    // Empty string = public access (no auth required)
+    listRule:   "",
+    viewRule:   "",
+    createRule: "",
+    updateRule: "",
+    deleteRule: "",
     fields: [
       { type: "text",   name: "name",     required: true },
       { type: "text",   name: "tenant_id"                },
-      { type: "text",   name: "currency",  required: false }
+      { type: "text",   name: "currency"                 }
     ],
     indexes: ["CREATE UNIQUE INDEX idx_clients_name ON clients (name)"]
   });
@@ -18,6 +24,11 @@ migrate((app) => {
   const licenses = new Collection({
     type: "base",
     name: "client_licenses",
+    listRule:   "",
+    viewRule:   "",
+    createRule: "",
+    updateRule: "",
+    deleteRule: "",
     fields: [
       {
         type: "relation", name: "client", required: true,
@@ -36,10 +47,15 @@ migrate((app) => {
   });
   app.save(licenses);
 
-  // ── client_state (JSON blobs for pack config / usage / replacements) ─
+  // ── client_state ─────────────────────────────────────────────────────
   const state = new Collection({
     type: "base",
     name: "client_state",
+    listRule:   "",
+    viewRule:   "",
+    createRule: "",
+    updateRule: "",
+    deleteRule: "",
     fields: [
       {
         type: "relation", name: "client", required: true,
