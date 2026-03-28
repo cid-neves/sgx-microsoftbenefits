@@ -15,6 +15,7 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+      start_period: 15s
 
   pocketbase:
     image: ghcr.io/muchobien/pocketbase:latest
