@@ -2,11 +2,16 @@ version: "3.9"
 
 services:
   benefits26:
-    build: .                      # builds from Dockerfile in repo root
+    image: nginx:alpine
     container_name: benefits26
     restart: unless-stopped
     ports:
       - "8081:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./index.html:/var/www/html/index.html:ro
+      - ./styles:/var/www/html/styles:ro
+      - ./src:/var/www/html/src:ro
     depends_on:
       pocketbase:
         condition: service_healthy
@@ -22,8 +27,8 @@ services:
     container_name: pocketbase
     restart: unless-stopped
     volumes:
-      - pb_data:/pb/pb_data                    # named volume — persists across redeploys
-      - ./pb_migrations:/pb/pb_migrations      # from repo clone — runs migrations on start
+      - pb_data:/pb/pb_data
+      - ./pb_migrations:/pb/pb_migrations
     expose:
       - "8090"
     healthcheck:
@@ -33,4 +38,5 @@ services:
       retries: 3
 
 volumes:
-  pb_data:    # Docker-managed, survives stack redeploys
+  pb_data:
+
