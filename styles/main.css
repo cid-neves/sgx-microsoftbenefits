@@ -249,8 +249,9 @@ td.tc{text-align:center}
 .pp-sec{background:white;border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;margin-bottom:16px;box-shadow:var(--sh)}
 .pp-sec h3{font-size:12px;font-weight:700;color:var(--text-dark);margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border-soft)}
 .pp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:9px}
-.pp-card{padding:10px;border:1px solid var(--border);border-radius:var(--rs)}
+.pp-card{padding:10px;border:1px solid var(--border);border-radius:var(--rs);border-left-width:3px}
 .pp-nm{font-size:11px;font-weight:700;margin-bottom:5px}
+.pp-l{border-left-color:var(--cl)}.pp-c{border-left-color:var(--cc)}.pp-e{border-left-color:var(--ce)}.pp-i{border-left-color:var(--ci)}
 .pp-l .pp-nm{color:var(--cl)}.pp-c .pp-nm{color:var(--cc)}.pp-e .pp-nm{color:var(--ce)}.pp-i .pp-nm{color:var(--ci)}
 .pp-r{display:flex;align-items:center;gap:5px;margin-top:3px}
 .pp-lb{font-size:10px;color:var(--text-muted);flex:1}
