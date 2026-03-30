@@ -37,6 +37,7 @@ header{background:var(--white);border-bottom:1px solid var(--border);padding:14p
 
 /* SYNC STATUS */
 .sync-status{font-size:10px;color:var(--text-light);display:flex;align-items:center;gap:5px;white-space:nowrap}
+.build-badge{font-size:9px;font-weight:600;color:var(--text-light);background:var(--bg);border:1px solid var(--border-soft);border-radius:4px;padding:2px 6px;white-space:nowrap;letter-spacing:.02em;cursor:default;opacity:.7}
 .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--cov);flex-shrink:0}
 .sync-dot.err{background:var(--unc)}
 .sync-dot.loading{background:var(--sg-amber);animation:pulse 1s infinite}

@@ -1,0 +1,6 @@
+#!/bin/sh
+# Auto-update version.json with build timestamp on every commit
+BUILT=$(date -u '+%Y-%m-%d %H:%M UTC')
+HASH=$(git rev-parse --short HEAD 2>/dev/null || echo 'local')
+printf '{\n  "built": "%s",\n  "hash": "%s"\n}\n' "$BUILT" "$HASH" > version.json
+git add version.json

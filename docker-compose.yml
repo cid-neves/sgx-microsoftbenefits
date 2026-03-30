@@ -10,6 +10,7 @@ services:
     volumes:
       - ./docker:/etc/nginx/conf.d:ro
       - ./index.html:/var/www/html/index.html:ro
+      - ./version.json:/var/www/html/version.json:ro
       - ./styles:/var/www/html/styles:ro
       - ./src:/var/www/html/src:ro
     depends_on:

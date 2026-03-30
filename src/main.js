@@ -749,6 +749,16 @@ Object.assign(window, {
 });
 
 // ════════════════════════════════════════════════════════════════════
+// VERSION BADGE
+// ════════════════════════════════════════════════════════════════════
+fetch('/version.json?_=' + Date.now())
+  .then(r => r.ok ? r.json() : null)
+  .then(v => {
+    const el = document.getElementById('build-badge');
+    if (el && v) el.textContent = 'build ' + v.built + ' · ' + v.hash;
+  })
+  .catch(() => {});
+
 // INIT
 // ════════════════════════════════════════════════════════════════════
 (async () => {
