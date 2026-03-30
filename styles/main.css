@@ -1,4 +1,3 @@
-<style>
 :root{
   --sg-blue:#348FAF;--sg-amber:#E29857;--sg-slate:#5F656F;
   --sg-light:#EFF1F5;--sg-taupe:#897B63;--sg-crimson:#954456;
@@ -60,7 +59,12 @@ header{background:var(--white);border-bottom:1px solid var(--border);padding:14p
 .pch{display:flex;align-items:center;justify-content:space-between;gap:6px}
 .pnm{font-size:11px;font-weight:700}
 .pc-l .pnm{color:var(--cl)}.pc-c .pnm{color:var(--cc)}.pc-e .pnm{color:var(--ce)}.pc-i .pnm{color:var(--ci)}
-.ptog{position:relative;width:34px;height:19px;flex-shrink:0}
+.pack-group{display:flex;flex-direction:column;gap:5px}
+.pack-group-lbl{font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:.8px;text-transform:uppercase}
+.pack-divider{width:1px;background:var(--border);align-self:stretch;margin:0 4px}
+.pack-total{font-size:12px;color:var(--text-muted);font-weight:500}
+.pack-total strong{color:var(--text-dark);font-weight:700}
+.ptog{display:inline-block;position:relative;width:34px;height:19px;flex-shrink:0}
 .ptog input{opacity:0;width:0;height:0;position:absolute}
 .ptsl{position:absolute;inset:0;border-radius:20px;background:var(--border);cursor:pointer;transition:background .2s}
 .ptsl::after{content:'';position:absolute;left:2px;top:2px;width:15px;height:15px;border-radius:50%;background:white;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s}
@@ -382,7 +386,6 @@ pre.preview-json{background:var(--bg);border:1px solid var(--border);border-radi
 .pur-total-lbl{color:var(--text-muted);font-weight:600}
 .pur-total-val{font-size:20px;font-weight:800;color:var(--unc)}
 
-</style>
 /* ── Client Overlay ──────────────────────────────────────────────── */
 .client-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:9999}
 .client-overlay-box{background:white;border-radius:12px;padding:32px 36px;min-width:380px;max-width:520px;box-shadow:0 8px 40px rgba(0,0,0,.25)}
