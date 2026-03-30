@@ -9,10 +9,7 @@ services:
       - "8081:80"
     volumes:
       - ./docker:/etc/nginx/conf.d:ro
-      - ./index.html:/var/www/html/index.html:ro
-      - ./version.json:/var/www/html/version.json:ro
-      - ./styles:/var/www/html/styles:ro
-      - ./src:/var/www/html/src:ro
+      - .:/var/www/html:ro
     depends_on:
       pocketbase:
         condition: service_healthy
