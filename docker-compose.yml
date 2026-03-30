@@ -2,14 +2,11 @@ version: "3.9"
 
 services:
   benefits26:
-    image: nginx:alpine
+    build: .
     container_name: benefits26
     restart: unless-stopped
     ports:
       - "8081:80"
-    volumes:
-      - ./docker:/etc/nginx/conf.d:ro
-      - .:/var/www/html:ro
     depends_on:
       pocketbase:
         condition: service_healthy
