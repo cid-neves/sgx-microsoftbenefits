@@ -180,9 +180,7 @@ export function renderCloud() {
       const tq=item.amounts.reduce((a,b)=>a+b,0);if(!tq)return;
       const pn=(item.pks||[]).filter((_,i)=>item.amounts[i]>0).join(', ');
       const qd=tq>=9999999?'∞':tq.toLocaleString();
-      // Editable expected monthly for Azure
-      const editPart = item.id==='t-azure' ? '<div class="ie-wrap" style="margin-top:4px"><input class="ie" type="number" value="'+getExpectedMonthly({id:item.id})+'" min="0" placeholder="0" title="'+t('expected_monthly')+'" data-pid="t-azure" data-field="expected_monthly" oninput="onUsageEditEvt(this)" style="width:80px"><span class="ie-lbl">'+t('expected_monthly')+'</span></div>' : '';
-      eh+='<div class="ce-row"><div style="flex:1"><div class="ce-nm">'+item.nm+'</div><div class="ce-pk">'+pn+'</div>'+(item.note?'<div class="ce-nt">'+item.note+'</div>':'')+editPart+'</div><div class="ce-val"><div class="ce-q">'+qd+'</div><div class="ce-u">'+item.unit+'</div></div></div>';
+      eh+='<div class="ce-row"><div style="flex:1"><div class="ce-nm">'+item.nm+'</div><div class="ce-pk">'+pn+'</div>'+(item.note?'<div class="ce-nt">'+item.note+'</div>':'')+'</div><div class="ce-val"><div class="ce-q">'+qd+'</div><div class="ce-u">'+item.unit+'</div></div></div>';
     });
     if(!eh)return;
     ca.innerHTML+='<div class="cloud-card"><div class="cch"><div class="cc-ico '+g.cls+'">'+g.ico+'</div><div><div class="cc-ti">'+g.title+'</div><div class="cc-su">'+g.sub+'</div></div></div><div class="cloud-entries">'+eh+'</div></div>';

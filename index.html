@@ -49,16 +49,29 @@
 
 <nav class="tabnav" id="main-tabnav" style="display:none">
   <span class="client-badge" id="client-badge" onclick="showClientOverlay()"></span>
-  <button class="tab active" data-tab="t-fin1" onclick="showTab('t-fin1')" data-i18n="tab_fin1">Usage Economics</button>
-  <button class="tab" data-tab="t-purchase" onclick="showTab('t-purchase')" data-i18n="tab_purchase">Needs Purchase</button>
-  <span class="tab-sep"></span>
-  <button class="tab" data-tab="t-licenses" onclick="showTab('t-licenses')" data-i18n="tab_licenses">Licenses</button>
-  <button class="tab" data-tab="t-all" onclick="showTab('t-all')" data-i18n="tab_all">All Pack Licenses</button>
-  <button class="tab" data-tab="t-prices" onclick="showTab('t-prices')" data-i18n="tab_prices">Edit Prices</button>
-  <span class="tab-sep"></span>
-  <button class="tab" data-tab="t-usage" onclick="showTab('t-usage')" data-i18n="tab_usage">Usage vs Pack</button>
-  <button class="tab" data-tab="t-cloud" onclick="showTab('t-cloud')" data-i18n="tab_cloud">Cloud Rights &amp; Credits</button>
-  <button class="tab" data-tab="t-fin2" onclick="showTab('t-fin2')" data-i18n="tab_fin2">Full Pack Value</button>
+  <div class="tab-group">
+    <span class="tab-grp-lbl" data-i18n="grp_data_entry">Data Entry</span>
+    <div class="tab-group-tabs">
+      <button class="tab" data-tab="t-licenses" onclick="showTab('t-licenses')" data-i18n="tab_licenses">Licenses</button>
+      <button class="tab" data-tab="t-usage" onclick="showTab('t-usage')" data-i18n="tab_usage">Usage vs Pack</button>
+    </div>
+  </div>
+  <div class="tab-group">
+    <span class="tab-grp-lbl" data-i18n="grp_finance">Finance</span>
+    <div class="tab-group-tabs">
+      <button class="tab active" data-tab="t-fin1" onclick="showTab('t-fin1')" data-i18n="tab_fin1">Usage Economics</button>
+      <button class="tab" data-tab="t-purchase" onclick="showTab('t-purchase')" data-i18n="tab_purchase">Needs Purchase</button>
+      <button class="tab" data-tab="t-fin2" onclick="showTab('t-fin2')" data-i18n="tab_fin2">Full Pack Value</button>
+    </div>
+  </div>
+  <div class="tab-group">
+    <span class="tab-grp-lbl" data-i18n="grp_defaults">Defaults</span>
+    <div class="tab-group-tabs">
+      <button class="tab" data-tab="t-all" onclick="showTab('t-all')" data-i18n="tab_all">All Pack Licenses</button>
+      <button class="tab" data-tab="t-prices" onclick="showTab('t-prices')" data-i18n="tab_prices">Edit Prices</button>
+      <button class="tab" data-tab="t-cloud" onclick="showTab('t-cloud')" data-i18n="tab_cloud">Cloud Rights &amp; Credits</button>
+    </div>
+  </div>
 </nav>
 
 <!-- ══ TAB 0: LICENSES ══ -->
@@ -359,6 +372,7 @@
   <div class="act-btns">
     <button class="save-btn" id="save-prices-btn" onclick="savePrices()"><span data-i18n="save_prices">💾 Save to Server</span></button>
     <button class="rst-btn" onclick="resetPrices()"><span data-i18n="reset_prices">↺ Reset to Defaults</span></button>
+    <button class="rst-btn" onclick="fetchPrices()" data-i18n="lic_fetch_prices">Fetch prices</button>
     <span class="sc" id="save-confirm"></span>
     <span class="se" id="save-error"></span>
   </div>

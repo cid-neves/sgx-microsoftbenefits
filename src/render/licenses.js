@@ -31,7 +31,6 @@ export function renderLicenses() {
       <div class="lic-toolbar-actions">
         <button class="btn-lic-add" onclick="openAddLicenseModal()">${t('lic_add') || 'Add License'}</button>
         <button class="btn-lic-csv" onclick="openCsvImport()">${t('lic_import_csv') || 'Import CSV'}</button>
-        <button class="btn-lic-prices" onclick="fetchPrices()">${t('lic_fetch_prices') || 'Fetch prices'}</button>
       </div>
     </div>
 
