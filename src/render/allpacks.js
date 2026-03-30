@@ -4,7 +4,7 @@
 import { PACK_LICENSES } from '../data.js';
 import { PACK_COSTS, PRICES, USAGE_DATA } from '../state.js';
 import { t } from '../i18n.js';
-import { ps, getAvail, getBestQty, getPrice, fm, co, getAssigned, getPrice as gp, rpf, allTenantRows } from '../main.js';
+import { ps, getAvail, getBestQty, getPrice, fm, co, getAssigned, getPrice as gp, rpf, allTenantRows, getAzcoreQty } from '../main.js';
 import { getRowCoverage, CAT_CLS } from './usage.js';
 import { renderUsage } from './usage.js';
 import { renderFin1, renderFin2, renderCloud } from './finance.js';
@@ -52,14 +52,16 @@ export function renderAll() {
   data.forEach(p=>{
     const cpu=cpu_of(p),av=getAvail(p,s),rv=av>0&&cpu>0?cpu*av:0;
     totalRV+=rv;
+    const az=getAzcoreQty(p);
     function qc2(val){if(!val)return '<td class="tc"><span class="qn">—</span></td>';return '<td class="tc"><span class="qv">'+val+'</span></td>';}
-    function qc2azcore(v){return '<td class="tc">'+(v?'<span style="color:var(--ci);font-weight:700;font-size:13px">✓</span>':'<span class="qn">—</span>')+'</td>';}
+    function qc2spd(val){if(!val)return '<td class="tc"><span class="qn">—</span></td>';const d=Math.max(0,val-az);if(!d&&az)return '<td class="tc"><span class="qn">—</span></td>';return '<td class="tc"><span class="qv">'+d+'</span></td>';}
+    function qc2azcore(){if(!az)return '<td class="tc"><span class="qn">—</span></td>';return '<td class="tc"><span class="qv" style="color:var(--ci);font-weight:700">'+az+'</span></td>';}
     let bdg='';if(p.n26)bdg='<span class="bdg b26">N26</span>';else if(p.n25)bdg='<span class="bdg b25">N25</span>';
     const catCls=CAT_CLS[p.cat]||'cat-m365';
     const tr=document.createElement('tr');
     tr.innerHTML='<td><div class="pnm">'+p.name+'</div><div class="psb">'+p.note+'</div></td>'+
       '<td class="tc"><span class="cat '+catCls+'">'+p.cat+'</span></td>'+
-      qc2(p.l)+qc2(p.c)+qc2(p.e)+qc2(p.i)+qc2(p.mw)+qc2(p.sec)+qc2(p.avd)+qc2azcore(p.azcore)+
+      qc2(p.l)+qc2(p.c)+qc2(p.e)+qc2spd(p.i)+qc2spd(p.mw)+qc2spd(p.sec)+qc2spd(p.avd)+qc2azcore()+
       '<td class="tc" style="font-weight:700;color:var(--sg-blue)">'+(av>0?av:'<span class="qn">—</span>')+'</td>'+
       '<td class="tc">'+(cpu>0?fm(cpu):'<span class="cv-n">free</span>')+'</td>'+
       '<td class="tc" style="font-weight:700;color:var(--sg-amber)">'+(rv>0?fm(rv):'<span class="cv-n">—</span>')+'</td>'+

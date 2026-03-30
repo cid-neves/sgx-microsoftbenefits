@@ -35,16 +35,22 @@ export function ps() {
   };
 }
 
+export function getAzcoreQty(p) {
+  if (!p.azcore) return 0;
+  const vals = ['i','mw','sec','avd'].map(k=>p[k]).filter(v=>v!=null&&v>0);
+  return vals.length ? Math.min(...vals) : 0;
+}
+
 export function getAvail(p, s) {
   let t=0;
   const v = key => rpf(p, key);
   if(s.l.on  && v('l'))   t += v('l')  * s.l.m;
   if(s.c.on  && v('c'))   t += v('c')  * s.c.m;
   if(s.e.on  && v('e'))   t += v('e')  * s.e.m;
-  if(s.i.on  && v('i'))   t += v('i');
-  if(s.mw  && s.mw.on  && v('mw'))  t += v('mw');
-  if(s.sec && s.sec.on && v('sec')) t += v('sec');
-  if(s.avd && s.avd.on && v('avd')) t += v('avd');
+  const az = getAzcoreQty(p);
+  const spd_keys = ['i','mw','sec','avd'];
+  if (az && spd_keys.some(k=>s[k]&&s[k].on&&v(k))) t += az;
+  spd_keys.forEach(k=>{if(s[k]&&s[k].on&&v(k)) t+=Math.max(0,v(k)-az);});
   return t;
 }
 
