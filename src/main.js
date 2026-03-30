@@ -755,7 +755,7 @@ fetch('/version.json?_=' + Date.now())
   .then(r => r.ok ? r.json() : null)
   .then(v => {
     const el = document.getElementById('build-badge');
-    if (el && v) el.textContent = 'build ' + v.built + ' · ' + v.hash;
+    if (el && v) el.textContent = 'build #' + v.build + ' · ' + v.built;
   })
   .catch(() => {});
 
