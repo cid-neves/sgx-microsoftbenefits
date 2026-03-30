@@ -18,8 +18,8 @@
   </div>
   <div class="hmeta">
     <div class="lang-switch">
-      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">🇺🇸 EN</button>
-      <button class="lang-btn" id="btn-es" onclick="setLang('es')">🇪🇸 ES</button>
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')"><img src="https://flagcdn.com/16x12/us.png" width="16" height="12" alt=""> EN</button>
+      <button class="lang-btn" id="btn-es" onclick="setLang('es')"><img src="https://flagcdn.com/16x12/es.png" width="16" height="12" alt=""> ES</button>
     </div>
     <span class="mtag mt-ms" data-i18n="tag_ms">Microsoft AI Cloud Partner Program</span>
     <span class="mtag mt-dt" data-i18n="tag_date">Feb 2026</span>
@@ -49,14 +49,16 @@
 
 <nav class="tabnav" id="main-tabnav" style="display:none">
   <span class="client-badge" id="client-badge" onclick="showClientOverlay()"></span>
-  <button class="tab active" onclick="showTab('t-licenses')" data-i18n="tab_licenses">Licenses</button>
-  <button class="tab" onclick="showTab('t-usage')" data-i18n="tab_usage">Usage vs Pack</button>
-  <button class="tab" onclick="showTab('t-all')" data-i18n="tab_all">All Pack Licenses</button>
-  <button class="tab" onclick="showTab('t-cloud')" data-i18n="tab_cloud">Cloud Rights &amp; Credits</button>
-  <button class="tab" onclick="showTab('t-fin1')" data-i18n="tab_fin1">Usage Economics</button>
-  <button class="tab" onclick="showTab('t-fin2')" data-i18n="tab_fin2">Full Pack Value</button>
-  <button class="tab" onclick="showTab('t-prices')" data-i18n="tab_prices">Edit Prices</button>
-  <button class="tab" onclick="showTab('t-purchase')" data-i18n="tab_purchase">Needs Purchase</button>
+  <button class="tab active" data-tab="t-fin1" onclick="showTab('t-fin1')" data-i18n="tab_fin1">Usage Economics</button>
+  <button class="tab" data-tab="t-purchase" onclick="showTab('t-purchase')" data-i18n="tab_purchase">Needs Purchase</button>
+  <span class="tab-sep"></span>
+  <button class="tab" data-tab="t-licenses" onclick="showTab('t-licenses')" data-i18n="tab_licenses">Licenses</button>
+  <button class="tab" data-tab="t-all" onclick="showTab('t-all')" data-i18n="tab_all">All Pack Licenses</button>
+  <button class="tab" data-tab="t-prices" onclick="showTab('t-prices')" data-i18n="tab_prices">Edit Prices</button>
+  <span class="tab-sep"></span>
+  <button class="tab" data-tab="t-usage" onclick="showTab('t-usage')" data-i18n="tab_usage">Usage vs Pack</button>
+  <button class="tab" data-tab="t-cloud" onclick="showTab('t-cloud')" data-i18n="tab_cloud">Cloud Rights &amp; Credits</button>
+  <button class="tab" data-tab="t-fin2" onclick="showTab('t-fin2')" data-i18n="tab_fin2">Full Pack Value</button>
 </nav>
 
 <!-- ══ TAB 0: LICENSES ══ -->
@@ -66,6 +68,75 @@
 
 <!-- ══ TAB 1: USAGE ══ -->
 <div id="t-usage" class="tabpanel">
+<div class="legend">
+  <span class="ltit" data-i18n="cov_legend">Coverage:</span>
+  <span class="li"><span class="ldot ld-c"></span><span data-i18n="leg_covered">Covered</span></span>
+  <span class="li"><span class="ldot ld-u"></span><span data-i18n="leg_upgrade">Pack upgrade avail.</span></span>
+  <span class="li"><span class="ldot ld-n"></span><span data-i18n="leg_needs">Needs purchase</span></span>
+  <span class="li"><span class="ldot ld-f"></span><span data-i18n="leg_free">Free / Trial</span></span>
+</div>
+
+<div class="fbar">
+  <div class="swrap"><input type="text" id="srch1" placeholder="Search…" oninput="renderUsage()"></div>
+  <div class="fsep"></div>
+  <div style="display:flex;gap:5px;align-items:center">
+    <span class="fglbl" data-i18n="show">Show</span>
+    <button class="fbtn fba" onclick="setVF('all',this)"><span data-i18n="all">All</span></button>
+    <button class="fbtn" onclick="setVF('covered',this)"><span data-i18n="covered">Covered</span></button>
+    <button class="fbtn" onclick="setVF('upgrade',this)"><span data-i18n="upgrades">Upgrades</span></button>
+    <button class="fbtn" onclick="setVF('uncovered',this)"><span data-i18n="not_covered">Not Covered</span></button>
+    <button class="fbtn" onclick="setVF('free',this)"><span data-i18n="free_trial">Free/Trial</span></button>
+  </div>
+  <div class="fsep"></div>
+  <div style="display:flex;gap:5px;align-items:center">
+    <span class="fglbl" data-i18n="sort">Sort</span>
+    <select class="fsel" id="srt1" onchange="renderUsage()">
+      <option value="coverage" data-i18n="by_coverage">By Coverage</option>
+      <option value="name" data-i18n="by_name">By Name</option>
+      <option value="assigned" data-i18n="most_assigned">Most Assigned</option>
+      <option value="needed" data-i18n="most_needed">Most Needed</option>
+    </select>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="sb"><div class="snum sn-d" id="st-t1">—</div><div class="slbl" data-i18n="stat_skus">Tenant SKUs</div></div>
+  <div class="sb"><div class="snum sn-d" id="st-a1">—</div><div class="slbl" data-i18n="stat_assigned">Total Assigned</div></div>
+  <div class="sb"><div class="snum sn-c" id="st-c1">—</div><div class="slbl" data-i18n="stat_covered">Covered</div></div>
+  <div class="sb"><div class="snum sn-u" id="st-u1">—</div><div class="slbl" data-i18n="stat_upgrades">Upgrades</div></div>
+  <div class="sb"><div class="snum sn-n" id="st-n1">—</div><div class="slbl" data-i18n="stat_needs">Needs Purchase</div></div>
+  <div class="sb"><div class="snum sn-o" id="st-o1">—</div><div class="slbl" data-i18n="stat_over">Over Pack Limit</div></div>
+</div>
+
+<div class="tsec" style="padding-bottom:20px">
+<div class="tscroll"><table>
+<thead><tr>
+  <th style="min-width:200px" onclick="srt1('name')" data-i18n="col_product">Tenant Product</th>
+  <th class="tc" style="min-width:55px" data-i18n="col_total">Total</th>
+  <th class="tc" style="min-width:65px" data-i18n="col_assigned">Assigned</th>
+  <th class="tc" style="min-width:70px" id="h-l">Launch×2</th>
+  <th class="tc" style="min-width:70px" id="h-c">Core×2</th>
+  <th class="tc" style="min-width:76px" id="h-e">Expanded×2</th>
+  <th class="tc" style="min-width:70px" id="h-i">Infra SPD</th>
+  <th class="tc th-mw" style="min-width:68px" id="h-mw">MW SPD</th>
+  <th class="tc th-sec" style="min-width:65px" id="h-sec">Sec SPD</th>
+  <th class="tc th-avd" style="min-width:62px" id="h-avd">AVD</th>
+  <th class="tc th-tot" style="min-width:75px" data-i18n="col_avail">Total Avail.</th>
+  <th style="min-width:130px" data-i18n="col_usage">Usage vs Pack</th>
+  <th class="tc th-nd" style="min-width:80px" onclick="srt1('needed')" data-i18n="col_needed">Lic. Needed</th>
+  <th class="tc th-cs" style="min-width:78px" onclick="srt1('cost')" data-i18n="col_cost">Cost/User/yr</th>
+  <th class="tc" style="min-width:95px" onclick="srt1('coverage')" data-i18n="col_coverage">Coverage</th>
+  <th class="tc" style="min-width:80px" data-i18n="col_edit">Edit</th>
+</tr></thead>
+<tbody id="tb1"></tbody>
+</table></div></div>
+<div style="padding:12px 40px 20px">
+  <button class="btn-add-lic" onclick="openAddLicense()" data-i18n="add_lic_btn">Add Consumption</button>
+</div>
+</div>
+
+<!-- ══ TAB 2: ALL PACK LICENSES ══ -->
+<div id="t-all" class="tabpanel">
 <div class="pack-bar">
   <div style="display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap;width:100%">
 
@@ -136,75 +207,6 @@
   </div>
 </div>
 
-<div class="legend">
-  <span class="ltit" data-i18n="cov_legend">Coverage:</span>
-  <span class="li"><span class="ldot ld-c"></span><span data-i18n="leg_covered">Covered</span></span>
-  <span class="li"><span class="ldot ld-u"></span><span data-i18n="leg_upgrade">Pack upgrade avail.</span></span>
-  <span class="li"><span class="ldot ld-n"></span><span data-i18n="leg_needs">Needs purchase</span></span>
-  <span class="li"><span class="ldot ld-f"></span><span data-i18n="leg_free">Free / Trial</span></span>
-</div>
-
-<div class="fbar">
-  <div class="swrap"><input type="text" id="srch1" placeholder="Search…" oninput="renderUsage()"></div>
-  <div class="fsep"></div>
-  <div style="display:flex;gap:5px;align-items:center">
-    <span class="fglbl" data-i18n="show">Show</span>
-    <button class="fbtn fba" onclick="setVF('all',this)"><span data-i18n="all">All</span></button>
-    <button class="fbtn" onclick="setVF('covered',this)"><span data-i18n="covered">Covered</span></button>
-    <button class="fbtn" onclick="setVF('upgrade',this)"><span data-i18n="upgrades">Upgrades</span></button>
-    <button class="fbtn" onclick="setVF('uncovered',this)"><span data-i18n="not_covered">Not Covered</span></button>
-    <button class="fbtn" onclick="setVF('free',this)"><span data-i18n="free_trial">Free/Trial</span></button>
-  </div>
-  <div class="fsep"></div>
-  <div style="display:flex;gap:5px;align-items:center">
-    <span class="fglbl" data-i18n="sort">Sort</span>
-    <select class="fsel" id="srt1" onchange="renderUsage()">
-      <option value="coverage" data-i18n="by_coverage">By Coverage</option>
-      <option value="name" data-i18n="by_name">By Name</option>
-      <option value="assigned" data-i18n="most_assigned">Most Assigned</option>
-      <option value="needed" data-i18n="most_needed">Most Needed</option>
-    </select>
-  </div>
-</div>
-
-<div class="stats">
-  <div class="sb"><div class="snum sn-d" id="st-t1">—</div><div class="slbl" data-i18n="stat_skus">Tenant SKUs</div></div>
-  <div class="sb"><div class="snum sn-d" id="st-a1">—</div><div class="slbl" data-i18n="stat_assigned">Total Assigned</div></div>
-  <div class="sb"><div class="snum sn-c" id="st-c1">—</div><div class="slbl" data-i18n="stat_covered">Covered</div></div>
-  <div class="sb"><div class="snum sn-u" id="st-u1">—</div><div class="slbl" data-i18n="stat_upgrades">Upgrades</div></div>
-  <div class="sb"><div class="snum sn-n" id="st-n1">—</div><div class="slbl" data-i18n="stat_needs">Needs Purchase</div></div>
-  <div class="sb"><div class="snum sn-o" id="st-o1">—</div><div class="slbl" data-i18n="stat_over">Over Pack Limit</div></div>
-</div>
-
-<div class="tsec" style="padding-bottom:20px">
-<div class="tscroll"><table>
-<thead><tr>
-  <th style="min-width:200px" onclick="srt1('name')" data-i18n="col_product">Tenant Product</th>
-  <th class="tc" style="min-width:55px" data-i18n="col_total">Total</th>
-  <th class="tc" style="min-width:65px" data-i18n="col_assigned">Assigned</th>
-  <th class="tc" style="min-width:70px" id="h-l">Launch×2</th>
-  <th class="tc" style="min-width:70px" id="h-c">Core×2</th>
-  <th class="tc" style="min-width:76px" id="h-e">Expanded×2</th>
-  <th class="tc" style="min-width:70px" id="h-i">Infra SPD</th>
-  <th class="tc th-mw" style="min-width:68px" id="h-mw">MW SPD</th>
-  <th class="tc th-sec" style="min-width:65px" id="h-sec">Sec SPD</th>
-  <th class="tc th-avd" style="min-width:62px" id="h-avd">AVD</th>
-  <th class="tc th-tot" style="min-width:75px" data-i18n="col_avail">Total Avail.</th>
-  <th style="min-width:130px" data-i18n="col_usage">Usage vs Pack</th>
-  <th class="tc th-nd" style="min-width:80px" onclick="srt1('needed')" data-i18n="col_needed">Lic. Needed</th>
-  <th class="tc th-cs" style="min-width:78px" onclick="srt1('cost')" data-i18n="col_cost">Cost/User/yr</th>
-  <th class="tc" style="min-width:95px" onclick="srt1('coverage')" data-i18n="col_coverage">Coverage</th>
-  <th class="tc" style="min-width:80px" data-i18n="col_edit">Edit</th>
-</tr></thead>
-<tbody id="tb1"></tbody>
-</table></div></div>
-<div style="padding:12px 40px 20px">
-  <button class="btn-add-lic" onclick="openAddLicense()" data-i18n="add_lic_btn">Add Consumption</button>
-</div>
-</div>
-
-<!-- ══ TAB 2: ALL PACK LICENSES ══ -->
-<div id="t-all" class="tabpanel">
 <div class="fbar" style="background:white;border-top:1px solid var(--border)">
   <div class="swrap"><input type="text" id="srch2" placeholder="Search…" oninput="renderAll()"></div>
   <div class="fsep"></div>
@@ -218,7 +220,7 @@
     <button class="fbtn" onclick="setPackF('mw',this)">Modern Work</button>
     <button class="fbtn" onclick="setPackF('sec',this)">Security</button>
     <button class="fbtn" onclick="setPackF('avd',this)">AVD</button>
-    <button class="fbtn" onclick="setPackF('azcore',this)" title="Azure Core: granted once across all Azure SPDs" style="border-color:#b86214;color:#b86214">Azure Core</button>
+    <button class="fbtn" onclick="setPackF('azcore',this)" title="Azure Core: granted once across all Azure SPDs">Azure Core</button>
   </div>
   <div class="fsep"></div>
   <div style="display:flex;gap:5px;align-items:center">
@@ -265,6 +267,7 @@
   <th class="tc th-mw" style="min-width:60px">Mod. Work</th>
   <th class="tc th-sec" style="min-width:56px">Security</th>
   <th class="tc th-avd" style="min-width:48px">AVD</th>
+  <th class="tc" style="min-width:52px" title="Included in all Azure SPD packs">Az.Core</th>
   <th class="tc th-tot" style="min-width:72px" onclick="srtAll('av')">Total Avail.</th>
   <th class="tc th-cs" style="min-width:78px" onclick="srtAll('cpu')" data-i18n="col_cost">Cost/Unit/yr</th>
   <th class="tc" style="min-width:88px" onclick="srtAll('rv')" data-i18n="col_retail">Retail Value/yr</th>

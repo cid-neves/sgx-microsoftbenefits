@@ -53,13 +53,13 @@ export function renderAll() {
     const cpu=cpu_of(p),av=getAvail(p,s),rv=av>0&&cpu>0?cpu*av:0;
     totalRV+=rv;
     function qc2(val){if(!val)return '<td class="tc"><span class="qn">—</span></td>';return '<td class="tc"><span class="qv">'+val+'</span></td>';}
+    function qc2azcore(v){return '<td class="tc">'+(v?'<span style="color:var(--ci);font-weight:700;font-size:13px">✓</span>':'<span class="qn">—</span>')+'</td>';}
     let bdg='';if(p.n26)bdg='<span class="bdg b26">N26</span>';else if(p.n25)bdg='<span class="bdg b25">N25</span>';
-    if(p.azcore) bdg+='<span class="bdg" style="background:#fff4e8;color:#b86214;border:1px solid #f0c890">AZURE CORE</span>';
     const catCls=CAT_CLS[p.cat]||'cat-m365';
     const tr=document.createElement('tr');
     tr.innerHTML='<td><div class="pnm">'+p.name+'</div><div class="psb">'+p.note+'</div></td>'+
       '<td class="tc"><span class="cat '+catCls+'">'+p.cat+'</span></td>'+
-      qc2(p.l)+qc2(p.c)+qc2(p.e)+qc2(p.i)+qc2(p.mw)+qc2(p.sec)+qc2(p.avd)+
+      qc2(p.l)+qc2(p.c)+qc2(p.e)+qc2(p.i)+qc2(p.mw)+qc2(p.sec)+qc2(p.avd)+qc2azcore(p.azcore)+
       '<td class="tc" style="font-weight:700;color:var(--sg-blue)">'+(av>0?av:'<span class="qn">—</span>')+'</td>'+
       '<td class="tc">'+(cpu>0?fm(cpu):'<span class="cv-n">free</span>')+'</td>'+
       '<td class="tc" style="font-weight:700;color:var(--sg-amber)">'+(rv>0?fm(rv):'<span class="cv-n">—</span>')+'</td>'+

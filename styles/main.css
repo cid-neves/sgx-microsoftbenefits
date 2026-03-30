@@ -29,7 +29,8 @@ header{background:var(--white);border-bottom:1px solid var(--border);padding:14p
 .mt-dt{color:var(--text-muted);border-color:var(--border);background:var(--bg)}
 
 /* LANG TOGGLE */
-.lang-btn{display:flex;align-items:center;gap:3px;padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--bg);font-family:var(--font);font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s}
+.lang-btn{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--bg);font-family:var(--font);font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s}
+.lang-btn img{display:block;border-radius:1px;flex-shrink:0}
 .lang-btn:hover{border-color:var(--sg-blue);color:var(--sg-blue)}
 .lang-btn.active{border-color:var(--sg-blue);color:var(--sg-blue);background:#eaf4f8}
 .lang-switch{display:flex;gap:4px;align-items:center;background:var(--sg-light);border-radius:20px;padding:3px;border:1px solid var(--border)}
@@ -43,10 +44,11 @@ header{background:var(--white);border-bottom:1px solid var(--border);padding:14p
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 /* TABS */
-.tabnav{background:var(--white);border-bottom:2px solid var(--border);padding:0 40px;display:flex;gap:0;overflow-x:auto}
+.tabnav{background:var(--white);border-bottom:2px solid var(--border);padding:0 40px;display:flex;gap:0;overflow-x:auto;align-items:center}
 .tab{padding:11px 16px;font-size:12px;font-weight:600;color:var(--text-muted);border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;transition:color .15s,border-color .15s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font)}
 .tab:hover{color:var(--sg-blue)}
 .tab.active{color:var(--sg-blue);border-bottom-color:var(--sg-blue)}
+.tab-sep{width:1px;background:var(--border);margin:8px 4px;align-self:stretch;flex-shrink:0}
 .tabpanel{display:none}.tabpanel.active{display:block}
 
 /* PACK CONTROLS */

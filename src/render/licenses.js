@@ -2,7 +2,7 @@
 // src/render/licenses.js — Licenses tab: view, add, edit, CSV import
 // ════════════════════════════════════════════════════════════════════
 import { t } from '../i18n.js';
-import { SKU_LOOKUP } from '../data.js';
+import { SKU_LOOKUP, PACK_LICENSES } from '../data.js';
 import { clientLicenses, setClientLicenses, rebuildTenantCustom, currentClient } from '../state.js';
 import {
   loadLicenses, createLicense, updateLicense, deleteLicense, bulkCreateLicenses
@@ -169,7 +169,11 @@ export function renderLicenses() {
   // Populate datalist for SKU autocomplete
   const dl = document.getElementById('sku-suggestions');
   if (dl) {
-    dl.innerHTML = SKU_LOOKUP.map(s => `<option value="${esc(s.name)}">`).join('');
+    const seen = new Set();
+    const opts = [];
+    for (const s of SKU_LOOKUP) { if (!seen.has(s.name)) { seen.add(s.name); opts.push(`<option value="${esc(s.name)}">`); } }
+    for (const p of PACK_LICENSES) { if (!seen.has(p.name)) { seen.add(p.name); opts.push(`<option value="${esc(p.name)}">`); } }
+    dl.innerHTML = opts.join('');
   }
 }
 
@@ -297,12 +301,20 @@ export async function deleteLicenseRow(id) {
 
 export function onLicNameInput() {
   const val = document.getElementById('new-lic-name').value.trim();
-  const match = SKU_LOOKUP.find(s => s.name.toLowerCase() === val.toLowerCase());
-  if (match) {
+  const skuMatch = SKU_LOOKUP.find(s => s.name.toLowerCase() === val.toLowerCase());
+  if (skuMatch) {
     if (!document.getElementById('new-lic-sku').value)
-      document.getElementById('new-lic-sku').value = match.sku;
+      document.getElementById('new-lic-sku').value = skuMatch.sku;
     if (!parseFloat(document.getElementById('new-lic-price').value))
-      document.getElementById('new-lic-price').value = match.price_usd;
+      document.getElementById('new-lic-price').value = skuMatch.price_usd;
+    return;
+  }
+  const packMatch = PACK_LICENSES.find(p => p.name.toLowerCase() === val.toLowerCase());
+  if (packMatch) {
+    if (!document.getElementById('new-lic-sku').value)
+      document.getElementById('new-lic-sku').value = packMatch.id.toUpperCase();
+    if (!parseFloat(document.getElementById('new-lic-price').value) && packMatch.cpu > 0)
+      document.getElementById('new-lic-price').value = (packMatch.cpu / 12).toFixed(2);
   }
 }
 

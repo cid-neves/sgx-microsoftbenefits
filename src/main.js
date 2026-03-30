@@ -112,9 +112,8 @@ export function showTab(id) {
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   const panel = document.getElementById(id);
   if (panel) panel.classList.add('active');
-  const tabs = ['t-licenses','t-usage','t-all','t-cloud','t-fin1','t-fin2','t-prices','t-purchase'];
-  const idx = tabs.indexOf(id);
-  if(idx>=0) document.querySelectorAll('.tab')[idx].classList.add('active');
+  const btn = document.querySelector('.tab[data-tab="'+id+'"]');
+  if (btn) btn.classList.add('active');
   if(id==='t-all') renderAll();
   if(id==='t-cloud') renderCloud();
   if(id==='t-fin1') renderFin1();
@@ -714,7 +713,7 @@ async function loadClientData() {
   if (badge) badge.textContent = client.name;
 
   applyI18n();
-  showTab('t-licenses');
+  showTab('t-fin1');
   onPT();
   updatePackTotal();
 }

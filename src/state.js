@@ -1,7 +1,7 @@
 // ════════════════════════════════════════════════════════════════════
 // src/state.js — All mutable runtime state + mutation helpers
 // ════════════════════════════════════════════════════════════════════
-import { DEFAULT_PACK_COSTS } from './data.js';
+import { DEFAULT_PACK_COSTS, PACK_LICENSES } from './data.js';
 
 // ── Client context ────────────────────────────────────────────────────
 export let currentClient   = null;  // { id, name, ... } PocketBase record
@@ -51,15 +51,23 @@ export function setLANG(v)              { LANG = v; }
 // ── Derived: build TENANT_CUSTOM from clientLicenses (PocketBase records)
 // Call this after loading/updating clientLicenses to refresh the usage rows.
 export function rebuildTenantCustom() {
-  TENANT_CUSTOM = clientLicenses.map(lic => ({
-    id:   'cl-' + lic.id,
-    _pbId: lic.id,
-    name: lic.name,
-    assigned: lic.assigned || 0,
-    ct:   lic.category || 'uncovered',
-    note: lic.note || null,
-    cpu:  Math.round((lic.price_usd || 0) * 12),
-    is_free: !!lic.is_free,
-    isConsumption: lic.category === 'covered' && lic.sku === 'AZURE_CREDITS',
-  }));
+  TENANT_CUSTOM = clientLicenses.map(lic => {
+    const nm = (lic.name || '').toLowerCase();
+    const skuId = (lic.sku || '').toLowerCase();
+    const packMatch = PACK_LICENSES.find(p =>
+      p.name.toLowerCase() === nm || p.id === skuId
+    );
+    return {
+      id:   'cl-' + lic.id,
+      _pbId: lic.id,
+      name: lic.name,
+      assigned: lic.assigned || 0,
+      ct:   lic.category || 'uncovered',
+      note: lic.note || null,
+      cpu:  Math.round((lic.price_usd || 0) * 12),
+      is_free: !!lic.is_free,
+      isConsumption: lic.category === 'covered' && lic.sku === 'AZURE_CREDITS',
+      ...(packMatch ? { cpu_key: packMatch.id } : {}),
+    };
+  });
 }
