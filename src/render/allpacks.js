@@ -3,7 +3,7 @@
 // ════════════════════════════════════════════════════════════════════
 import { PACK_LICENSES } from '../data.js';
 import { PACK_COSTS, PRICES, USAGE_DATA } from '../state.js';
-import { t, applyI18n } from '../i18n.js';
+import { t } from '../i18n.js';
 import { ps, getAvail, getBestQty, getPrice, fm, co, getAssigned, getPrice as gp, rpf, allTenantRows } from '../main.js';
 import { getRowCoverage, CAT_CLS } from './usage.js';
 import { renderUsage } from './usage.js';
@@ -187,7 +187,6 @@ export function renderPurchaseTab() {
   html += '</tbody></table></div>';
 
   area.innerHTML = html;
-  applyI18n();
 
   const tb = document.getElementById('pur-total-bar');
   if (tb) {
