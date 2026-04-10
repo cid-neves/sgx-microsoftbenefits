@@ -31,24 +31,22 @@
   </div>
 </header>
 
-<!-- ── Client selector overlay ────────────────────────────────────── -->
-<div id="client-overlay" class="client-overlay">
-  <div class="client-overlay-box">
-    <h2 class="client-overlay-title" data-i18n="client_select_title">Select Client</h2>
-    <div id="client-list" class="client-list">
-      <div class="client-loading">Loading…</div>
-    </div>
-    <div class="client-create-row">
-      <input type="text" id="client-name-input" class="client-name-input"
-             placeholder="Client name…" data-i18n-placeholder="client_name_placeholder"
-             onkeydown="if(event.key==='Enter')createClientAndLoad()">
-      <button class="btn-create-client" onclick="createClientAndLoad()" data-i18n="client_create">Create</button>
-    </div>
+<!-- ── Login overlay ───────────────────────────────────────────── -->
+<div id="login-overlay" class="login-overlay">
+  <div class="login-box">
+    <div class="login-brand">Microsoft Partner Benefits 2026</div>
+    <div class="login-org">Serban Group</div>
+    <form id="login-form" onsubmit="doLogin(event)">
+      <input type="text" id="login-user" class="login-input" placeholder="Username" autocomplete="username">
+      <input type="password" id="login-pass" class="login-input" placeholder="Password" autocomplete="current-password">
+      <button type="submit" class="login-btn">Sign In</button>
+      <p id="login-err" class="login-err"></p>
+    </form>
   </div>
 </div>
 
 <nav class="tabnav" id="main-tabnav" style="display:none">
-  <span class="client-badge" id="client-badge" onclick="showClientOverlay()"></span>
+  <span class="client-badge" id="client-badge" onclick="doLogout()" title="Sign out">serban ↩</span>
   <div class="tab-group">
     <span class="tab-grp-lbl" data-i18n="grp_data_entry">Data Entry</span>
     <div class="tab-group-tabs">

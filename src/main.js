@@ -644,52 +644,49 @@ function removeReplacement(fromId) {
 // GLOBAL WINDOW ASSIGNMENTS (for HTML onclick attributes)
 // ════════════════════════════════════════════════════════════════════
 // ════════════════════════════════════════════════════════════════════
-// CLIENT SELECTOR
+// AUTHENTICATION
 // ════════════════════════════════════════════════════════════════════
 
-async function showClientOverlay() {
-  const overlay = document.getElementById('client-overlay');
-  if (overlay) overlay.style.display = 'flex';
-  document.getElementById('main-tabnav').style.display = 'none';
-  document.querySelectorAll('.tabpanel').forEach(p => p.classList.remove('active'));
+const AUTH_KEY = 'sgx_auth';
 
-  const listEl = document.getElementById('client-list');
-  listEl.innerHTML = '<div class="client-loading">Loading…</div>';
-
-  try {
-    const clients = await listClients();
-    if (!clients.length) {
-      listEl.innerHTML = '<div class="client-empty">No clients yet. Create one below.</div>';
-    } else {
-      listEl.innerHTML = clients.map(c =>
-        `<button class="client-item" onclick="loadClientById('${c.id}','${esc_js(c.name)}')">${esc_html(c.name)}</button>`
-      ).join('');
-    }
-  } catch (e) {
-    listEl.innerHTML = `<div class="client-error">Could not connect to PocketBase: ${e.message}<br><small>Is the stack running?</small></div>`;
+function doLogin(e) {
+  e.preventDefault();
+  const user = (document.getElementById('login-user').value || '').trim().toLowerCase();
+  const pass = document.getElementById('login-pass').value || '';
+  if (user === 'serban' && pass === 'S3rb@n') {
+    sessionStorage.setItem(AUTH_KEY, '1');
+    document.getElementById('login-overlay').style.display = 'none';
+    autoLoadApp();
+  } else {
+    const err = document.getElementById('login-err');
+    err.textContent = 'Invalid username or password.';
+    document.getElementById('login-pass').value = '';
+    document.getElementById('login-pass').focus();
   }
 }
 
-function esc_html(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function esc_js(s)   { return String(s||'').replace(/'/g,"\'"); }
+function doLogout() {
+  sessionStorage.removeItem(AUTH_KEY);
+  location.reload();
+}
+
+async function autoLoadApp() {
+  try {
+    const clients = await listClients();
+    if (clients.length) {
+      await loadClientById(clients[0].id, clients[0].name);
+    } else {
+      const client = await createClient('Serban Group');
+      await loadClientById(client.id, client.name);
+    }
+  } catch (e) {
+    showToast('Could not connect to PocketBase: ' + e.message, 'err');
+  }
+}
 
 async function loadClientById(id, name) {
   setCurrentClient({ id, name });
   await loadClientData();
-}
-
-async function createClientAndLoad() {
-  const inp = document.getElementById('client-name-input');
-  const name = inp?.value?.trim();
-  if (!name) { showToast('Enter a client name', 'err'); return; }
-  try {
-    const client = await createClient(name);
-    setCurrentClient(client);
-    inp.value = '';
-    await loadClientData();
-  } catch (e) {
-    showToast('Error creating client: ' + e.message, 'err');
-  }
 }
 
 async function loadClientData() {
@@ -711,12 +708,8 @@ async function loadClientData() {
   await loadFromServer();
 
   // Show UI
-  const overlay = document.getElementById('client-overlay');
-  if (overlay) overlay.style.display = 'none';
   const nav = document.getElementById('main-tabnav');
   if (nav) nav.style.display = '';
-  const badge = document.getElementById('client-badge');
-  if (badge) badge.textContent = client.name;
 
   applyI18n();
   showTab('t-fin1');
@@ -725,8 +718,8 @@ async function loadClientData() {
 }
 
 Object.assign(window, {
-  // Client selector
-  showClientOverlay, createClientAndLoad, loadClientById,
+  // Auth
+  doLogin, doLogout,
   // Helpers
   ps, getAvail, getBestQty, getPrice, fm, co, rpf, getAssigned, getExpectedMonthly, allTenantRows, buildDefaultPrices,
   // Tabs & UI
@@ -773,5 +766,10 @@ fetch('/version.json?_=' + Date.now())
   document.documentElement.lang = lang;
   import('./state.js').then(m => m.setLANG(lang));
   applyI18n();
-  await showClientOverlay();
+  if (sessionStorage.getItem(AUTH_KEY) === '1') {
+    await autoLoadApp();
+  } else {
+    document.getElementById('login-overlay').style.display = 'flex';
+    setTimeout(() => document.getElementById('login-user')?.focus(), 50);
+  }
 })();

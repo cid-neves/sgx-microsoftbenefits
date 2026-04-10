@@ -392,22 +392,18 @@ pre.preview-json{background:var(--bg);border:1px solid var(--border);border-radi
 .pur-total-lbl{color:var(--text-muted);font-weight:600}
 .pur-total-val{font-size:20px;font-weight:800;color:var(--unc)}
 
-/* ── Client Overlay ──────────────────────────────────────────────── */
-.client-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:9999}
-.client-overlay-box{background:white;border-radius:12px;padding:32px 36px;min-width:380px;max-width:520px;box-shadow:0 8px 40px rgba(0,0,0,.25)}
-.client-overlay-title{font-size:18px;font-weight:700;color:var(--sg-blue,#0050a0);margin:0 0 20px}
-.client-list{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto;margin-bottom:20px}
-.client-item{background:var(--sg-light,#f5f8fc);border:1px solid var(--border,#dde3ea);border-radius:8px;padding:12px 16px;font-size:14px;font-weight:600;color:var(--sg-blue,#0050a0);cursor:pointer;text-align:left;transition:background .15s}
-.client-item:hover{background:#e4edf8}
-.client-loading,.client-empty,.client-error{font-size:13px;color:var(--text-muted,#7a8899);padding:12px 4px}
-.client-error{color:var(--unc,#c0392b)}
-.client-create-row{display:flex;gap:8px;align-items:center;border-top:1px solid var(--border,#dde3ea);padding-top:16px}
-.client-name-input{flex:1;padding:9px 12px;border:1px solid var(--border,#dde3ea);border-radius:6px;font-size:13px;font-family:inherit}
-.client-name-input:focus{outline:none;border-color:var(--sg-blue,#0050a0)}
-.btn-create-client{padding:9px 16px;background:var(--sg-blue,#0050a0);color:white;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer}
-.btn-create-client:hover{background:#003d80}
-.client-badge{display:inline-flex;align-items:center;padding:4px 12px;background:var(--sg-blue,#0050a0);color:white;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;margin-right:8px;white-space:nowrap}
-.client-badge:hover{background:#003d80}
+/* ── Login Overlay ──────────────────────────────────────────────── */
+.login-overlay{position:fixed;inset:0;background:rgba(0,20,60,.88);display:flex;align-items:center;justify-content:center;z-index:9999}
+.login-box{background:white;border-radius:10px;padding:40px 48px;width:320px;max-width:90vw;box-shadow:0 8px 48px rgba(0,0,0,.35)}
+.login-brand{font-size:14px;font-weight:700;color:var(--sg-blue);margin-bottom:4px}
+.login-org{font-size:12px;color:var(--text-muted);margin-bottom:28px}
+.login-input{display:block;width:100%;box-sizing:border-box;padding:9px 12px;font-size:13px;border:1px solid var(--border);border-radius:4px;font-family:var(--font);margin-bottom:10px}
+.login-input:focus{outline:none;border-color:var(--sg-blue);box-shadow:0 0 0 2px rgba(0,80,160,.12)}
+.login-btn{display:block;width:100%;padding:10px;background:var(--sg-blue);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);margin-top:4px;transition:background .15s}
+.login-btn:hover{background:#003d80}
+.login-err{color:#c0392b;font-size:12px;margin:8px 0 0;min-height:16px}
+.client-badge{display:inline-flex;align-items:center;padding:4px 12px;background:var(--sg-blue);color:white;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;margin-right:8px;white-space:nowrap;transition:background .15s}
+.client-badge:hover{background:#c0392b}
 
 /* ── License Table ──────────────────────────────────────────────── */
 .lic-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
